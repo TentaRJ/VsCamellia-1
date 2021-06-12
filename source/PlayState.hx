@@ -342,7 +342,7 @@ class PlayState extends MusicBeatState
 			case 'why-do-you-hate-me':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('why-do-you-hate-me/dialogue'));
 			case 'ghost':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('ghostdialogue'));
+				dialogue = CoolUtil.coolTextFile(Paths.txt('ghost/dialogue'));
 		}
 
 		switch(SONG.stage)
