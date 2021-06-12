@@ -2591,13 +2591,6 @@ class PlayState extends MusicBeatState
 						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 					}
 
-					if (SONG.song.toLowerCase() == 'why-do-you-hate-me')
-					{
-						var content:String = sys.io.File.getContent(Sys.programPath() + '/assets/data/freeplaySonglist.txt');
-						content += "\nGHOST:camellia:7";
-						sys.io.File.saveContent(Sys.programPath() + '/assets/data/freeplaySonglist.txt',content);
-					}
-
 					FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
 					FlxG.save.flush();
 				}
