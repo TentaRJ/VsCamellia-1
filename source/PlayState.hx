@@ -342,7 +342,7 @@ class PlayState extends MusicBeatState
 			case 'why-do-you-hate-me':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('why-do-you-hate-me/dialogue'));
 			case 'ghost':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('ghostdialogue'));
+				dialogue = CoolUtil.coolTextFile(Paths.txt('ghost/dialogue'));
 		}
 
 		switch(SONG.stage)
@@ -2589,13 +2589,6 @@ class PlayState extends MusicBeatState
 					{
 						NGio.unlockMedal(60961);
 						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
-					}
-
-					if (SONG.song.toLowerCase() == 'why-do-you-hate-me')
-					{
-						var content:String = sys.io.File.getContent(Sys.programPath() + '/assets/data/freeplaySonglist.txt');
-						content += "\nGHOST:camellia:7";
-						sys.io.File.saveContent(Sys.programPath() + '/assets/data/freeplaySonglist.txt',content);
 					}
 
 					FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
