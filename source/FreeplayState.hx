@@ -190,10 +190,21 @@ class FreeplayState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (controls.LEFT_P)
-			changeDiff(-1);
-		if (controls.RIGHT_P)
-			changeDiff(1);
+		if (songs[curSelected].songName.toLowerCase() != "ghost") // I AM LAZY AND IT WORKS SO ITS GOOD OK
+		{
+			if (controls.RIGHT_P)
+				changeDifficulty(1);
+			if (controls.LEFT_P)
+				changeDifficulty(-1);
+		} 
+		else
+		{
+			curDifficulty = 2;
+			if (controls.RIGHT_P)
+				changeDifficulty(0);
+			if (controls.LEFT_P)
+				changeDifficulty(0);
+		}
 
 		if (controls.BACK)
 		{
