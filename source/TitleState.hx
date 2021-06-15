@@ -448,12 +448,12 @@ class TitleState extends MusicBeatState
 			// credTextShit.text = "Friday";
 			// credTextShit.screenCenter();
 			case 11:
-				addMoreText("this took");
+				addMoreText("were not");
 			// credTextShit.visible = true;
 			case 12:
-				addMoreText("a lot of");
+				addMoreText("adding that");
 			case 13:
-				addMoreText("time from us");
+				addMoreText("kadedev");
 			// credTextShit.text += '\nlmao';
 			case 14:
 				deleteCoolText();

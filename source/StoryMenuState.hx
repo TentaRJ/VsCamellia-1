@@ -248,10 +248,25 @@ class StoryMenuState extends MusicBeatState
 				else
 					leftArrow.animation.play('idle');
 
-				if (controls.RIGHT_P)
-					changeDifficulty(1);
-				if (controls.LEFT_P)
-					changeDifficulty(-1);
+				if (curWeek != 2) // I AM LAZY AND IT WORKS SO ITS GOOD OK
+				{
+					leftArrow.visible = true;
+					rightArrow.visible = true;
+					sprDifficulty.visible = true;
+					if (controls.RIGHT_P)
+						changeDifficulty(1);
+					if (controls.LEFT_P)
+						changeDifficulty(-1);
+				} 
+				else
+				{
+					leftArrow.visible = false;
+					rightArrow.visible = false;
+					sprDifficulty.visible = true;
+					curDifficulty = 2;
+					changeDifficulty();
+					sprDifficulty.animation.play('hard');
+				}
 			}
 
 			if (controls.ACCEPT)
