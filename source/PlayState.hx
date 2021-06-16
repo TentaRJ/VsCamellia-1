@@ -1100,7 +1100,7 @@ class PlayState extends MusicBeatState
 				case 'thorns':
 					schoolIntro(doof);
 				case 'first-town' | 'liquated' | 'why-do-you-hate-me' | 'ghost':
-					schoolIntro(doof);
+					camelliaDialogue(doof);
 				default:
 					startCountdown();
 			}
@@ -1122,11 +1122,13 @@ class PlayState extends MusicBeatState
 
 	function camelliaDialogue(?dialogueBox:DialogueBox):Void
 	{
-		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-		black.scrollFactor.set();
-		add(black);
-		
-		new FlxTimer().start(0.05, function(tmr:FlxTimer)
+		if (SONG.song.toLowerCase() != "ghost")
+		{
+			var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+			black.scrollFactor.set();
+			add(black);
+			
+			new FlxTimer().start(0.05, function(tmr:FlxTimer)
 			{
 				black.alpha -= 0.05;
 	
@@ -1147,6 +1149,54 @@ class PlayState extends MusicBeatState
 					remove(black);
 				}
 			});
+		}
+		else
+		{
+			var black:FlxSprite = new FlxSprite(0 - FlxG.width / 2, 0 - FlxG.height / 2).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+			black.scrollFactor.set();
+			black.alpha = 1;
+			add(black);
+
+			var introText = new FlxText(FlxG.width - (FlxG.width / 2) - 100,FlxG.height - (FlxG.height / 2),0,"A week later...", 16);
+			introText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+			introText.scrollFactor.set();
+			introText.alpha = 0;
+			add(introText);
+
+			new FlxTimer().start(0.05, function(tmr:FlxTimer)
+			{
+
+				introText.alpha += 0.025;
+
+				if (introText.alpha < 1)
+				{
+					tmr.reset(0.05);
+				}
+				else
+				{
+					black.alpha -= 0.025;
+					introText.alpha -= 0.05;
+
+					if (black.alpha > 0)
+					{
+						tmr.reset(0.05);
+					}
+					else
+					{
+						if (dialogueBox != null)
+						{
+							inCutscene = true;
+							add(dialogueBox);
+						}
+						else
+							startCountdown();
+		
+						remove(black);
+						remove(introText);
+					}
+				}
+			});
+		}
 	}
 	
 	function schoolIntro(?dialogueBox:DialogueBox):Void
