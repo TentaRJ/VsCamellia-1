@@ -200,6 +200,7 @@ class FreeplayState extends MusicBeatState
 		else
 		{
 			curDifficulty = 2;
+			changeDiff();
 			if (controls.RIGHT_P)
 				changeDiff(0);
 			if (controls.LEFT_P)

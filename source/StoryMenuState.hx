@@ -258,6 +258,7 @@ class StoryMenuState extends MusicBeatState
 				else
 				{
 					curDifficulty = 2;
+					changeDifficulty(0);
 					if (controls.RIGHT_P)
 						changeDifficulty(0);
 					if (controls.LEFT_P)
