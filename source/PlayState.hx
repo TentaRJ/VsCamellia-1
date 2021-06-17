@@ -92,6 +92,7 @@ class PlayState extends MusicBeatState
 
 	var songLength:Float = 0;
 	var kadeEngineWatermark:FlxText;
+	var introOnce:Bool = false;
 	
 	#if windows
 	// Discord RPC variables
@@ -1157,16 +1158,18 @@ class PlayState extends MusicBeatState
 			black.alpha = 1;
 			add(black);
 
-			var introText = new FlxText(FlxG.width - (FlxG.width / 2) - 100,FlxG.height - (FlxG.height / 2),0,"A week later...", 16);
-			introText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+			var introText = new FlxText(FlxG.width - (FlxG.width / 2) - 150,FlxG.height - (FlxG.height / 2),0,"A week later...", 16);
+			introText.setFormat(Paths.font("vcr.ttf"), 48, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 			introText.scrollFactor.set();
 			introText.alpha = 0;
 			add(introText);
 
 			new FlxTimer().start(0.05, function(tmr:FlxTimer)
 			{
-
-				introText.alpha += 0.025;
+				if (introOnce == false)
+				{
+					introText.alpha += 0.0125;
+				}
 
 				if (introText.alpha < 1)
 				{
@@ -1174,26 +1177,30 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					black.alpha -= 0.025;
-					introText.alpha -= 0.05;
+					new FlxTimer().start(0.05, function(tmr2:FlxTimer)
+					{
+						introOnce = true;
+						black.alpha -= 0.0125;
+						introText.alpha -= 0.0125;
 
-					if (black.alpha > 0)
-					{
-						tmr.reset(0.05);
-					}
-					else
-					{
-						if (dialogueBox != null)
+						if (black.alpha > 0)
 						{
-							inCutscene = true;
-							add(dialogueBox);
+							tmr2.reset(0.05);
 						}
 						else
-							startCountdown();
-		
-						remove(black);
-						remove(introText);
-					}
+						{
+							if (dialogueBox != null)
+							{
+								inCutscene = true;
+								add(dialogueBox);
+							}
+							else
+								startCountdown();
+			
+							remove(black);
+							remove(introText);
+						}
+					});
 				}
 			});
 		}
@@ -2634,6 +2641,11 @@ class PlayState extends MusicBeatState
 
 					// if ()
 					StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
+					
+					if (storyWeek + 1 == 2)
+					{
+						FlxG.save.data.beatWeek1 = true;
+					}
 
 					if (SONG.validScore)
 					{

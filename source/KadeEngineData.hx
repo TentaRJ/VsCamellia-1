@@ -80,6 +80,12 @@ class KadeEngineData
 		
 		if (FlxG.save.data.customStrumLine == null)
 			FlxG.save.data.customStrumLine = 0;
+
+		if (FlxG.save.data.beatWeek1 == null)
+			FlxG.save.data.beatWeek1 = false;
+		
+		if (FlxG.save.data.beatWeek1 == true)
+			StoryMenuState.weekUnlocked[Std.int(StoryMenuState.weekUnlocked.length - 1)] = true;
 		
 		Conductor.recalculateTimings();
 		PlayerSettings.player1.controls.loadKeyBinds();
