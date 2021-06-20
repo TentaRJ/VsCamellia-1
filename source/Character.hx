@@ -144,10 +144,10 @@ class Character extends FlxSprite
 				tex = Paths.getSparrowAtlas('characters/camellia');
 				frames = tex;
 				animation.addByPrefix('idle', 'Camellia_Idle', 24);
-				animation.addByPrefix('singUP', 'Camellia_Up', 24);
-				animation.addByPrefix('singRIGHT', 'Camellia_Right', 24);
-				animation.addByPrefix('singDOWN', 'Camellia_Down', 24);
-				animation.addByPrefix('singLEFT', 'Camellia_Left', 24);
+				animation.addByPrefix('singUP', 'Camellia_Up', 24, false);
+				animation.addByPrefix('singRIGHT', 'Camellia_Right', 24, false);
+				animation.addByPrefix('singDOWN', 'Camellia_Down', 24, false);
+				animation.addByPrefix('singLEFT', 'Camellia_Left', 24, false);
 
 				addOffset('idle');
 				addOffset("singUP", 4, 75);
