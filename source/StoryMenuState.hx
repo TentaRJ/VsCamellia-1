@@ -32,7 +32,7 @@ class StoryMenuState extends MusicBeatState
 		//['Cocoa', 'Eggnog', 'Winter Horrorland'],
 		//['Senpai', 'Roses', 'Thorns'],
 		['First-Town', 'Liquated', 'Why-Do-You-Hate-Me'],
-		['???']
+		['???']	
 	];
 	var curDifficulty:Int = 1;
 
@@ -258,7 +258,6 @@ class StoryMenuState extends MusicBeatState
 				else
 				{
 					curDifficulty = 2;
-					changeDifficulty(0);
 					if (controls.RIGHT_P)
 						changeDifficulty(0);
 					if (controls.LEFT_P)
@@ -303,24 +302,28 @@ class StoryMenuState extends MusicBeatState
 			PlayState.isStoryMode = true;
 			selectedWeek = true;
 
-			var diffic = "";
-
-			switch (curDifficulty)
-			{
-				case 0:
-					diffic = '-easy';
-				case 2:
-					diffic = '-hard';
-			}
 
 			var newSONG:String = PlayState.storyPlaylist[0];
 
 			if (PlayState.storyPlaylist[0] == "???")
-				newSONG= "GHOST";
+				newSONG = "GHOST";
 
 			PlayState.storyDifficulty = curDifficulty;
 
-			PlayState.SONG = Song.loadFromJson(StringTools.replace(newSONG," ", "-").toLowerCase() + diffic, StringTools.replace(newSONG," ", "-").toLowerCase());
+			// adjusting the song name to be compatible
+			var songFormat = StringTools.replace(newSONG, " ", "-");
+			switch (songFormat) {
+				case 'Dad-Battle': songFormat = 'Dadbattle';
+				case 'Philly-Nice': songFormat = 'Philly';
+			}
+
+			var poop:String = Highscore.formatSong(songFormat, curDifficulty);
+			PlayState.sicks = 0;
+			PlayState.bads = 0;
+			PlayState.shits = 0;
+			PlayState.goods = 0;
+			PlayState.campaignMisses = 0;
+			PlayState.SONG = Song.loadFromJson(poop, newSONG);
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer)
