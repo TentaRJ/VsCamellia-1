@@ -3256,6 +3256,8 @@ class PlayState extends MusicBeatState
 						}
 					});
 
+					trace('notes that can be hit: ' + possibleNotes.length);
+
 					for (note in dumbNotes)
 					{
 						FlxG.log.add("killing dumb ass note at " + note.strumTime);

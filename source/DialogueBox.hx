@@ -102,8 +102,9 @@ class DialogueBox extends FlxSpriteGroup
 			return;
 
 		box.animation.play('normal');
-		box.y = FlxG.height - 385;
+		box.y = 20;
 		box.x = 20;
+		box.flipY = true;
 		box.updateHitbox();
 		add(box);
 		
@@ -131,12 +132,12 @@ class DialogueBox extends FlxSpriteGroup
 			// box.flipX = true;
 		}
 
-		dropText = new FlxText(352, 502, Std.int(FlxG.width * 0.5), "", 32);
+		dropText = new FlxText(327, 52, Std.int(FlxG.width * 0.5), "", 32);
 		dropText.setFormat(Paths.font("montserrat.ttf"), 32);
 		dropText.color = 0x66666666;
 		add(dropText);
 
-		swagDialogue = new FlxTypeText(350, 500, Std.int(FlxG.width * 0.5), "", 32);
+		swagDialogue = new FlxTypeText(325, 50, Std.int(FlxG.width * 0.5), "", 32);
 		swagDialogue.setFormat(Paths.font("montserrat.ttf"), 32);
 		swagDialogue.color = 0x00000000;
 		swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.5)];
