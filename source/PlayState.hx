@@ -1,5 +1,9 @@
 package;
 
+import openfl.events.Event;
+import haxe.EnumTools;
+import openfl.ui.Keyboard;
+import openfl.events.KeyboardEvent;
 import Replay.Ana;
 import Replay.Analysis;
 import webm.WebmPlayer;
@@ -1175,6 +1179,8 @@ class PlayState extends MusicBeatState
 		if (!loadRep)
 			rep = new Replay("na");
 
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN,handleInput);
+
 		super.create();
 	}
 
@@ -1487,6 +1493,48 @@ class PlayState extends MusicBeatState
 	var lastReportedPlayheadPosition:Int = 0;
 	var songTime:Float = 0;
 
+	private function handleInput(evt:KeyboardEvent):Void { // this actually handles press inputs
+
+		if (PlayStateChangeables.botPlay || loadRep || paused)
+			return;
+
+		var key = String.fromCharCode(evt.charCode);
+
+		var binds:Array<String> = [FlxG.save.data.leftBind,FlxG.save.data.downBind, FlxG.save.data.upBind, FlxG.save.data.rightBind];
+
+		var data = -1;
+
+		for (i in 0...binds.length)
+			if (binds[i].toLowerCase() == key)
+				data = i;
+
+		if (data == -1)
+			return;
+
+		var ana = new Ana(Conductor.songPosition, null, false, "miss", data);
+
+		var dataNotes = [];
+		notes.forEachAlive(function(daNote:Note)
+		{
+			if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.noteData == data)
+				dataNotes.push(daNote);
+		}); // Collect notes that can be hit
+
+
+		dataNotes.sort((a, b) -> Std.int(a.strumTime - b.strumTime)); // sort by the earliest note
+
+		if (dataNotes.length != 0)
+		{
+			var coolNote = dataNotes[0];
+
+			goodNoteHit(coolNote);
+			var noteDiff:Float = -(coolNote.strumTime - Conductor.songPosition);
+			ana.hit = true;
+			ana.hitJudge = Ratings.CalculateRating(noteDiff, Math.floor((PlayStateChangeables.safeFrames / 60) * 1000));
+			ana.nearestNote = [coolNote.strumTime,coolNote.noteData,coolNote.sustainLength];
+		}
+
+	}
 
 	var songStarted = false;
 
@@ -2086,6 +2134,7 @@ class PlayState extends MusicBeatState
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
 			FlxG.switchState(new ChartingState());
+			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN,handleInput);
 			#if windows
 			if (luaModchart != null)
 			{
@@ -2137,6 +2186,7 @@ class PlayState extends MusicBeatState
 				}
 
 			FlxG.switchState(new AnimationDebug(SONG.player2));
+			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN,handleInput);
 			#if windows
 			if (luaModchart != null)
 			{
@@ -2149,6 +2199,7 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.ZERO)
 		{
 			FlxG.switchState(new AnimationDebug(SONG.player1));
+			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN,handleInput);
 			#if windows
 			if (luaModchart != null)
 			{
@@ -2708,6 +2759,7 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN,handleInput);
 		if (useVideo)
 			{
 				GlobalVideo.get().stop();
@@ -3173,6 +3225,8 @@ class PlayState extends MusicBeatState
 		var rightHold:Bool = false;
 		var leftHold:Bool = false;	
 
+		// THIS FUNCTION JUST FUCKS WIT HELD NOTES AND BOTPLAY/REPLAY
+
 		private function keyShit():Void // I've invested in emma stocks
 			{
 				// control arrays, order L D R U
@@ -3208,9 +3262,9 @@ class PlayState extends MusicBeatState
 
 				var anas:Array<Ana> = [null,null,null,null];
 
-				for (i in 0...pressArray.length)
+				/*for (i in 0...pressArray.length)
 					if (pressArray[i])
-						anas[i] = new Ana(Conductor.songPosition, null, false, "miss", i);
+						anas[i] = new Ana(Conductor.songPosition, null, false, "miss", i);*/
 
 				// HOLDS, check for sustain notes
 				if (holdArray.contains(true) && /*!boyfriend.stunned && */ generatedMusic)
@@ -3223,7 +3277,7 @@ class PlayState extends MusicBeatState
 				}
 		 
 				// PRESSES, check for note hits
-				if (pressArray.contains(true) && /*!boyfriend.stunned && */ generatedMusic)
+				/*if (pressArray.contains(true) && !boyfriend.stunned && generatedMusic)
 				{
 					boyfriend.holdTimer = 0;
 		 
@@ -3320,12 +3374,12 @@ class PlayState extends MusicBeatState
 									noteMiss(shit, null);
 						}
 
-				}
+				}*/
 
-				if (!loadRep)
+				/*if (!loadRep)
 					for (i in anas)
 						if (i != null)
-							replayAna.anaArray.push(i); // put em all there
+							replayAna.anaArray.push(i); // put em all there*/
 				
 				notes.forEachAlive(function(daNote:Note)
 				{
@@ -3688,7 +3742,6 @@ class PlayState extends MusicBeatState
 						var array = [note.strumTime,note.sustainLength,note.noteData,noteDiff];
 						if (note.isSustainNote)
 							array[1] = -1;
-						trace('pushing ' + array[0]);
 						saveNotes.push(array);
 						saveJudge.push(note.rating);
 					}
