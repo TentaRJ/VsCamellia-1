@@ -60,7 +60,7 @@ class ResultsScreen extends FlxSubState
 
         background.alpha = 0;
 
-        text = new FlxText(20,-55,0,"Song Cleared!");
+        text = new FlxText(20,-55,0,'Song Cleared!\nPlayed on ${PlayState.SONG.song} ${CoolUtil.difficultyFromInt(PlayState.storyDifficulty).toUpperCase()}');
         text.size = 34;
         text.setBorderStyle(FlxTextBorderStyle.OUTLINE,FlxColor.BLACK,4,1);
         text.color = FlxColor.WHITE;
@@ -139,7 +139,7 @@ class ResultsScreen extends FlxSubState
 
         mean = HelperFunctions.truncateFloat(mean / PlayState.rep.replay.songNotes.length,2);
 
-        settingsText = new FlxText(20,FlxG.height + 50,0,'SF: ${PlayState.rep.replay.sf} | Ratio (SA/GA): ${Math.round(sicks)}:1 ${Math.round(goods)}:1 | Mean: ${mean}ms | Played on ${PlayState.SONG.song} ${CoolUtil.difficultyFromInt(PlayState.storyDifficulty).toUpperCase()}');
+        settingsText = new FlxText(20,FlxG.height + 50,0,'SF: ${PlayState.rep.replay.sf} | Ratio (SA/GA): ${Math.round(sicks)}:1 ${Math.round(goods)}:1 | Mean: ${mean}ms');
         settingsText.size = 16;
         settingsText.setBorderStyle(FlxTextBorderStyle.OUTLINE,FlxColor.BLACK,2,1);
         settingsText.color = FlxColor.WHITE;
