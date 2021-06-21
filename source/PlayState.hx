@@ -760,30 +760,29 @@ class PlayState extends MusicBeatState
 				add(stage);
 			default:
 			{
-				defaultCamZoom = 0.9;
-				curStage = 'stage';
-				var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback'));
+				defaultCamZoom = 0.5;
+				curStage = 'camellia';
+
+				var bg:FlxSprite = new FlxSprite(-250,-100).loadGraphic(Paths.image('BG_CITY', 'camelliaweek'));
+				bg.scrollFactor.set(0.5, 0.5);
+				bg.scale.set(1.55, 1.55);
 				bg.antialiasing = true;
-				bg.scrollFactor.set(0.9, 0.9);
 				bg.active = false;
 				add(bg);
 
-				var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront'));
-				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-				stageFront.updateHitbox();
-				stageFront.antialiasing = true;
-				stageFront.scrollFactor.set(0.9, 0.9);
-				stageFront.active = false;
-				add(stageFront);
+				var wall:FlxSprite = new FlxSprite(-250,-100).loadGraphic(Paths.image('BG_WALL', 'camelliaweek'));
+				wall.scrollFactor.set(1,1);
+				wall.scale.set(1.55, 1.55);
+				wall.antialiasing = true;
+				wall.active = false;
+				add(wall);
 
-				var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
-				stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
-				stageCurtains.updateHitbox();
-				stageCurtains.antialiasing = true;
-				stageCurtains.scrollFactor.set(1.3, 1.3);
-				stageCurtains.active = false;
-
-				add(stageCurtains);
+				var stage:FlxSprite = new FlxSprite(-250,-100).loadGraphic(Paths.image('FG_Floor', 'camelliaweek'));
+				stage.scrollFactor.set(0.9, 0.9);
+				stage.scale.set(1.55, 1.55);
+				stage.antialiasing = true;
+				stage.active = false;
+				add(stage);
 			}
 		}
 
