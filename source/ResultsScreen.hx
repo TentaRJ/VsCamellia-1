@@ -2,6 +2,11 @@ package;
 
 import openfl.geom.Matrix;
 import openfl.display.BitmapData;
+import openfl.display.Sprite;
+import openfl.text.Font;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
+import openfl.events.Event;
 import flixel.system.FlxSound;
 import flixel.util.FlxAxes;
 import flixel.FlxSubState;
@@ -138,8 +143,12 @@ class ResultsScreen extends FlxSubState
         graph.update();
 
         mean = HelperFunctions.truncateFloat(mean / PlayState.rep.replay.songNotes.length,2);
+        var isLeaderboardCompatible:String = "Not accepted";
 
-        settingsText = new FlxText(20,FlxG.height + 50,0,'SF: ${PlayState.rep.replay.sf} | Ratio (SA/GA): ${Math.round(sicks)}:1 ${Math.round(goods)}:1 | Mean: ${mean}ms');
+        if (FlxG.save.data.frames == 10 && FlxG.save.data.accuracyMod == 0)
+            isLeaderboardCompatible = "Accepted";
+
+        settingsText = new FlxText(20,FlxG.height + 50,0,'SF: ${PlayState.rep.replay.sf} | Ratio (SA/GA): ${Math.round(sicks)}:1 ${Math.round(goods)}:1 | Mean: ${mean}ms | ${isLeaderboardCompatible}');
         settingsText.size = 16;
         settingsText.setBorderStyle(FlxTextBorderStyle.OUTLINE,FlxColor.BLACK,2,1);
         settingsText.color = FlxColor.WHITE;

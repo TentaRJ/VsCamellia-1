@@ -87,6 +87,12 @@ class KadeEngineData
 		if (FlxG.save.data.scoreScreen == null)
 			FlxG.save.data.scoreScreen = true;
 
+		if (FlxG.save.data.optimize == null)
+			FlxG.save.data.optimize = false;
+
+		if (FlxG.save.data.leaderboard == null)
+			FlxG.save.data.leaderboard = false;
+
 		if (FlxG.save.data.beatWeek1 == null)
 			FlxG.save.data.beatWeek1 = false;
 		
