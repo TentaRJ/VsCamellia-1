@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.gamepad.FlxGamepad;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -184,9 +185,45 @@ class FreeplayState extends MusicBeatState
 		scoreText.text = "PERSONAL BEST:" + lerpScore;
 		comboText.text = combo + '\n';
 
-		var upP = controls.UP_P;
-		var downP = controls.DOWN_P;
+		var upP = FlxG.keys.justPressed.UP;
+		var downP = FlxG.keys.justPressed.DOWN;
 		var accepted = controls.ACCEPT;
+
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		if (gamepad != null)
+		{
+			if (gamepad.justPressed.DPAD_UP)
+			{
+				changeSelection(-1);
+			}
+			if (gamepad.justPressed.DPAD_DOWN)
+			{
+				changeSelection(1);
+			}
+			if (gamepad.justPressed.DPAD_LEFT)
+			{
+				if (songs[curSelected].songName.toLowerCase() != "ghost") // I AM LAZY AND IT WORKS SO ITS GOOD OK
+				{
+					changeDiff(-1);
+				}
+				else
+				{
+					changeDiff(0);
+				}
+			}
+			if (gamepad.justPressed.DPAD_RIGHT)
+			{
+				if (songs[curSelected].songName.toLowerCase() != "ghost") // I AM LAZY AND IT WORKS SO ITS GOOD OK
+				{
+					changeDiff(1);
+				}
+				else
+				{
+					changeDiff(0);
+				}
+			}
+		}
 
 		if (upP)
 		{
@@ -199,18 +236,18 @@ class FreeplayState extends MusicBeatState
 
 		if (songs[curSelected].songName.toLowerCase() != "ghost") // I AM LAZY AND IT WORKS SO ITS GOOD OK
 		{
-			if (controls.RIGHT_P)
+			if (FlxG.keys.justPressed.RIGHT)
 				changeDiff(1);
-			if (controls.LEFT_P)
+			if (FlxG.keys.justPressed.LEFT)
 				changeDiff(-1);
 		} 
 		else
 		{
 			curDifficulty = 2;
 			changeDiff();
-			if (controls.RIGHT_P)
+			if (FlxG.keys.justPressed.RIGHT)
 				changeDiff(0);
-			if (controls.LEFT_P)
+			if (FlxG.keys.justPressed.LEFT)
 				changeDiff(0);
 		}
 

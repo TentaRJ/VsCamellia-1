@@ -317,10 +317,10 @@ class Judgement extends Option
 
 	override function getValue():String {
 		return "Safe Frames: " + Conductor.safeFrames +
-		" - SIK: " + HelperFunctions.truncateFloat(22 * Conductor.timeScale, 0) +
-		"ms GD: " + HelperFunctions.truncateFloat(45 * Conductor.timeScale, 0) +
+		" - SIK: " + HelperFunctions.truncateFloat(45 * Conductor.timeScale, 0) +
+		"ms GD: " + HelperFunctions.truncateFloat(90 * Conductor.timeScale, 0) +
 		"ms BD: " + HelperFunctions.truncateFloat(135 * Conductor.timeScale, 0) + 
-		"ms SHT: " + HelperFunctions.truncateFloat(155 * Conductor.timeScale, 0) +
+		"ms SHT: " + HelperFunctions.truncateFloat(166 * Conductor.timeScale, 0) +
 		"ms TOTAL: " + HelperFunctions.truncateFloat(Conductor.safeZoneOffset,0) + "ms";
 	}
 
@@ -379,6 +379,9 @@ class ScoreScreen extends Option
 		return (FlxG.save.data.scoreScreen ? "Show Score Screen" : "No Score Screen");
 	}
 }
+
+
+
 
 class FPSCapOption extends Option
 {
@@ -508,14 +511,14 @@ class Optimization extends Option
 			super();
 			description = desc;
 		}
-
+	
 		public override function press():Bool
 		{
 			FlxG.save.data.optimize = !FlxG.save.data.optimize;
 			display = updateDisplay();
 			return true;
 		}
-
+	
 		private override function updateDisplay():String
 		{
 			return "Optimization " + (FlxG.save.data.optimize ? "ON" : "OFF");
