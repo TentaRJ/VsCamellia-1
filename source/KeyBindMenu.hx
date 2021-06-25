@@ -228,13 +228,19 @@ class KeyBindMenu extends FlxSubState
         trace(notAllowed);
 
         for(x in 0...keys.length)
-            {
-                var oK = keys[x];
-                if(oK == r)
-                    keys[x] = null;
-                if (notAllowed.contains(oK))
-                    return;
-            }
+        {
+            var oK = keys[x];
+            if(oK == r)
+                keys[x] = null;
+            if (notAllowed.contains(oK))
+                return;
+        }
+
+        if (r.contains("NUMPAD"))
+        {
+            keys[curSelected] = null;
+            return;
+        }
 
         if(shouldReturn){
             keys[curSelected] = r;
