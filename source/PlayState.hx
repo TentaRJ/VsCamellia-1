@@ -1733,6 +1733,18 @@ class PlayState extends MusicBeatState
 				swagNote.sustainLength = songNotes[2];
 				swagNote.scrollFactor.set(0, 0);
 
+				var addNote = false;
+
+				for (i in unspawnNotes)
+					if (i.strumTime == daStrumTime && i.noteData == daNoteData)
+						addNote = true;
+
+				if (addNote)
+				{
+					trace('stacked note, thats cringe');
+					continue;
+				}
+
 				var susLength:Float = swagNote.sustainLength;
 
 				susLength = susLength / Conductor.stepCrochet;
