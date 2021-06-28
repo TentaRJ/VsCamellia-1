@@ -94,6 +94,9 @@ class KadeEngineData
 		if (FlxG.save.data.optimize == null)
 			FlxG.save.data.optimize = false;
 
+		if (FlxG.save.data.sm == null)
+			FlxG.save.data.sm = true;
+
 		if (FlxG.save.data.beatWeek1 == null)
 			FlxG.save.data.beatWeek1 = false;
 		
