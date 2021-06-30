@@ -65,12 +65,12 @@ class Note extends FlxSprite
 		//defaults if no noteStyle was found in chart
 		var noteTypeCheck:String = 'normal';
 
-		if (FlxG.save.data.sm)
-			noteTypeCheck = 'stepmania';
-
 		if (PlayState.SONG.noteStyle == null) {
 			switch(PlayState.storyWeek) {case 6: noteTypeCheck = 'pixel';}
 		} else {noteTypeCheck = PlayState.SONG.noteStyle;}
+
+		if (FlxG.save.data.sm)
+			noteTypeCheck = 'stepmania';
 
 		switch (noteTypeCheck)
 		{
@@ -194,6 +194,9 @@ class Note extends FlxSprite
 			if (PlayState.curStage.startsWith('school'))
 				x += 30;
 
+			if (noteTypeCheck == 'stepmania')
+				x += 100;
+			
 			if (prevNote.isSustainNote)
 			{
 				switch (prevNote.noteData)
