@@ -2755,6 +2755,8 @@ class PlayState extends MusicBeatState
 							case 0:
 								dad.playAnim('singLEFT' + altAnim, true);
 						}
+
+						dad.holdTimer = 0;
 						
 						if (FlxG.save.data.cpuStrums)
 						{
