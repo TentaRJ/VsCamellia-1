@@ -193,9 +193,6 @@ class Note extends FlxSprite
 
 			if (PlayState.curStage.startsWith('school'))
 				x += 30;
-
-			if (noteTypeCheck == 'stepmania')
-				x += 100;
 			
 			if (prevNote.isSustainNote)
 			{
