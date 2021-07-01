@@ -544,14 +544,14 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		if (!curCharacter.startsWith('bf'))
+		if (!curCharacter.startsWith('bf') || !curCharacter.toLowerCase() == "camellia")
 		{
 			if (animation.curAnim.name.startsWith('sing'))
 			{
 				holdTimer += elapsed;
 			}
 
-			var dadVar:Float = 4;
+			var dadVar:Float = 8;
 
 			if (curCharacter == 'dad')
 				dadVar = 6.1;
