@@ -1401,6 +1401,11 @@ class ChartingState extends MusicBeatState
 
 		var thingy = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
 
+		if (FlxG.keys.pressed.ALT)
+		{
+			_song.notes[curSection].sectionNotes.push([noteStrum, (noteData - 4), noteSus]);
+		}
+
 		curSelectedNote = thingy;
 
 		updateGrid();

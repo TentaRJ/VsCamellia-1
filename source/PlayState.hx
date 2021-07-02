@@ -2830,16 +2830,10 @@ class PlayState extends MusicBeatState
 					{
 							if (daNote.isSustainNote && daNote.wasGoodHit)
 							{
+								if (daNote.death)
+									health -= 1;
 								daNote.kill();
 								notes.remove(daNote, true);
-								if (daNote.death) 
-								{
-									health -= 1;
-									totalDamageTaken += 1;
-									vocals.volume = 0;
-									if (theFunne)
-										noteMiss(daNote.noteData);
-								}
 							}
 							else
 							{
@@ -2850,13 +2844,10 @@ class PlayState extends MusicBeatState
 										totalNotesHit += 1;
 									else
 									{
-										if (!daNote.death)
-										{
-											health -= 0.075;
-											vocals.volume = 0;
-											if (theFunne)
-												noteMiss(daNote.noteData, daNote);
-										}
+										health -= 0.075;
+										vocals.volume = 0;
+										if (theFunne)
+											noteMiss(daNote.noteData, daNote);
 									}
 								}
 								else
