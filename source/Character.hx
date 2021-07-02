@@ -544,7 +544,7 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		if (!curCharacter.startsWith('bf') || !curCharacter.toLowerCase() == "camellia")
+		if (!curCharacter.startsWith('bf'))
 		{
 			if (animation.curAnim.name.startsWith('sing'))
 			{
@@ -552,9 +552,12 @@ class Character extends FlxSprite
 			}
 
 			var dadVar:Float = 8;
+			switch (curCharacter)
+			{
+				case "dad":{dadVar = 6.1;}
+				case "camellia":{dadVar = 16.4;}
+			}
 
-			if (curCharacter == 'dad')
-				dadVar = 6.1;
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
 			{
 				trace('dance');
