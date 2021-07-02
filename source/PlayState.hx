@@ -2850,10 +2850,13 @@ class PlayState extends MusicBeatState
 										totalNotesHit += 1;
 									else
 									{
-										health -= 0.075;
-										vocals.volume = 0;
-										if (theFunne)
-											noteMiss(daNote.noteData, daNote);
+										if (!daNote.death)
+										{
+											health -= 0.075;
+											vocals.volume = 0;
+											if (theFunne)
+												noteMiss(daNote.noteData, daNote);
+										}
 									}
 								}
 								else
