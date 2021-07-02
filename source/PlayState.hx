@@ -1690,6 +1690,10 @@ class PlayState extends MusicBeatState
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
 
+		FlxG.watch.addQuick("Hi Kade", "-Tenta");
+
+		FlxG.watch.addQuick("bpm", songData.bpm);
+
 		curSong = songData.song;
 
 		if (SONG.needsVoices)

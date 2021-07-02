@@ -544,7 +544,7 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		if (!curCharacter.startsWith('bf'))
+		if (!curCharacter.startsWith('bf')/*||!curCharacter.startsWith('camellia')*/)
 		{
 			if (animation.curAnim.name.startsWith('sing'))
 			{
@@ -555,10 +555,17 @@ class Character extends FlxSprite
 			switch (curCharacter)
 			{
 				case "dad":{dadVar = 6.1;}
-				case "camellia":{dadVar = 16.4;}
+				case "camellia":{dadVar = 10.8;}
 			}
 
-			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
+			var daHoldLimit:Float = Conductor.stepCrochet * dadVar * 0.001;
+
+			FlxG.watch.addQuick("holdShit", holdTimer * 100);
+			FlxG.watch.addQuick("holdLimit", daHoldLimit * 100);
+
+			//stepCrotchet 150
+
+			if (holdTimer >= daHoldLimit)
 			{
 				trace('dance');
 				dance();
