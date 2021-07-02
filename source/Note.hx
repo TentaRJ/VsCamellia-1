@@ -26,6 +26,7 @@ class Note extends FlxSprite
 	public var modifiedByLua:Bool = false;
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
+	public var death:Bool = false;
 
 	public var noteScore:Float = 1;
 
@@ -44,6 +45,8 @@ class Note extends FlxSprite
 		if (prevNote == null)
 			prevNote = this;
 
+		death = _noteData < 0;
+
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
 
@@ -58,6 +61,10 @@ class Note extends FlxSprite
 		if (this.strumTime < 0 )
 			this.strumTime = 0;
 
+		if(isSustainNote && prevNote.warning) { 
+			death = true;
+		}
+
 		this.noteData = noteData;
 
 		var daStage:String = PlayState.curStage;
@@ -71,6 +78,9 @@ class Note extends FlxSprite
 
 		if (FlxG.save.data.sm)
 			noteTypeCheck = 'stepmania';
+
+		if (death)
+			noteTypeCheck = 'death';
 
 		switch (noteTypeCheck)
 		{
@@ -121,27 +131,58 @@ class Note extends FlxSprite
 				setGraphicSize(Std.int(width * 0.7));
 				updateHitbox();
 				antialiasing = true;
-			default:
-				frames = Paths.getSparrowAtlas('NOTE_assets');
 
-				animation.addByPrefix('greenScroll', 'green instance 1');
-				animation.addByPrefix('redScroll', 'red instance 1');
-				animation.addByPrefix('blueScroll', 'blue instance 1');
-				animation.addByPrefix('purpleScroll', 'purple instance 1');
+			case 'death':
+				frames = Paths.getSparrowAtlas('NOTE_assets', 'camelliaweek');
 
-				animation.addByPrefix('purpleholdend', 'pruple end hold instance 1');
-				animation.addByPrefix('greenholdend', 'green hold end instance 1');
-				animation.addByPrefix('redholdend', 'red hold end instance 1');
-				animation.addByPrefix('blueholdend', 'blue hold end instance 1');
+				animation.addByPrefix('greenScroll', 'green0');
+				animation.addByPrefix('redScroll', 'red0');
+				animation.addByPrefix('blueScroll', 'blue0');
+				animation.addByPrefix('purpleScroll', 'purple0');
 
-				animation.addByPrefix('purplehold', 'purple hold piece instance 1');
-				animation.addByPrefix('greenhold', 'green hold piece instance 1');
-				animation.addByPrefix('redhold', 'red hold piece instance 1');
-				animation.addByPrefix('bluehold', 'blue hold piece instance 1');
+				animation.addByPrefix('purpleholdend', 'pruple end hold');
+				animation.addByPrefix('greenholdend', 'green hold end');
+				animation.addByPrefix('redholdend', 'red hold end');
+				animation.addByPrefix('blueholdend', 'blue hold end');
 
+				animation.addByPrefix('purplehold', 'purple hold piece');
+				animation.addByPrefix('greenhold', 'green hold piece');
+				animation.addByPrefix('redhold', 'red hold piece');
+				animation.addByPrefix('bluehold', 'blue hold piece');
+				
 				setGraphicSize(Std.int(width * 0.7));
 				updateHitbox();
 				antialiasing = true;
+			default:
+				if (warning) {
+					frames = Paths.getSparrowAtlas('death','camelliaweek');
+					animation.addByPrefix('greenScroll', 'death');
+					animation.addByPrefix('redScroll', 'death');
+					animation.addByPrefix('blueScroll', 'death');
+					animation.addByPrefix('purpleScroll', 'death');
+					noteData = -noteData;
+				} else {
+					frames = Paths.getSparrowAtlas('NOTE_assets');
+
+					animation.addByPrefix('greenScroll', 'green instance 1');
+					animation.addByPrefix('redScroll', 'red instance 1');
+					animation.addByPrefix('blueScroll', 'blue instance 1');
+					animation.addByPrefix('purpleScroll', 'purple instance 1');
+
+					animation.addByPrefix('purpleholdend', 'pruple end hold instance 1');
+					animation.addByPrefix('greenholdend', 'green hold end instance 1');
+					animation.addByPrefix('redholdend', 'red hold end instance 1');
+					animation.addByPrefix('blueholdend', 'blue hold end instance 1');
+
+					animation.addByPrefix('purplehold', 'purple hold piece instance 1');
+					animation.addByPrefix('greenhold', 'green hold piece instance 1');
+					animation.addByPrefix('redhold', 'red hold piece instance 1');
+					animation.addByPrefix('bluehold', 'blue hold piece instance 1');
+
+					setGraphicSize(Std.int(width * 0.7));
+					updateHitbox();
+					antialiasing = true;
+				}
 		}
 
 		switch (noteData)

@@ -542,6 +542,8 @@ class Character extends FlxSprite
 		}
 	}
 
+
+	
 	override function update(elapsed:Float)
 	{
 		if (!curCharacter.startsWith('bf')/*||!curCharacter.startsWith('camellia')*/)

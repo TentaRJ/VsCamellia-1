@@ -2832,6 +2832,14 @@ class PlayState extends MusicBeatState
 							{
 								daNote.kill();
 								notes.remove(daNote, true);
+								if (daNote.death) 
+								{
+									health -= 1;
+									totalDamageTaken += 1;
+									vocals.volume = 0;
+									if (theFunne)
+										noteMiss(daNote.noteData);
+								}
 							}
 							else
 							{
