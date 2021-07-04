@@ -1258,6 +1258,7 @@ class ChartingState extends MusicBeatState
 			var daBad = i[3];
 
 			var note:Note = new Note(daStrumTime, daNoteInfo % 4,null,false,null,daBad);
+
 			note.sustainLength = daSus;
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
@@ -1411,6 +1412,7 @@ class ChartingState extends MusicBeatState
 		var noteStrum = getStrumTime(dummyArrow.y) + sectionStartTime();
 		var noteData = Math.floor(FlxG.mouse.x / GRID_SIZE);
 		var noteSus = 0;
+
 		var daBad:Bool = false;
 
 		if (FlxG.keys.pressed.B && _song.warning)

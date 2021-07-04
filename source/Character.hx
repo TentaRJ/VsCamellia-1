@@ -61,7 +61,6 @@ class Character extends FlxSprite
 				addOffset('scared', -2, -17);
 
 				playAnim('danceRight');
-
 			case 'camellia':
 				// DAD ANIMATION LOADING CODE
 				tex = Paths.getSparrowAtlas('characters/camellia');
@@ -120,7 +119,6 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 				flipX = true;
-
 		}
 
 		dance();
