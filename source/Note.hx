@@ -26,6 +26,7 @@ class Note extends FlxSprite
 	public var modifiedByLua:Bool = false;
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
+	public var death:Bool = false;
 
 	public var noteScore:Float = 1;
 
@@ -44,6 +45,8 @@ class Note extends FlxSprite
 		if (prevNote == null)
 			prevNote = this;
 
+		death = noteData < 0;
+
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
 
@@ -58,6 +61,10 @@ class Note extends FlxSprite
 		if (this.strumTime < 0 )
 			this.strumTime = 0;
 
+		if(isSustainNote && prevNote.death) { 
+			death = true;
+		}
+
 		this.noteData = noteData;
 
 		var daStage:String = PlayState.curStage;
@@ -71,6 +78,9 @@ class Note extends FlxSprite
 
 		if (FlxG.save.data.sm)
 			noteTypeCheck = 'stepmania';
+
+		if (death)
+			noteTypeCheck = 'death';
 
 		switch (noteTypeCheck)
 		{
@@ -142,6 +152,19 @@ class Note extends FlxSprite
 				setGraphicSize(Std.int(width * 0.7));
 				updateHitbox();
 				antialiasing = true;
+		}
+
+		if (death) {
+			frames = Paths.getSparrowAtlas('death','camelliaweek');
+			animation.addByPrefix('greenScroll', 'death');
+			animation.addByPrefix('redScroll', 'death');
+			animation.addByPrefix('blueScroll', 'death');
+			animation.addByPrefix('purpleScroll', 'death');
+			noteData = -noteData - 1;
+
+			setGraphicSize(Std.int(width * 0.7));
+			updateHitbox();
+			antialiasing = true;
 		}
 
 		switch (noteData)

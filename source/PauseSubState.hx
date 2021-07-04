@@ -142,7 +142,7 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			changeSelection(1);
 		}
-		
+		/*
 		#if cpp
 			else if (controls.LEFT_P || leftPcontroller)
 			{
@@ -199,6 +199,7 @@ class PauseSubState extends MusicBeatSubstate
 				}
 			}
 		#end
+		*/
 
 		if (controls.ACCEPT)
 		{

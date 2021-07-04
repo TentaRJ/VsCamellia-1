@@ -1399,7 +1399,7 @@ class PlayState extends MusicBeatState
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
-			dad.dance();
+			dad.playAnim('idle');
 			gf.dance();
 			boyfriend.playAnim('idle');
 
@@ -1689,6 +1689,10 @@ class PlayState extends MusicBeatState
 
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
+
+		FlxG.watch.addQuick("Hi Kade", "-Tenta");
+
+		FlxG.watch.addQuick("bpm", songData.bpm);
 
 		curSong = songData.song;
 
@@ -2826,6 +2830,8 @@ class PlayState extends MusicBeatState
 					{
 							if (daNote.isSustainNote && daNote.wasGoodHit)
 							{
+								if (daNote.death)
+									health -= 1;
 								daNote.kill();
 								notes.remove(daNote, true);
 							}
@@ -4067,8 +4073,8 @@ class PlayState extends MusicBeatState
 			// Conductor.changeBPM(SONG.bpm);
 
 			// Dad doesnt interupt his own notes
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf')
-				dad.dance();
+			// if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf')
+			// 	dad.dance();
 		}
 		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
 		wiggleShit.update(Conductor.crochet);
