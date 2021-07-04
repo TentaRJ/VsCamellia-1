@@ -4179,6 +4179,7 @@ class PlayState extends MusicBeatState
 	}
 
 	var curLight:Int = 0;
+
 	function deathNote(note:Note)
 	{
 		// health -= 1;
