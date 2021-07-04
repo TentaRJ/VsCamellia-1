@@ -26,7 +26,7 @@ class Note extends FlxSprite
 	public var modifiedByLua:Bool = false;
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
-	public var death:Bool = false;
+	public var death:Bool;
 
 	public var noteScore:Float = 1;
 
@@ -38,17 +38,16 @@ class Note extends FlxSprite
 
 	public var rating:String = "shit";
 
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false)
+	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false, ?death:Bool = false)
 	{
 		super();
 
 		if (prevNote == null)
 			prevNote = this;
 
-		death = noteData < 0;
-
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
+		this.death = death;
 
 		x += 50;
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
@@ -79,9 +78,8 @@ class Note extends FlxSprite
 		if (FlxG.save.data.sm)
 			noteTypeCheck = 'stepmania';
 
-		if (death)
-			noteTypeCheck = 'death';
-
+		if(!death)
+		{
 		switch (noteTypeCheck)
 		{
 			case 'pixel':
@@ -153,18 +151,19 @@ class Note extends FlxSprite
 				updateHitbox();
 				antialiasing = true;
 		}
+		}
+		else
+		{
+		frames = Paths.getSparrowAtlas('death','camelliaweek');
+		animation.addByPrefix('greenScroll', 'death');
+		animation.addByPrefix('redScroll', 'death');
+		animation.addByPrefix('blueScroll', 'death');
+		animation.addByPrefix('purpleScroll', 'death');
+		noteData = -noteData - 1;
 
-		if (death) {
-			frames = Paths.getSparrowAtlas('death','camelliaweek');
-			animation.addByPrefix('greenScroll', 'death');
-			animation.addByPrefix('redScroll', 'death');
-			animation.addByPrefix('blueScroll', 'death');
-			animation.addByPrefix('purpleScroll', 'death');
-			noteData = -noteData - 1;
-
-			setGraphicSize(Std.int(width * 0.7));
-			updateHitbox();
-			antialiasing = true;
+		setGraphicSize(Std.int(width * 0.7));
+		updateHitbox();
+		antialiasing = true;
 		}
 
 		switch (noteData)
