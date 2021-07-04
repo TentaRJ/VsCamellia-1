@@ -103,7 +103,14 @@ class ChartingState extends MusicBeatState
 		curSection = lastSection;
 
 		if (PlayState.SONG != null)
+		{
 			_song = PlayState.SONG;
+			// if(_song.badNotes != null)
+			// {
+			// 	_song.push(warning);
+			// 	_song.push(badNotes);
+			// }
+		}
 		else
 		{
 			_song = {
@@ -117,7 +124,8 @@ class ChartingState extends MusicBeatState
 				noteStyle: 'normal',
 				stage: 'stage',
 				speed: 1,
-				validScore: false
+				validScore: false,
+				warning: false,
 			};
 		}
 
@@ -220,6 +228,15 @@ class ChartingState extends MusicBeatState
 			trace('CHECKED!');
 		};
 
+		var check_warning = new FlxUICheckBox(10, check_voices.y + 25, null, null, "Warning Notes?", 100);
+		check_warning.checked = _song.warning;
+		check_warning.callback = function()
+		{
+			// _song.warning.push(check_warning.checked);
+			_song.warning = check_warning.checked;
+			trace(_song.warning);
+		};
+
 		var check_mute_inst = new FlxUICheckBox(10, 200, null, null, "Mute Instrumental (in editor)", 100);
 		check_mute_inst.checked = false;
 		check_mute_inst.callback = function()
@@ -246,7 +263,6 @@ class ChartingState extends MusicBeatState
 		{
 			loadJson(_song.song.toLowerCase());
 		});
-
 		
 		var restart = new FlxButton(10,140,"Reset Chart", function()
             {
@@ -359,6 +375,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(UI_songTitle);
 		tab_group_song.add(restart);
 		tab_group_song.add(check_voices);
+		tab_group_song.add(check_warning);
 		tab_group_song.add(check_mute_inst);
 		tab_group_song.add(saveButton);
 		tab_group_song.add(reloadSong);
@@ -1238,8 +1255,10 @@ class ChartingState extends MusicBeatState
 			var daNoteInfo = i[1];
 			var daStrumTime = i[0];
 			var daSus = i[2];
+			var daBad = i[3];
 
-			var note:Note = new Note(daStrumTime, daNoteInfo % 4,null,false,true);
+			var note:Note = new Note(daStrumTime, daNoteInfo % 4,null,false,null,daBad);
+
 			note.sustainLength = daSus;
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
@@ -1394,19 +1413,19 @@ class ChartingState extends MusicBeatState
 		var noteData = Math.floor(FlxG.mouse.x / GRID_SIZE);
 		var noteSus = 0;
 
-		if (n != null)
-			_song.notes[curSection].sectionNotes.push([n.strumTime, n.noteData, n.sustainLength]);
-		else
-			_song.notes[curSection].sectionNotes.push([noteStrum, noteData, noteSus]);
+		var daBad:Bool = false;
 
-		var thingy = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
-
-		if (FlxG.keys.pressed.ALT)
+		if (FlxG.keys.pressed.B && _song.warning)
 		{
-			_song.notes[curSection].sectionNotes.push([noteStrum, (noteData - 4), noteSus]);
+			daBad = true;
 		}
 
-		curSelectedNote = thingy;
+		if (n != null){_song.notes[curSection].sectionNotes.push([n.strumTime, n.noteData, n.sustainLength, n.death]);}
+		else{_song.notes[curSection].sectionNotes.push([noteStrum, noteData, noteSus, daBad]);}
+
+		curSelectedNote = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
+
+		trace("strum " + noteStrum + " data " + noteData + " sus " + noteSus + " bad " + daBad);
 
 		updateGrid();
 		updateNoteUI();

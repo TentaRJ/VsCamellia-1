@@ -1772,7 +1772,10 @@ class PlayState extends MusicBeatState
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+				var daDeath:Bool = songNotes[3];
+				if(!SONG.warning){daDeath = false;}
+
+				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, null, null, daDeath);
 
 				if (!gottaHitNote && PlayStateChangeables.Optimize)
 					continue;
@@ -2828,40 +2831,30 @@ class PlayState extends MusicBeatState
 	
 					if ((daNote.mustPress && daNote.tooLate && !PlayStateChangeables.useDownscroll || daNote.mustPress && daNote.tooLate && PlayStateChangeables.useDownscroll) && daNote.mustPress)
 					{
-							if (daNote.isSustainNote && daNote.wasGoodHit)
-							{
-								if (daNote.death)
-									health -= 1;
-								daNote.kill();
-								notes.remove(daNote, true);
-							}
+						if (loadRep && daNote.isSustainNote)
+						{
+							// im tired and lazy this sucks I know i'm dumb
+							if (findByTime(daNote.strumTime) != null)
+								totalNotesHit += 1;
 							else
 							{
-								if (loadRep && daNote.isSustainNote)
-								{
-									// im tired and lazy this sucks I know i'm dumb
-									if (findByTime(daNote.strumTime) != null)
-										totalNotesHit += 1;
-									else
-									{
-										health -= 0.075;
-										vocals.volume = 0;
-										if (theFunne)
-											noteMiss(daNote.noteData, daNote);
-									}
-								}
-								else
-								{
-									health -= 0.075;
-									vocals.volume = 0;
-									if (theFunne)
-										noteMiss(daNote.noteData, daNote);
-								}
+								health -= 0.075;
+								vocals.volume = 0;
+								if (theFunne)
+									noteMiss(daNote.noteData, daNote);
 							}
+						}
+						else
+						{
+							health -= 0.075;
+							vocals.volume = 0;
+							if (theFunne)
+								noteMiss(daNote.noteData, daNote);
+						}
 		
-							daNote.visible = false;
-							daNote.kill();
-							notes.remove(daNote, true);
+						daNote.visible = false;
+						daNote.kill();
+						notes.remove(daNote, true);
 						}
 					
 				});
@@ -3826,7 +3819,12 @@ class PlayState extends MusicBeatState
 
 		function goodNoteHit(note:Note, resetMashViolation = true):Void
 			{
-
+				if (note.death)
+				{
+					deathNote(note);
+				}
+				else
+				{
 				if (mashing != 0)
 					mashing = 0;
 
@@ -3908,6 +3906,7 @@ class PlayState extends MusicBeatState
 					note.destroy();
 					
 					updateAccuracy();
+				}
 				}
 			}
 		
@@ -4180,4 +4179,30 @@ class PlayState extends MusicBeatState
 	}
 
 	var curLight:Int = 0;
+
+	function deathNote(note:Note)
+	{
+		// health -= 1;
+		trace("ow! direction " + note.noteData);
+		combo = 0;
+		misses++;
+		songScore -= 10;
+
+		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+
+		switch (note.noteData)
+		{
+			case 0:
+				boyfriend.playAnim('singLEFTmiss', true);
+			case 1:
+				boyfriend.playAnim('singDOWNmiss', true);
+			case 2:
+				boyfriend.playAnim('singUPmiss', true);
+			case 3:
+				boyfriend.playAnim('singRIGHTmiss', true);
+		}
+		note.kill();
+		notes.remove(note, true);
+		note.destroy();
+	}
 }
