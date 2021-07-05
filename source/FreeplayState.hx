@@ -58,6 +58,8 @@ class FreeplayState extends MusicBeatState
 	{
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
+		if(StoryMenuState.weekUnlocked[2]){initSonglist.push("GHOST:camellia:1");}
+
 		//var diffList = "";
 
 		for (i in 0...initSonglist.length)

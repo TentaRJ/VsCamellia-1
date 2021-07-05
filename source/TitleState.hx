@@ -23,6 +23,7 @@ import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
+import Main;
 
 #if windows
 import Discord.DiscordClient;
@@ -260,6 +261,10 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		#if debug
+		if(FlxG.keys.justPressed.T){StoryMenuState.weekUnlocked = [true,true,true];trace("Hi Tenta");}
+		#end
+
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
@@ -315,8 +320,43 @@ class TitleState extends MusicBeatState
 
 			MainMenuState.firstStart = true;
 
-			new FlxTimer().start(2, function(tmr:FlxTimer){FlxG.switchState(new MainMenuState());});
-			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
+			new FlxTimer().start(2, function(tmr:FlxTimer)
+				{
+					FlxG.switchState(new MainMenuState());
+
+					// Why overcomplicate things? -tenta
+
+					// // Get current version of this mod in case any fixes are made
+					
+					// var http = new haxe.Http("https://raw.githubusercontent.com/TentaRJ/VsCamellia/master/version.downloadMe");
+					// var returnedData:Array<String> = [];
+					
+					// http.onData = function (data:String)
+					// {
+					// 	returnedData[0] = data.substring(0, data.indexOf(';'));
+					// 	returnedData[1] = data.substring(data.indexOf('-'), data.length);
+					// 	trace("returned " + returnedData[0] + " version " + Main.modGameVersion);
+					// 	trace(returnedData[1]);
+					// 	if (Main.modGameVersion < returnedData[0])
+					// 	{
+					// 		trace('outdated lmao! ' + returnedData[0] + ' != ' + Main.modGameVersion);
+					// 		OutdatedSubState.needVer = returnedData[0];
+					// 		OutdatedSubState.currChanges = returnedData[1];
+					// 		FlxG.switchState(new OutdatedSubState());
+					// 	}
+					// 	else
+					// 	{
+					// 		FlxG.switchState(new MainMenuState());
+					// 	}
+					// }
+					
+					// http.onError = function (error) {
+					//   trace('error: $error');
+					//   FlxG.switchState(new MainMenuState()); // fail but we go anyway
+					// }
+					
+					// http.request();
+				});
 		}
 
 		if (pressedEnter && !skippedIntro && initialized)

@@ -2739,7 +2739,7 @@ class PlayState extends MusicBeatState
 						}
 		
 	
-					if (!daNote.mustPress && daNote.wasGoodHit)
+					if (!daNote.mustPress && daNote.wasGoodHit && !daNote.death)
 					{
 						camZooming = true;
 
@@ -2831,11 +2831,21 @@ class PlayState extends MusicBeatState
 	
 					if ((daNote.mustPress && daNote.tooLate && !PlayStateChangeables.useDownscroll || daNote.mustPress && daNote.tooLate && PlayStateChangeables.useDownscroll) && daNote.mustPress)
 					{
-						if (loadRep && daNote.isSustainNote)
+						if(!daNote.death)
 						{
-							// im tired and lazy this sucks I know i'm dumb
-							if (findByTime(daNote.strumTime) != null)
-								totalNotesHit += 1;
+							if (loadRep && daNote.isSustainNote)
+							{
+								// im tired and lazy this sucks I know i'm dumb
+								if (findByTime(daNote.strumTime) != null)
+									totalNotesHit += 1;
+								else
+								{
+									health -= 0.075;
+									vocals.volume = 0;
+									if (theFunne)
+										noteMiss(daNote.noteData, daNote);
+								}
+							}
 							else
 							{
 								health -= 0.075;
@@ -2843,19 +2853,12 @@ class PlayState extends MusicBeatState
 								if (theFunne)
 									noteMiss(daNote.noteData, daNote);
 							}
+			
+							daNote.visible = false;
+							daNote.kill();
+							notes.remove(daNote, true);
 						}
-						else
-						{
-							health -= 0.075;
-							vocals.volume = 0;
-							if (theFunne)
-								noteMiss(daNote.noteData, daNote);
-						}
-		
-						daNote.visible = false;
-						daNote.kill();
-						notes.remove(daNote, true);
-						}
+					}
 					
 				});
 			}
@@ -3505,9 +3508,9 @@ class PlayState extends MusicBeatState
 					if(PlayStateChangeables.useDownscroll && daNote.y > strumLine.y ||
 					!PlayStateChangeables.useDownscroll && daNote.y < strumLine.y)
 					{
-						// Force good note hit regardless if it's too late to hit it or not as a fail safe
-						if(PlayStateChangeables.botPlay && daNote.canBeHit && daNote.mustPress ||
-						PlayStateChangeables.botPlay && daNote.tooLate && daNote.mustPress)
+						// Force good note hit regardless if it's too late to hit it or not as a fail safe, but if its bad, no
+						if(PlayStateChangeables.botPlay && daNote.canBeHit && daNote.mustPress && !daNote.death ||
+						PlayStateChangeables.botPlay && daNote.tooLate && daNote.mustPress && !daNote.death)
 						{
 							if(loadRep)
 							{
@@ -3661,6 +3664,8 @@ class PlayState extends MusicBeatState
 
 	function noteMiss(direction:Int = 1, daNote:Note):Void
 	{
+		if (!daNote.death)
+		{
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
@@ -3717,6 +3722,7 @@ class PlayState extends MusicBeatState
 
 
 			updateAccuracy();
+		}
 		}
 	}
 
