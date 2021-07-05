@@ -4182,8 +4182,8 @@ class PlayState extends MusicBeatState
 
 	function deathNote(note:Note)
 	{
-		// health -= 1;
-		trace("ow! direction " + note.noteData);
+		// trace("ow! direction " + note.noteData);
+		health -= 1;
 		combo = 0;
 		misses++;
 		songScore -= 10;
