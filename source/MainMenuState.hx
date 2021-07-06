@@ -269,7 +269,6 @@ class MainMenuState extends MusicBeatState
 						}
 						else
 						{
-							FlxTween.tween(camFollow, {x:-1000}, 1, {ease:FlxEase.expoInOut});
 							if (FlxG.save.data.flashing)
 							{
 								FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
