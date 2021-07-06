@@ -6,6 +6,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.effects.FlxFlicker;
+import flixel.tweens.FlxEase;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
@@ -29,7 +30,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	#if !switch
-	var optionShit:Array<String> = ['story mode', 'freeplay', 'options', 'donate'];
+	var optionShit:Array<String> = ['story mode', 'freeplay', 'options'];
 	#else
 	var optionShit:Array<String> = ['story mode', 'freeplay'];
 	#end
@@ -76,6 +77,8 @@ class MainMenuState extends MusicBeatState
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 
+		camFollow.setPosition(658, -220);
+
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set(0, 0);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.1));
@@ -87,34 +90,34 @@ class MainMenuState extends MusicBeatState
 		// add(magenta);
 		// magenta.scrollFactor.set();
 
-		var bgCity:FlxSprite = new FlxSprite(-300,-200).loadGraphic(Paths.image('BG_CITY', 'camelliaweek'));
-		bgCity.scrollFactor.set(0.075, 0);
+		var bgCity:FlxSprite = new FlxSprite(-320,-200).loadGraphic(Paths.image('BG_CITY', 'camelliaweek'));
+		bgCity.scrollFactor.set(0.0357, 0);
 		// bgCity.scale.set(1.55, 1.55);
 		bgCity.antialiasing = true;
 		bgCity.active = false;
 		bgCity.setGraphicSize(Std.int(bg.width * 1.1));
 		add(bgCity);
 
-		var logoBl = new FlxSprite(225, -35);
+		var logoBl = new FlxSprite(245, -15);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = true;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
 		logoBl.scrollFactor.set(0.1, 0);
-		logoBl.setGraphicSize(Std.int(logoBl.width * 0.9));
+		logoBl.setGraphicSize(Std.int(logoBl.width * 0.78));
 		logoBl.updateHitbox();
 		add(logoBl);
 
-		var wall:FlxSprite = new FlxSprite(-300,-200).loadGraphic(Paths.image('BG_WALL', 'camelliaweek'));
-		wall.scrollFactor.set(0.1, 0);
+		var wall:FlxSprite = new FlxSprite(-320,-200).loadGraphic(Paths.image('BG_WALL', 'camelliaweek'));
+		wall.scrollFactor.set(0.05, 0);
 		// wall.scale.set(1.55, 1.55);
 		wall.antialiasing = true;
 		wall.active = false;
 		wall.setGraphicSize(Std.int(wall.width * 0.9));
 		add(wall);
 
-		var stage:FlxSprite = new FlxSprite(-300,-200).loadGraphic(Paths.image('FG_Floor', 'camelliaweek'));
-		stage.scrollFactor.set(0.1, 0);
+		var stage:FlxSprite = new FlxSprite(-320,-200).loadGraphic(Paths.image('FG_Floor', 'camelliaweek'));
+		stage.scrollFactor.set(0.05, 0);
 		// stage.scale.set(1.55, 1.55);
 		stage.antialiasing = true;
 		stage.active = false;
@@ -151,9 +154,9 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
 			menuItems.add(menuItem);
-			menuItem.scrollFactor.set(1, 1);
+			menuItem.scrollFactor.set(0, 1);
 			menuItem.antialiasing = true;
-			menuItem.setGraphicSize(Std.int(menuItem.width * 0.78));
+			menuItem.setGraphicSize(Std.int(menuItem.width * 0.75));
 			// if (firstStart)
 			// 	FlxTween.tween(menuItem,{x : -425 + (i*500), y:0},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
 			// 		{ 
@@ -162,7 +165,7 @@ class MainMenuState extends MusicBeatState
 			// 		}});
 			// else
 			// {
-			menuItem.x = -425 + (i * 500);
+			menuItem.x = 20 + (i * 425);
 			menuItem.y = 0;
 			finishedFunnyMove = true; 
 			changeItem();
@@ -266,6 +269,7 @@ class MainMenuState extends MusicBeatState
 						}
 						else
 						{
+							FlxTween.tween(camFollow, {x:-1000}, 1, {ease:FlxEase.expoInOut});
 							if (FlxG.save.data.flashing)
 							{
 								FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
@@ -333,7 +337,8 @@ class MainMenuState extends MusicBeatState
 			if (spr.ID == curSelected && finishedFunnyMove)
 			{
 				spr.animation.play('selected');
-				camFollow.setPosition(spr.getGraphicMidpoint().x + 210, spr.getGraphicMidpoint().y - 310);
+				// camFollow.setPosition(spr.getGraphicMidpoint().x + 210, spr.getGraphicMidpoint().y - 310);
+				// trace(camFollow.getPosition().x + "" + camFollow.getPosition().y);
 			}
 
 			spr.updateHitbox();

@@ -261,9 +261,9 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		#if debug
-		if(FlxG.keys.justPressed.T){StoryMenuState.weekUnlocked = [true,true,true];trace("Hi Tenta");}
-		#end
+		// #if debug
+		// if(FlxG.keys.justPressed.T){StoryMenuState.weekUnlocked = [true,true,true];trace("Hi Tenta");}
+		// #end
 
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
