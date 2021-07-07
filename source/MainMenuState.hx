@@ -108,6 +108,10 @@ class MainMenuState extends MusicBeatState
 		logoBl.updateHitbox();
 		add(logoBl);
 
+		var funny = new FlxSprite(0,0).loadGraphic(Paths.image('death', 'cameillaweek'));
+		funny.antialiasing=true;
+		add(funny);
+
 		var wall:FlxSprite = new FlxSprite(-320,-200).loadGraphic(Paths.image('BG_WALL', 'camelliaweek'));
 		wall.scrollFactor.set(0.05, 0);
 		// wall.scale.set(1.55, 1.55);
@@ -156,7 +160,9 @@ class MainMenuState extends MusicBeatState
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set(0, 1);
 			menuItem.antialiasing = true;
-			menuItem.setGraphicSize(Std.int(menuItem.width * 0.75));
+			if(i == 0){menuItem.setGraphicSize(Std.int(menuItem.width * 0.77));}
+			else{menuItem.setGraphicSize(Std.int(menuItem.width * 0.68));}
+			// menuItem.setGraphicSize(Std.int(menuItem.width * 0.75));
 			// if (firstStart)
 			// 	FlxTween.tween(menuItem,{x : -425 + (i*500), y:0},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
 			// 		{ 
@@ -165,12 +171,14 @@ class MainMenuState extends MusicBeatState
 			// 		}});
 			// else
 			// {
-			menuItem.x = 20 + (i * 425);
-			menuItem.y = 0;
-			finishedFunnyMove = true; 
-			changeItem();
 			// }
+			menuItem.x = 4 + (i * 450);
+			menuItem.y = 0;
+			finishedFunnyMove = true; 			
+			trace(menuItem.getPosition());
+			// menuPlace(menuItem);
 		}
+		changeItem();
 
 		firstStart = false;
 
@@ -195,6 +203,29 @@ class MainMenuState extends MusicBeatState
 	}
 
 	var selectedSomethin:Bool = false;
+
+	function menuPlace(option:FlxSprite)
+	{
+		switch (option.ID)
+		{
+			case 0:
+			{
+				option.setPosition(20, 0);
+				option.setGraphicSize(Std.int(option.width * 0.5));
+			}
+			case 1:
+			{
+				option.setPosition(445, 0);
+				option.setGraphicSize(Std.int(option.width * 0.5));
+			}
+			case 2:
+			{
+				option.setPosition(870, 0);
+				option.setGraphicSize(Std.int(option.width * 0.5));
+			}
+		}
+		trace("id " + option.ID + " pos " + option.getPosition() + " size " + option.width);
+	}
 
 	override function update(elapsed:Float)
 	{
