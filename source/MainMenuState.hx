@@ -52,6 +52,7 @@ class MainMenuState extends MusicBeatState
 	// public var gf:Character;
 	// public var dad:Character;
 	public var funny:FlxSprite;
+	public var funnyText:FlxText;
 
 	override function create()
 	{
@@ -135,6 +136,11 @@ class MainMenuState extends MusicBeatState
 		stage.setGraphicSize(Std.int(stage.width * 0.9));
 		add(stage);
 
+		funnyText = new FlxText(0, -120, 0, "Only a little bit...", 64);
+		funnyText.screenCenter(X);
+		funnyText.visible = false;
+		add(funnyText);
+
 		//GF x y 400 130
 		//BF x y 1120 525
 		//Dad x y -400 91
@@ -153,6 +159,8 @@ class MainMenuState extends MusicBeatState
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
+
+		new FlxTimer().start(5, function(tmr:FlxTimer){if(FlxG.random.bool(10)){FlxTween.tween(funny, {y:-200}, 2.4, {ease:FlxEase.expoInOut});trace("we do a little trolling");funnyText.visible=true;}else{trace("You were spared... for now...");}});
 
 		var tex = Paths.getSparrowAtlas('FNF_main_menu_assets');
 
@@ -236,8 +244,6 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		new FlxTimer().start(5, function(tmr:FlxTimer){if(FlxG.random.bool(20)){FlxTween.tween(funny, {y:-200}, 2.4, {ease:FlxEase.expoInOut});trace("we do a little trolling");}else{trace("You were spared... for now...");}});
-
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
