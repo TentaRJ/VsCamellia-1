@@ -3834,7 +3834,7 @@ class PlayState extends MusicBeatState
 
 		function goodNoteHit(note:Note, resetMashViolation = true):Void
 			{
-				if (note.death && note.wasGoodHit)
+				if (note.death)
 					{
 						deathNote(note);
 					}

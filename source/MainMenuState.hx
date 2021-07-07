@@ -51,6 +51,7 @@ class MainMenuState extends MusicBeatState
 	// public var boyfriend:Boyfriend;
 	// public var gf:Character;
 	// public var dad:Character;
+	public var funny:FlxSprite;
 
 	override function create()
 	{
@@ -90,38 +91,44 @@ class MainMenuState extends MusicBeatState
 		// add(magenta);
 		// magenta.scrollFactor.set();
 
-		var bgCity:FlxSprite = new FlxSprite(-320,-200).loadGraphic(Paths.image('BG_CITY', 'camelliaweek'));
-		bgCity.scrollFactor.set(0.0357, 0);
+		var bgCity:FlxSprite = new FlxSprite(-316,-829).loadGraphic(Paths.image('BG_CITY', 'camelliaweek'));
+		// bgCity.scrollFactor.set(0.0357, 0);
 		// bgCity.scale.set(1.55, 1.55);
 		bgCity.antialiasing = true;
 		bgCity.active = false;
 		bgCity.setGraphicSize(Std.int(bg.width * 1.1));
 		add(bgCity);
 
-		var logoBl = new FlxSprite(245, -15);
+		var logoBl = new FlxSprite(485, -630);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = true;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
-		logoBl.scrollFactor.set(0.1, 0);
+		// logoBl.scrollFactor.set(0.1, 0);
 		logoBl.setGraphicSize(Std.int(logoBl.width * 0.78));
 		logoBl.updateHitbox();
+		logoBl.screenCenter(X);
 		add(logoBl);
 
-		var funny = new FlxSprite(0,0).loadGraphic(Paths.image('death', 'cameillaweek'));
+		funny = new FlxSprite(0,400).loadGraphic(Paths.image('death', 'camelliaweek'));
+		funny.setGraphicSize(Std.int(funny.width * 9));
+		funny.screenCenter(X);
 		funny.antialiasing=true;
 		add(funny);
 
-		var wall:FlxSprite = new FlxSprite(-320,-200).loadGraphic(Paths.image('BG_WALL', 'camelliaweek'));
-		wall.scrollFactor.set(0.05, 0);
+		FlxG.watch.addQuick("logo", logoBl.getPosition());
+		FlxG.watch.addQuick("funny", funny.getPosition());
+
+		var wall:FlxSprite = new FlxSprite(-316, -829).loadGraphic(Paths.image('BG_WALL', 'camelliaweek'));
+		// wall.scrollFactor.set(0.05, 0);
 		// wall.scale.set(1.55, 1.55);
 		wall.antialiasing = true;
 		wall.active = false;
 		wall.setGraphicSize(Std.int(wall.width * 0.9));
 		add(wall);
 
-		var stage:FlxSprite = new FlxSprite(-320,-200).loadGraphic(Paths.image('FG_Floor', 'camelliaweek'));
-		stage.scrollFactor.set(0.05, 0);
+		var stage:FlxSprite = new FlxSprite(-316,-829).loadGraphic(Paths.image('FG_Floor', 'camelliaweek'));
+		// stage.scrollFactor.set(0.05, 0);
 		// stage.scale.set(1.55, 1.55);
 		stage.antialiasing = true;
 		stage.active = false;
@@ -229,6 +236,8 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		new FlxTimer().start(5, function(tmr:FlxTimer){if(FlxG.random.bool(20)){FlxTween.tween(funny, {y:-200}, 2.4, {ease:FlxEase.expoInOut});trace("we do a little trolling");}else{trace("You were spared... for now...");}});
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -288,7 +297,7 @@ class MainMenuState extends MusicBeatState
 					{
 						if (curSelected != spr.ID)
 						{
-							FlxTween.tween(spr, {alpha: 0}, 1.3, {
+							FlxTween.tween(spr, {y:300, alpha: 0}, 1.3, {
 								ease: FlxEase.quadOut,
 								onComplete: function(twn:FlxTween)
 								{
