@@ -110,7 +110,7 @@ class MainMenuState extends MusicBeatState
 		logoBl.screenCenter(X);
 		add(logoBl);
 
-		funny = new FlxSprite(0,400).loadGraphic(Paths.image('death', 'camelliaweek'));
+		funny = new FlxSprite(0,900).loadGraphic(Paths.image('death', 'camelliaweek'));
 		funny.setGraphicSize(Std.int(funny.width * 9));
 		funny.screenCenter(X);
 		funny.antialiasing=true;
