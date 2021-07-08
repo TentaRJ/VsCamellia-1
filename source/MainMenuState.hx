@@ -6,6 +6,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.effects.FlxFlicker;
+import flixel.tweens.FlxEase;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
@@ -29,7 +30,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	#if !switch
-	var optionShit:Array<String> = ['story mode', 'freeplay', 'donate', 'options'];
+	var optionShit:Array<String> = ['story mode', 'freeplay', 'options'];
 	#else
 	var optionShit:Array<String> = ['story mode', 'freeplay'];
 	#end
@@ -47,6 +48,12 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	public static var finishedFunnyMove:Bool = false;
 
+	// public var boyfriend:Boyfriend;
+	// public var gf:Character;
+	// public var dad:Character;
+	public var funny:FlxSprite;
+	public var funnyText:FlxText;
+
 	override function create()
 	{
 		#if windows
@@ -62,55 +69,131 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var bg:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.x = 0;
-		bg.scrollFactor.y = 0.10;
+		bg.scrollFactor.set(0, 0);
 		bg.setGraphicSize(Std.int(bg.width * 1.1));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = true;
-		add(bg);
+		// add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 
+		camFollow.setPosition(658, -220);
+
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.x = 0;
-		magenta.scrollFactor.y = 0.10;
+		bg.scrollFactor.set(0, 0);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.1));
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.visible = false;
 		magenta.antialiasing = true;
 		magenta.color = 0xFFfd719b;
-		add(magenta);
+		// add(magenta);
 		// magenta.scrollFactor.set();
+
+		var bgCity:FlxSprite = new FlxSprite(-316,-829).loadGraphic(Paths.image('BG_CITY', 'camelliaweek'));
+		// bgCity.scrollFactor.set(0.0357, 0);
+		// bgCity.scale.set(1.55, 1.55);
+		bgCity.antialiasing = true;
+		bgCity.active = false;
+		bgCity.setGraphicSize(Std.int(bg.width * 1.1));
+		add(bgCity);
+
+		var logoBl = new FlxSprite(485, -630);
+		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
+		logoBl.antialiasing = true;
+		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
+		logoBl.animation.play('bump');
+		// logoBl.scrollFactor.set(0.1, 0);
+		logoBl.setGraphicSize(Std.int(logoBl.width * 0.78));
+		logoBl.updateHitbox();
+		logoBl.screenCenter(X);
+		add(logoBl);
+
+		funny = new FlxSprite(0,900).loadGraphic(Paths.image('death', 'camelliaweek'));
+		funny.setGraphicSize(Std.int(funny.width * 9));
+		funny.screenCenter(X);
+		funny.antialiasing=true;
+		add(funny);
+
+		FlxG.watch.addQuick("logo", logoBl.getPosition());
+		FlxG.watch.addQuick("funny", funny.getPosition());
+
+		var wall:FlxSprite = new FlxSprite(-316, -829).loadGraphic(Paths.image('BG_WALL', 'camelliaweek'));
+		// wall.scrollFactor.set(0.05, 0);
+		// wall.scale.set(1.55, 1.55);
+		wall.antialiasing = true;
+		wall.active = false;
+		wall.setGraphicSize(Std.int(wall.width * 0.9));
+		add(wall);
+
+		var stage:FlxSprite = new FlxSprite(-316,-829).loadGraphic(Paths.image('FG_Floor', 'camelliaweek'));
+		// stage.scrollFactor.set(0.05, 0);
+		// stage.scale.set(1.55, 1.55);
+		stage.antialiasing = true;
+		stage.active = false;
+		stage.setGraphicSize(Std.int(stage.width * 0.9));
+		add(stage);
+
+		funnyText = new FlxText(0, -120, 0, "Only a little bit...", 64);
+		funnyText.screenCenter(X);
+		funnyText.visible = false;
+		add(funnyText);
+
+		//GF x y 400 130
+		//BF x y 1120 525
+		//Dad x y -400 91
+
+		// boyfriend = new Boyfriend(1120, 525, "bf");
+		// gf = new Character(400, 130, "gf");
+		// dad = new Character(100, 100, "camellia");
+
+		// add(gf);
+		// add(boyfriend);
+		// add(dad);
+
+		// dad.playAnim('idle');
+		// gf.dance();
+		// boyfriend.playAnim('idle');
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
+
+		new FlxTimer().start(5, function(tmr:FlxTimer){if(FlxG.random.bool(10)){FlxTween.tween(funny, {y:-200}, 2.4, {ease:FlxEase.expoInOut});trace("we do a little trolling");funnyText.visible=true;}else{trace("You were spared... for now...");}});
 
 		var tex = Paths.getSparrowAtlas('FNF_main_menu_assets');
 
 		for (i in 0...optionShit.length)
 		{
-			var menuItem:FlxSprite = new FlxSprite(0, FlxG.height * 1.6);
+			var menuItem:FlxSprite = new FlxSprite(0, 0);
 			menuItem.frames = tex;
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
-			menuItem.scrollFactor.set();
+			menuItem.scrollFactor.set(0, 1);
 			menuItem.antialiasing = true;
-			if (firstStart)
-				FlxTween.tween(menuItem,{y: 60 + (i * 160)},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
-					{ 
-						finishedFunnyMove = true; 
-						changeItem();
-					}});
-			else
-				menuItem.y = 60 + (i * 160);
+			if(i == 0){menuItem.setGraphicSize(Std.int(menuItem.width * 0.77));}
+			else{menuItem.setGraphicSize(Std.int(menuItem.width * 0.68));}
+			// menuItem.setGraphicSize(Std.int(menuItem.width * 0.75));
+			// if (firstStart)
+			// 	FlxTween.tween(menuItem,{x : -425 + (i*500), y:0},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
+			// 		{ 
+			// 			finishedFunnyMove = true; 
+			// 			changeItem();
+			// 		}});
+			// else
+			// {
+			// }
+			menuItem.x = 4 + (i * 450);
+			menuItem.y = 0;
+			finishedFunnyMove = true; 			
+			trace(menuItem.getPosition());
+			// menuPlace(menuItem);
 		}
+		changeItem();
 
 		firstStart = false;
 
@@ -135,6 +218,29 @@ class MainMenuState extends MusicBeatState
 	}
 
 	var selectedSomethin:Bool = false;
+
+	function menuPlace(option:FlxSprite)
+	{
+		switch (option.ID)
+		{
+			case 0:
+			{
+				option.setPosition(20, 0);
+				option.setGraphicSize(Std.int(option.width * 0.5));
+			}
+			case 1:
+			{
+				option.setPosition(445, 0);
+				option.setGraphicSize(Std.int(option.width * 0.5));
+			}
+			case 2:
+			{
+				option.setPosition(870, 0);
+				option.setGraphicSize(Std.int(option.width * 0.5));
+			}
+		}
+		trace("id " + option.ID + " pos " + option.getPosition() + " size " + option.width);
+	}
 
 	override function update(elapsed:Float)
 	{
@@ -161,22 +267,23 @@ class MainMenuState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.justPressed.UP)
+			if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.LEFT)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (FlxG.keys.justPressed.DOWN)
+			if (FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.RIGHT)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
 
-			if (controls.BACK)
-			{
-				FlxG.switchState(new TitleState());
-			}
+			// Crashes lmao
+			// if (controls.BACK)
+			// {
+			// 	FlxG.switchState(new TitleState());
+			// }
 
 			if (controls.ACCEPT)
 			{
@@ -189,20 +296,22 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					
-					if (FlxG.save.data.flashing)
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					// if (FlxG.save.data.flashing)
+					// 	FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
 						if (curSelected != spr.ID)
 						{
-							FlxTween.tween(spr, {alpha: 0}, 1.3, {
+							FlxTween.tween(spr, {y:300, alpha: 0}, 1.3, {
 								ease: FlxEase.quadOut,
 								onComplete: function(twn:FlxTween)
 								{
 									spr.kill();
 								}
 							});
+							// gf.playAnim('cheer');
+							// boyfriend.playAnim('hey');
 						}
 						else
 						{
@@ -228,15 +337,17 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
+		// menuItems.forEach(function(spr:FlxSprite)
+		// {
+		// 	spr.screenCenter(X);
+		// });
 	}
 	
 	function goToState()
 	{
 		var daChoice:String = optionShit[curSelected];
+
+		// FlxTween.tween(camFollow, {})
 
 		switch (daChoice)
 		{
@@ -271,7 +382,8 @@ class MainMenuState extends MusicBeatState
 			if (spr.ID == curSelected && finishedFunnyMove)
 			{
 				spr.animation.play('selected');
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
+				// camFollow.setPosition(spr.getGraphicMidpoint().x + 210, spr.getGraphicMidpoint().y - 310);
+				// trace(camFollow.getPosition().x + "" + camFollow.getPosition().y);
 			}
 
 			spr.updateHitbox();

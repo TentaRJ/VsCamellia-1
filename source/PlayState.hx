@@ -920,12 +920,21 @@ class PlayState extends MusicBeatState
 		{
 			add(gf);
 
+			FlxG.watch.addQuick("GF X", gf.x);
+			FlxG.watch.addQuick("GF y", gf.y);
+
 			// Shitty layering but whatev it works LOL
 			if (curStage == 'limo')
 				add(limo);
 
 			add(dad);
 			add(boyfriend);
+
+			FlxG.watch.addQuick("BF X", boyfriend.x);
+			FlxG.watch.addQuick("BF y", boyfriend.y);
+
+			FlxG.watch.addQuick("DAD X", dad.x);
+			FlxG.watch.addQuick("DAD y", dad.y);
 
 			if (SONG.player2 == 'camellia' && SONG.player1 == 'bf')
 			{
@@ -949,7 +958,7 @@ class PlayState extends MusicBeatState
 
 		if (loadRep)
 		{
-			FlxG.watch.addQuick('rep rpesses',repPresses);
+			FlxG.watch.addQuick('rep presses',repPresses);
 			FlxG.watch.addQuick('rep releases',repReleases);
 			// FlxG.watch.addQuick('Queued',inputsQueued);
 
@@ -2739,7 +2748,7 @@ class PlayState extends MusicBeatState
 						}
 		
 	
-					if (!daNote.mustPress && daNote.wasGoodHit)
+					if (!daNote.mustPress && daNote.wasGoodHit && !daNote.death)
 					{
 						camZooming = true;
 
@@ -2831,11 +2840,21 @@ class PlayState extends MusicBeatState
 	
 					if ((daNote.mustPress && daNote.tooLate && !PlayStateChangeables.useDownscroll || daNote.mustPress && daNote.tooLate && PlayStateChangeables.useDownscroll) && daNote.mustPress)
 					{
-						if (loadRep && daNote.isSustainNote)
+						if(!daNote.death)
 						{
-							// im tired and lazy this sucks I know i'm dumb
-							if (findByTime(daNote.strumTime) != null)
-								totalNotesHit += 1;
+							if (loadRep && daNote.isSustainNote)
+							{
+								// im tired and lazy this sucks I know i'm dumb
+								if (findByTime(daNote.strumTime) != null)
+									totalNotesHit += 1;
+								else
+								{
+									health -= 0.075;
+									vocals.volume = 0;
+									if (theFunne)
+										noteMiss(daNote.noteData, daNote);
+								}
+							}
 							else
 							{
 								health -= 0.075;
@@ -2843,19 +2862,12 @@ class PlayState extends MusicBeatState
 								if (theFunne)
 									noteMiss(daNote.noteData, daNote);
 							}
+			
+							daNote.visible = false;
+							daNote.kill();
+							notes.remove(daNote, true);
 						}
-						else
-						{
-							health -= 0.075;
-							vocals.volume = 0;
-							if (theFunne)
-								noteMiss(daNote.noteData, daNote);
-						}
-		
-						daNote.visible = false;
-						daNote.kill();
-						notes.remove(daNote, true);
-						}
+					}
 					
 				});
 			}
@@ -3505,9 +3517,9 @@ class PlayState extends MusicBeatState
 					if(PlayStateChangeables.useDownscroll && daNote.y > strumLine.y ||
 					!PlayStateChangeables.useDownscroll && daNote.y < strumLine.y)
 					{
-						// Force good note hit regardless if it's too late to hit it or not as a fail safe
-						if(PlayStateChangeables.botPlay && daNote.canBeHit && daNote.mustPress ||
-						PlayStateChangeables.botPlay && daNote.tooLate && daNote.mustPress)
+						// Force good note hit regardless if it's too late to hit it or not as a fail safe, but if its bad, no
+						if(PlayStateChangeables.botPlay && daNote.canBeHit && daNote.mustPress && !daNote.death ||
+						PlayStateChangeables.botPlay && daNote.tooLate && daNote.mustPress && !daNote.death)
 						{
 							if(loadRep)
 							{
@@ -3661,6 +3673,8 @@ class PlayState extends MusicBeatState
 
 	function noteMiss(direction:Int = 1, daNote:Note):Void
 	{
+		if (!daNote.death)
+		{
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
@@ -3717,6 +3731,7 @@ class PlayState extends MusicBeatState
 
 
 			updateAccuracy();
+		}
 		}
 	}
 
@@ -3820,94 +3835,94 @@ class PlayState extends MusicBeatState
 		function goodNoteHit(note:Note, resetMashViolation = true):Void
 			{
 				if (note.death)
-				{
-					deathNote(note);
-				}
+					{
+						deathNote(note);
+					}
 				else
-				{
-				if (mashing != 0)
-					mashing = 0;
-
-				var noteDiff:Float = -(note.strumTime - Conductor.songPosition);
-
-				if(loadRep)
-				{
-					noteDiff = findByTime(note.strumTime)[3];
-					note.rating = rep.replay.songJudgements[findByTimeIndex(note.strumTime)];
-				}
-				else
-					note.rating = Ratings.CalculateRating(noteDiff);
-
-				if (note.rating == "miss")
-					return;	
-
-				// add newest note to front of notesHitArray
-				// the oldest notes are at the end and are removed first
-				if (!note.isSustainNote)
-					notesHitArray.unshift(Date.now());
-
-				if (!resetMashViolation && mashViolations >= 1)
-					mashViolations--;
-
-				if (mashViolations < 0)
-					mashViolations = 0;
-
-				if (!note.wasGoodHit)
-				{
-					if (!note.isSustainNote)
 					{
-						popUpScore(note);
-						combo += 1;
-					}
-					else
-						totalNotesHit += 1;
-	
+						if (mashing != 0)
+							mashing = 0;
 
-					switch (note.noteData)
-					{
-						case 2:
-							boyfriend.playAnim('singUP', true);
-						case 3:
-							boyfriend.playAnim('singRIGHT', true);
-						case 1:
-							boyfriend.playAnim('singDOWN', true);
-						case 0:
-							boyfriend.playAnim('singLEFT', true);
-					}
-		
-					#if windows
-					if (luaModchart != null)
-						luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
-					#end
+						var noteDiff:Float = -(note.strumTime - Conductor.songPosition);
 
-
-					if(!loadRep && note.mustPress)
-					{
-						var array = [note.strumTime,note.sustainLength,note.noteData,noteDiff];
-						if (note.isSustainNote)
-							array[1] = -1;
-						saveNotes.push(array);
-						saveJudge.push(note.rating);
-					}
-					
-					playerStrums.forEach(function(spr:FlxSprite)
-					{
-						if (Math.abs(note.noteData) == spr.ID)
+						if(loadRep)
 						{
-							spr.animation.play('confirm', true);
+							noteDiff = findByTime(note.strumTime)[3];
+							note.rating = rep.replay.songJudgements[findByTimeIndex(note.strumTime)];
 						}
-					});
-					
-					note.wasGoodHit = true;
-					vocals.volume = 1;
-		
-					note.kill();
-					notes.remove(note, true);
-					note.destroy();
-					
-					updateAccuracy();
-				}
-				}
+						else
+							note.rating = Ratings.CalculateRating(noteDiff);
+
+						if (note.rating == "miss")
+							return;	
+
+						// add newest note to front of notesHitArray
+						// the oldest notes are at the end and are removed first
+						if (!note.isSustainNote)
+							notesHitArray.unshift(Date.now());
+
+						if (!resetMashViolation && mashViolations >= 1)
+							mashViolations--;
+
+						if (mashViolations < 0)
+							mashViolations = 0;
+
+						if (!note.wasGoodHit)
+						{
+							if (!note.isSustainNote)
+							{
+								popUpScore(note);
+								combo += 1;
+							}
+							else
+								totalNotesHit += 1;
+
+
+							switch (note.noteData)
+							{
+								case 2:
+									boyfriend.playAnim('singUP', true);
+								case 3:
+									boyfriend.playAnim('singRIGHT', true);
+								case 1:
+									boyfriend.playAnim('singDOWN', true);
+								case 0:
+									boyfriend.playAnim('singLEFT', true);
+							}
+				
+							#if windows
+							if (luaModchart != null)
+								luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
+							#end
+
+
+							if(!loadRep && note.mustPress)
+							{
+								var array = [note.strumTime,note.sustainLength,note.noteData,noteDiff];
+								if (note.isSustainNote)
+									array[1] = -1;
+								saveNotes.push(array);
+								saveJudge.push(note.rating);
+							}
+							
+							playerStrums.forEach(function(spr:FlxSprite)
+							{
+								if (Math.abs(note.noteData) == spr.ID)
+								{
+									spr.animation.play('confirm', true);
+								}
+							});
+							
+							note.wasGoodHit = true;
+							vocals.volume = 1;
+				
+							note.kill();
+							notes.remove(note, true);
+							note.destroy();
+							
+							updateAccuracy();
+						}
+					}
 			}
 		
 
@@ -4182,8 +4197,8 @@ class PlayState extends MusicBeatState
 
 	function deathNote(note:Note)
 	{
-		// health -= 1;
-		trace("ow! direction " + note.noteData);
+		// trace("ow! direction " + note.noteData);
+		health -= 1;
 		combo = 0;
 		misses++;
 		songScore -= 10;
