@@ -70,12 +70,20 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Camellia_Right', 24, false);
 				animation.addByPrefix('singDOWN', 'Camellia_Down', 24, false);
 				animation.addByPrefix('singLEFT', 'Camellia_Left', 24, false);
+				animation.addByPrefix('singUPmiss', 'Camellia_Up', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'Camellia_Right', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'Camellia_Down', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'Camellia_Left', 24, false);
 
 				addOffset('idle');
 				addOffset("singUP", 4, 75);
 				addOffset("singRIGHT", 0, -3);
 				addOffset("singLEFT", 80, 16);
 				addOffset("singDOWN", 0, 78);
+				addOffset("singUPmiss", 4, 75);
+				addOffset("singRIGHTmiss", 0, -3);
+				addOffset("singLEFTmiss", 80, 16);
+				addOffset("singDOWNmiss", 0, 78);
 				
 				playAnim('idle');
 			case 'cam-dead':
@@ -163,8 +171,8 @@ class Character extends FlxSprite
 	
 	override function update(elapsed:Float)
 	{
-		if (!curCharacter.startsWith('bf')/*||!curCharacter.startsWith('camellia')*/)
-		{
+		// if (!curCharacter.startsWith('bf')/*||!curCharacter.startsWith('camellia')*/)
+		// {
 			if (animation.curAnim.name.startsWith('sing'))
 			{
 				holdTimer += elapsed;
@@ -190,7 +198,7 @@ class Character extends FlxSprite
 				dance();
 				holdTimer = 0;
 			}
-		}
+		// }
 
 		switch (curCharacter)
 		{

@@ -41,8 +41,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		bf = new Boyfriend(x, y, daBf);
 		add(bf);
 
-		chatText=new FlxText(x+30, y+30, 0, "I'm working on it...", 16);
-		add(chatText);
+		chatText=new FlxText(x, y+150, 0, "I'm working on it...", 64);
+		if(_camsave.data.cmode){add(chatText);}
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
 		add(camFollow);

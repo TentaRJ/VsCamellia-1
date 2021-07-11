@@ -79,6 +79,9 @@ class FreeplayState extends MusicBeatState
 			FreeplayState.loadDiff(0,format,meta.songName,diffs);
 			FreeplayState.loadDiff(1,format,meta.songName,diffs);
 			FreeplayState.loadDiff(2,format,meta.songName,diffs);
+			FreeplayState.loadDiff(3,format,meta.songName,diffs);
+			FreeplayState.loadDiff(4,format,meta.songName,diffs);
+			FreeplayState.loadDiff(5,format,meta.songName,diffs);
 			FreeplayState.songData.set(meta.songName,diffs);
 			trace('loaded diffs for ' + meta.songName);
 			//diffList += meta.songName + "\nEasy: " + DiffCalc.CalculateDiff(songData.get(meta.songName)[0]) + "\nNormal: " + DiffCalc.CalculateDiff(songData.get(meta.songName)[1]) + "\nHard: " + DiffCalc.CalculateDiff(songData.get(meta.songName)[2]) + "\n\n";
@@ -309,12 +312,13 @@ class FreeplayState extends MusicBeatState
 			var hmm;
 			try
 			{
-				hmm = songData.get(songs[curSelected].songName)[curDifficulty];
-				if (hmm == null)
-					return;
+				if(_camsave.data.cmode){hmm = songData.get(songs[curSelected].songName)[curDifficulty];}
+				else{hmm = songData.get(songs[curSelected].songName)[curDifficulty];}
+				if (hmm == null){trace("no");return;}
 			}
 			catch(ex)
 			{
+				trace("no");
 				return;
 			}
 
@@ -355,7 +359,7 @@ class FreeplayState extends MusicBeatState
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
 		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
-		else{diffCalcText.text = 'RATING: YIKES';}
+		else{diffCalcText.text = 'RATING: YIKES ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 

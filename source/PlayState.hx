@@ -940,8 +940,6 @@ class PlayState extends MusicBeatState
 		{
 			add(gf);
 
-			if(_camsave.data.cmode){gf.flipX=true;}
-
 			FlxG.watch.addQuick("GF X", gf.x);
 			FlxG.watch.addQuick("GF y", gf.y);
 
@@ -1090,7 +1088,7 @@ class PlayState extends MusicBeatState
 
 		// Add Kade Engine watermark
 		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
-		if(_camsave.data.cmode){SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy")+ " C-MODE";}
+		if(_camsave.data.cmode){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE";}
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
