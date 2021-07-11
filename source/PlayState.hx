@@ -843,6 +843,9 @@ class PlayState extends MusicBeatState
 
 		dad = new Character(100, 100, SONG.player2);
 
+		// var dadTrail = new FlxTrail(dad, null, 36, 12, 0.4, 0.069);
+		// add(dadTrail);
+
 		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
 
 		switch (SONG.player2)
@@ -891,6 +894,9 @@ class PlayState extends MusicBeatState
 		if(_camsave.data.cmode){dad.y = 525; dad.x -= 200;}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
+
+		// var bfTrail = new FlxTrail(boyfriend, null, 36, 12, 0.4, 0.069);
+		// add(bfTrail);
 
 		// REPOSITIONING PER STAGE
 		switch (curStage)
