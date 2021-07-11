@@ -8,6 +8,8 @@ import flixel.FlxG;
 import openfl.display.FPS;
 import openfl.Lib;
 
+import TitleState._camsave as _camsave;
+
 class OptionCategory
 {
 	private var _options:Array<Option> = new Array<Option>();
@@ -719,5 +721,72 @@ class CamZoomOption extends Option
 	private override function updateDisplay():String
 	{
 		return "Camera Zoom " + (!FlxG.save.data.camzoom ? "off" : "on");
+	}
+}
+
+class CMode extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		_camsave.data.cmode = !_camsave.data.cmode;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "C-Mode " + (_camsave.data.cmode ? "on" : "off");
+	}
+}
+
+class DamageMode extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	public override function press():Bool
+	{
+		return false;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Damage Mode";
+	}
+
+	override function right():Bool {
+		_camsave.data.damagemode += 1;
+
+		if (_camsave.data.damagemode < 0)
+			_camsave.data.damagemode = 0;
+
+		if (_camsave.data.damagemode > 99)
+			_camsave.data.damagemode = 99;
+		return true;
+	}
+
+	override function getValue():String {
+		return "It's random! "+ _camsave.data.damagemode + "%";
+	}
+
+	override function left():Bool {
+		_camsave.data.damagemode -= 1;
+
+		if (_camsave.data.damagemode < 0)
+			_camsave.data.damagemode = 0;
+
+		if (_camsave.data.damagemode > 99)
+			_camsave.data.damagemode = 99;
+
+		return true;
 	}
 }

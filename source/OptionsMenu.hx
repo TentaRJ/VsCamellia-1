@@ -1,5 +1,6 @@
 package;
 
+import openfl.events.DatagramSocketDataEvent;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -25,6 +26,10 @@ class OptionsMenu extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
+		new OptionCategory("Modifiers", [
+			/* new CMode("Play the harder charts as Camellia!"), */
+			new DamageMode("Adds a chance for damage notes to appear. It's random!")
+		]),
 		new OptionCategory("Gameplay", [
 			new DFJKOption(controls),
 			new DownscrollOption("Change the layout of the strumline."),

@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import TitleState._camsave;
 
 using StringTools;
 class Highscore
@@ -80,16 +81,16 @@ class Highscore
 	{
 		// Reminder that I don't need to format this song, it should come formatted!
 		songScores.set(song, score);
-		FlxG.save.data.songScores = songScores;
-		FlxG.save.flush();
+		_camsave.data.songScores = songScores;
+		_camsave.flush();
 	}
 
 	static function setCombo(song:String, combo:String):Void
 	{
 		// Reminder that I don't need to format this song, it should come formatted!
 		songCombos.set(song, combo);
-		FlxG.save.data.songCombos = songCombos;
-		FlxG.save.flush();
+		_camsave.data.songCombos = songCombos;
+		_camsave.flush();
 	}
 
 	public static function formatSong(song:String, diff:Int):String
@@ -147,13 +148,13 @@ class Highscore
 
 	public static function load():Void
 	{
-		if (FlxG.save.data.songScores != null)
+		if (_camsave.data.songScores != null)
 		{
-			songScores = FlxG.save.data.songScores;
+			songScores = _camsave.data.songScores;
 		}
-		if (FlxG.save.data.songCombos != null)
+		if (_camsave.data.songCombos != null)
 		{
-			songCombos = FlxG.save.data.songCombos;
+			songCombos = _camsave.data.songCombos;
 		}
 	}
 }

@@ -64,6 +64,8 @@ import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
 
+import TitleState._camsave;
+
 #if windows
 import Discord.DiscordClient;
 #end
@@ -1699,9 +1701,9 @@ class PlayState extends MusicBeatState
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
 
-		FlxG.watch.addQuick("Hi Kade", "-Tenta");
+		// FlxG.watch.addQuick("Hi Kade", "-Tenta");
 
-		FlxG.watch.addQuick("bpm", songData.bpm);
+		// FlxG.watch.addQuick("bpm", songData.bpm);
 
 		curSong = songData.song;
 
@@ -1757,6 +1759,9 @@ class PlayState extends MusicBeatState
 		{
 			var coolSection:Int = Std.int(section.lengthInSteps / 4);
 
+			PlayStateChangeables.damageValue = _camsave.data.damagemode;
+			trace(PlayStateChangeables.damageValue + "%");
+
 			for (songNotes in section.sectionNotes)
 			{
 				var daStrumTime:Float = songNotes[0] + FlxG.save.data.offset + songOffset;
@@ -1768,7 +1773,9 @@ class PlayState extends MusicBeatState
 					daStrumTime = 0;
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 
-				var gottaHitNote:Bool = section.mustHitSection;
+				var gottaHitNote:Bool;
+				if(_camsave.data.cmode){gottaHitNote = !section.mustHitSection;}
+				else{gottaHitNote = section.mustHitSection;}
 
 				if (songNotes[1] > 3)
 				{
@@ -1783,6 +1790,10 @@ class PlayState extends MusicBeatState
 
 				var daDeath:Bool = songNotes[3];
 				if(!SONG.warning){daDeath = false;}
+
+				if(daDeath==false && PlayStateChangeables.damageValue > 0){daDeath = FlxG.random.bool(PlayStateChangeables.damageValue);}
+
+				trace(daDeath);
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, null, null, daDeath);
 
@@ -2492,6 +2503,9 @@ class PlayState extends MusicBeatState
 				luaModchart.setVar("mustHit",PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
 			#end
 
+			FlxG.watch.addQuick("cam", camFollow.getPosition());
+
+
 			if (camFollow.x != dad.getMidpoint().x + 150 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 			{
 				var offsetX = 0;
@@ -2540,7 +2554,9 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
+
+				// This just makes it so the camera doesnt change lmao
+				camFollow.setPosition(dad.getMidpoint().x + 150 + offsetX, dad.getMidpoint().y - 100 + offsetY);
 
 				#if windows
 				if (luaModchart != null)

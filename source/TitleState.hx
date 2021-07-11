@@ -23,6 +23,7 @@ import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
+import flixel.util.FlxSave;
 import Main;
 
 #if windows
@@ -48,6 +49,8 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
+
+	public static var _camsave:FlxSave;
 
 	override public function create():Void
 	{
@@ -90,6 +93,12 @@ class TitleState extends MusicBeatState
 		#end
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
+
+		// Initilize da cam save
+		_camsave = new FlxSave();
+		_camsave.bind('camellia', 'ten');
+		if(_camsave.data.cmode == null){_camsave.data.cmode=false;}
+		if(_camsave.data.damagemode == null){_camsave.data.damagemode=0;}
 
 		KadeEngineData.initSave();
 
