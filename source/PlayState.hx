@@ -1755,6 +1755,9 @@ class PlayState extends MusicBeatState
 			}
 		#end
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
+
+		trace(_camsave.data.cmode);
+
 		for (section in noteData)
 		{
 			var coolSection:Int = Std.int(section.lengthInSteps / 4);
@@ -1774,8 +1777,8 @@ class PlayState extends MusicBeatState
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 
 				var gottaHitNote:Bool;
-				if(_camsave.data.cmode){gottaHitNote = !section.mustHitSection;}
-				else{gottaHitNote = section.mustHitSection;}
+				if(_camsave.data.cmode){gottaHitNote = false;}
+				else{gottaHitNote = true;}
 
 				if (songNotes[1] > 3)
 				{
@@ -3018,8 +3021,8 @@ class PlayState extends MusicBeatState
 						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 					}
 
-					FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
-					FlxG.save.flush();
+					_camsave.data.weekUnlocked = StoryMenuState.weekUnlocked;
+					_camsave.flush();
 				}
 				else
 				{

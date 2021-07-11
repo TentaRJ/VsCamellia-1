@@ -764,13 +764,13 @@ class DamageMode extends Option
 	}
 
 	override function right():Bool {
-		_camsave.data.damagemode += 1;
+		_camsave.data.damagemode += 5;
 
 		if (_camsave.data.damagemode < 0)
 			_camsave.data.damagemode = 0;
 
-		if (_camsave.data.damagemode > 99)
-			_camsave.data.damagemode = 99;
+		if (_camsave.data.damagemode > 95)
+			_camsave.data.damagemode = 95;
 		return true;
 	}
 
@@ -779,13 +779,13 @@ class DamageMode extends Option
 	}
 
 	override function left():Bool {
-		_camsave.data.damagemode -= 1;
+		_camsave.data.damagemode -= 5;
 
 		if (_camsave.data.damagemode < 0)
 			_camsave.data.damagemode = 0;
 
-		if (_camsave.data.damagemode > 99)
-			_camsave.data.damagemode = 99;
+		if (_camsave.data.damagemode > 95)
+			_camsave.data.damagemode = 95;
 
 		return true;
 	}
