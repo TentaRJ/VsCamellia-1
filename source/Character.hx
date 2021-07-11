@@ -78,6 +78,19 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 0, 78);
 				
 				playAnim('idle');
+			case 'cam-dead':
+				frames = Paths.getSparrowAtlas('characters/camellia');
+				animation.addByPrefix('firstDeath', "Camellia_Right", 24, false);
+				animation.addByPrefix('deathLoop', "Camellia_Idle", 24, true);
+				animation.addByPrefix('deathConfirm', "Cammellia_Up", 24, false);
+				animation.play('firstDeath');
+
+				addOffset('firstDeath');
+				addOffset('deathLoop', -37);
+				addOffset('deathConfirm', -37);
+
+				playAnim('firstDeath');
+
 			case 'bf':
 				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
 				frames = tex;

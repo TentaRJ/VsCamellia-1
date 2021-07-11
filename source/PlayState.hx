@@ -379,6 +379,20 @@ class PlayState extends MusicBeatState
 			case 'ghost':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('ghost/dialogue'));
 		}
+		if(_camsave.data.cmode)
+		{
+			switch(songLowercase)
+			{
+				case 'first-town':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('first-town/dialogue-c'));
+				case 'liquated':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('liquated/dialogue-c'));
+				case 'why-do-you-hate-me':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('why-do-you-hate-me/dialogue-c'));
+				case 'ghost':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('ghost/dialogue-c'));
+			}
+		}
 
 		//defaults if no stage was found in chart
 		var stageCheck:String = 'camellia';
@@ -768,6 +782,8 @@ class PlayState extends MusicBeatState
 					stage.antialiasing = true;
 					stage.active = false;
 					add(stage);
+
+					if(_camsave.data.cmode){bg.flipX=true;wall.flipX=true;stage.flipX=true;}
 				default:
 				{
 					defaultCamZoom = 0.5;
@@ -872,7 +888,7 @@ class PlayState extends MusicBeatState
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 		}
 
-
+		if(_camsave.data.cmode){dad.y = 525; dad.x -= 200;}
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
 
@@ -918,9 +934,13 @@ class PlayState extends MusicBeatState
 				gf.y += 300;
 		}
 
+		if(_camsave.data.cmode){boyfriend.y = 91; boyfriend.x -= 200;}
+
 		if (!PlayStateChangeables.Optimize)
 		{
 			add(gf);
+
+			if(_camsave.data.cmode){gf.flipX=true;}
 
 			FlxG.watch.addQuick("GF X", gf.x);
 			FlxG.watch.addQuick("GF y", gf.y);
@@ -955,6 +975,9 @@ class PlayState extends MusicBeatState
 				glow_cam.antialiasing = true;
 				glow_cam.active = false;
 				add(glow_cam);
+
+				if(_camsave.data.cmode){glow_bf.flipX=true;glow_cam.flipX=true;}
+				
 			}
 		}
 
@@ -1008,7 +1031,7 @@ class PlayState extends MusicBeatState
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 
-		camFollow.setPosition(camPos.x, camPos.y);
+		camFollow.setPosition(726, 433);
 
 		if (prevCamFollow != null)
 		{
@@ -1067,6 +1090,7 @@ class PlayState extends MusicBeatState
 
 		// Add Kade Engine watermark
 		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
+		if(_camsave.data.cmode){SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy")+ " C-MODE";}
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
@@ -1815,7 +1839,7 @@ class PlayState extends MusicBeatState
 				{
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
-					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true);
+					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true, null, false);
 					sustainNote.scrollFactor.set();
 					unspawnNotes.push(sustainNote);
 
@@ -2520,7 +2544,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(dad.getMidpoint().x + 150 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+				camFollow.setPosition(726, 433);
 				#if windows
 				if (luaModchart != null)
 					luaModchart.executeState('playerTwoTurn', []);
@@ -2559,7 +2583,7 @@ class PlayState extends MusicBeatState
 				#end
 
 				// This just makes it so the camera doesnt change lmao
-				camFollow.setPosition(dad.getMidpoint().x + 150 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+				camFollow.setPosition(726, 433);
 
 				#if windows
 				if (luaModchart != null)

@@ -12,6 +12,8 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 
+import TitleState._camsave;
+
 
 #if windows
 import Discord.DiscordClient;
@@ -330,10 +332,16 @@ class FreeplayState extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
-			curDifficulty = 0;
+		if(!_camsave.data.cmode)
+		{
+		if (curDifficulty < 0){curDifficulty = 2;}
+		if (curDifficulty > 2){curDifficulty = 0;}
+		}
+		else
+		{
+		if (curDifficulty < 3){curDifficulty = 5;}
+		if (curDifficulty > 5){curDifficulty = 3;}
+		}
 
 		// adjusting the highscore song name to be compatible (changeDiff)
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
@@ -346,7 +354,8 @@ class FreeplayState extends MusicBeatState
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
+		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
+		else{diffCalcText.text = 'RATING: YIKES';}
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 
@@ -382,8 +391,8 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
-		
+		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
+		else{diffCalcText.text = 'RATING: YIKES';}
 		#if PRELOAD_ALL
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end

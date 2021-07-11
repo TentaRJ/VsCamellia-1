@@ -14,6 +14,8 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 
+import TitleState._camsave;
+
 #if windows
 import Discord.DiscordClient;
 #end
@@ -349,22 +351,28 @@ class StoryMenuState extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
-			curDifficulty = 0;
+		if(!_camsave.data.cmode)
+		{
+		if (curDifficulty < 0){curDifficulty = 2;}
+		if (curDifficulty > 2){curDifficulty = 0;}
+		}
+		else
+		{
+		if (curDifficulty < 3){curDifficulty = 5;}
+		if (curDifficulty > 5){curDifficulty = 3;}
+		}
 
 		sprDifficulty.offset.x = 0;
 
 		switch (curDifficulty)
 		{
-			case 0:
+			case 0|3:
 				sprDifficulty.animation.play('easy');
 				sprDifficulty.offset.x = 20;
-			case 1:
+			case 1|4:
 				sprDifficulty.animation.play('normal');
 				sprDifficulty.offset.x = 70;
-			case 2:
+			case 2|5:
 				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
 		}
