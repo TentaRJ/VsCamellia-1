@@ -32,7 +32,7 @@ class StoryMenuState extends MusicBeatState
 	];
 	var curDifficulty:Int = 1;
 
-	public static var weekUnlocked:Array<Bool> = [true, _camsave.data.ghostUnlock]; //, true, true, true, true, true, true, true];
+	public static var weekUnlocked:Array<Bool> = [true, false]; //, true, true, true, true, true, true, true];
 
 	var weekCharacters:Array<Dynamic> = [
 		['camellia', 'bf', 'gf'],
@@ -62,6 +62,8 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
+		weekUnlocked[1] = _camsave.data.ghostUnlock;
+		
 		#if windows
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Story Mode Menu", null);

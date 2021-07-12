@@ -60,7 +60,7 @@ class FreeplayState extends MusicBeatState
 	{
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
-		if(_camsave.data.ghostUnlock){initSonglist.push("GHOST:camellia:1");}
+		if(StoryMenuState.weekUnlocked[1]){initSonglist.push("GHOST:camellia:1");}
 
 		//var diffList = "";
 
@@ -359,7 +359,7 @@ class FreeplayState extends MusicBeatState
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
 		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
-		else{diffCalcText.text = 'RATING: YIKES ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
+		else{diffCalcText.text = 'RATING: YIKES';}
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 
