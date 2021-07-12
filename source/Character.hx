@@ -76,6 +76,9 @@ class Character extends FlxSprite
 				animation.addByPrefix('singLEFTmiss', 'Camellia_Left', 24, false);
 
 				addOffset('idle');
+
+				if(!isPlayer)
+				{
 				addOffset("singUP", 4, 75);
 				addOffset("singRIGHT", 0, -3);
 				addOffset("singLEFT", 80, 16);
@@ -84,10 +87,23 @@ class Character extends FlxSprite
 				addOffset("singRIGHTmiss", 0, -3);
 				addOffset("singLEFTmiss", 80, 16);
 				addOffset("singDOWNmiss", 0, 78);
+				}
+				else
+				{
+				addOffset("singUP", 0, 86);
+				addOffset("singRIGHT", -3, -3);
+				addOffset("singLEFT", 0, 18);
+				addOffset("singDOWN", 0, 83);
+				addOffset("singUPmiss", 0, 86);
+				addOffset("singRIGHTmiss", -3, -3);
+				addOffset("singLEFTmiss", 0, 18);
+				addOffset("singDOWNmiss", 0, 93);
+				}
 				
 				playAnim('idle');
 			case 'cam-dead':
-				frames = Paths.getSparrowAtlas('characters/camellia');
+				tex = Paths.getSparrowAtlas('characters/camellia');
+				frames=tex;
 				animation.addByPrefix('firstDeath', "Camellia_Right", 24, false);
 				animation.addByPrefix('deathLoop', "Camellia_Idle", 24, true);
 				animation.addByPrefix('deathConfirm', "Cammellia_Up", 24, false);
@@ -171,8 +187,8 @@ class Character extends FlxSprite
 	
 	override function update(elapsed:Float)
 	{
-		// if (!curCharacter.startsWith('bf')/*||!curCharacter.startsWith('camellia')*/)
-		// {
+		if (!isPlayer)
+		{
 			if (animation.curAnim.name.startsWith('sing'))
 			{
 				holdTimer += elapsed;
@@ -198,7 +214,7 @@ class Character extends FlxSprite
 				dance();
 				holdTimer = 0;
 			}
-		// }
+		}
 
 		switch (curCharacter)
 		{

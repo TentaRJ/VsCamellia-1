@@ -99,7 +99,7 @@ class TitleState extends MusicBeatState
 		_camsave.bind('camellia', 'ten');
 		if(_camsave.data.cmode == null){_camsave.data.cmode=false;}
 		if(_camsave.data.damagemode == null){_camsave.data.damagemode=0;}
-		if(_camsave.data.weekUnlocked == null){_camsave.data.weekUnlocked=[true,false];}
+		if(_camsave.data.ghostUnlock == null){_camsave.data.ghostUnlock=false;}
 
 		KadeEngineData.initSave();
 
@@ -271,10 +271,6 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		// #if debug
-		// if(FlxG.keys.justPressed.T){StoryMenuState.weekUnlocked = [true,true,true];trace("Hi Tenta");}
-		// #end
-
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);

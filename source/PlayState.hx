@@ -841,7 +841,7 @@ class PlayState extends MusicBeatState
 		gf = new Character(400, 130, curGf);
 		gf.scrollFactor.set(0.95, 0.95);
 
-		dad = new Character(100, 100, SONG.player2);
+		dad = new Character(100, 100, SONG.player2, false);
 
 		// var dadTrail = new FlxTrail(dad, null, 36, 12, 0.4, 0.069);
 		// add(dadTrail);
@@ -1438,7 +1438,7 @@ class PlayState extends MusicBeatState
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
-			dad.playAnim('idle');
+			dad.playAnim('idle', true);
 			gf.dance();
 			boyfriend.playAnim('idle');
 
@@ -3008,6 +3008,8 @@ class PlayState extends MusicBeatState
 		{
 			if (isStoryMode)
 			{
+				if(SONG.song.toLowerCase() == 'why-do-you-hate-me'){_camsave.data.ghostUnlock = true;}
+
 				campaignScore += Math.round(songScore);
 
 				storyPlaylist.remove(storyPlaylist[0]);
@@ -3037,20 +3039,20 @@ class PlayState extends MusicBeatState
 					}
 					#end
 
-					// if ()
-					StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
+					// // if ()
+					// StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-					if (storyWeek == 1)
-						FlxG.save.data.beatWeek1 = true;
+					// if (storyWeek == 1)
+					// 	FlxG.save.data.beatWeek1 = true;
 					
-					if (SONG.validScore)
-					{
-						NGio.unlockMedal(60961);
-						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
-					}
+					// if (SONG.validScore)
+					// {
+					// 	NGio.unlockMedal(60961);
+					// 	Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
+					// }
 
-					_camsave.data.weekUnlocked = StoryMenuState.weekUnlocked;
-					_camsave.flush();
+					// _camsave.data.weekUnlocked = StoryMenuState.weekUnlocked;
+					// _camsave.flush();
 				}
 				else
 				{
