@@ -6,7 +6,10 @@ class KadeEngineData
 {
     public static function initSave()
     {
-        if (FlxG.save.data.newInput == null)
+        if (FlxG.save.data.weekUnlocked == null)
+			FlxG.save.data.weekUnlocked = 7;
+
+		if (FlxG.save.data.newInput == null)
 			FlxG.save.data.newInput = true;
 
 		if (FlxG.save.data.downscroll == null)
@@ -63,6 +66,9 @@ class KadeEngineData
 
 		if (FlxG.save.data.distractions == null)
 			FlxG.save.data.distractions = true;
+		
+		if (FlxG.save.data.stepMania == null)
+			FlxG.save.data.stepMania = false;
 
 		if (FlxG.save.data.flashing == null)
 			FlxG.save.data.flashing = true;
@@ -103,6 +109,9 @@ class KadeEngineData
 		if (FlxG.save.data.beatWeek1 == true)
 			StoryMenuState.weekUnlocked[1] = true;
 		
+		if (FlxG.save.data.cacheImages == null)
+			FlxG.save.data.cacheImages = false;
+
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		
 		KeyBinds.gamepad = gamepad != null;

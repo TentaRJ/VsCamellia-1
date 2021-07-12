@@ -75,3 +75,9 @@ Finally, we are ready to build.
 
 
 <img src="assets/camelliaweek/images/death.png" alt="we do a little damage" width="84"/>
+
+### Shoutouts
+- [GWebDev](https://github.com/GrowtopiaFli) - Video Code
+- [Rozebud](https://github.com/ThatRozebudDude) - Ideas (that I stole)
+- [Puyo](https://github.com/daniel11420) - Setting up appveyor and a lot of other help
+- [Smokey](https://twitter.com/Smokey_5_) - telling me that I should do the tricky asset loading
