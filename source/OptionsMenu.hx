@@ -1,6 +1,5 @@
 package;
 
-import openfl.events.DatagramSocketDataEvent;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
