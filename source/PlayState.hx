@@ -3397,6 +3397,7 @@ class PlayState extends MusicBeatState
 		if (FlxG.save.data.accuracyMod == 1)
 			totalNotesHit += wife;
 
+
 		var daRating = daNote.rating;
 
 		switch (daRating)
