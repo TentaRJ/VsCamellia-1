@@ -771,6 +771,9 @@ class DamageMode extends Option
 
 		if (_camsave.data.damagemode > 95)
 			_camsave.data.damagemode = 95;
+
+		trace(_camsave.data.damagemode);
+
 		return true;
 	}
 
@@ -786,6 +789,8 @@ class DamageMode extends Option
 
 		if (_camsave.data.damagemode > 95)
 			_camsave.data.damagemode = 95;
+		
+		trace(_camsave.data.damagemode);
 
 		return true;
 	}

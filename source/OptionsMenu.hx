@@ -27,8 +27,8 @@ class OptionsMenu extends MusicBeatState
 
 	var options:Array<OptionCategory> = [
 		new OptionCategory("Modifiers", [
-			new CMode("Play the harder charts as Camellia!"),
-			new DamageMode("Adds a chance for damage notes to appear. It's random! CURRENTLY IN TESTING, you have been warned!")
+			new CMode("Play the harder charts as Camellia!")
+			// new DamageMode("Adds a chance for damage notes to appear. It's random! CURRENTLY IN TESTING, you have been warned!")
 		]),
 		new OptionCategory("Gameplay", [
 			new DFJKOption(controls),

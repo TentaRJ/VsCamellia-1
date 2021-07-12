@@ -359,7 +359,7 @@ class FreeplayState extends MusicBeatState
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
 		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
-		else{diffCalcText.text = 'RATING: YIKES ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
+		else{diffCalcText.text = 'RATING: YIKES';}
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 

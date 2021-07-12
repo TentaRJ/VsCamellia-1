@@ -3313,7 +3313,7 @@ class PlayState extends MusicBeatState
 		{
 			if (isStoryMode)
 			{
-				if(SONG.song.toLowerCase() == 'why-do-you-hate-me'){_camsave.data.ghostUnlock = true;}
+				if(SONG.song.toLowerCase() == 'why-do-you-hate-me'){trace(_camsave.data.ghostUnlock);_camsave.data.ghostUnlock = true;_camsave.flush();trace(_camsave.data.ghostUnlock);}
 
 				campaignScore += Math.round(songScore);
 

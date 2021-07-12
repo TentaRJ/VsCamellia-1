@@ -21,6 +21,8 @@ import lime.app.Application;
 import Discord.DiscordClient;
 #end
 
+import TitleState._camsave;
+
 using StringTools;
 
 class MainMenuState extends MusicBeatState
@@ -136,7 +138,7 @@ class MainMenuState extends MusicBeatState
 		stage.setGraphicSize(Std.int(stage.width * 0.9));
 		add(stage);
 
-		funnyText = new FlxText(0, -120, 0, "Hi chat!", 64);
+		funnyText = new FlxText(0, -120, 0, "Only a little bit!", 64);
 		funnyText.screenCenter(X);
 		funnyText.visible = false;
 		add(funnyText);
@@ -160,7 +162,7 @@ class MainMenuState extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
-		new FlxTimer().start(2, function(tmr:FlxTimer){if(FlxG.random.bool(100)){FlxTween.tween(funny, {y:-200}, 2.4, {ease:FlxEase.expoInOut});trace("we do a little trolling");funnyText.visible=true;}else{trace("You were spared... for now...");}});
+		new FlxTimer().start(2, function(tmr:FlxTimer){if(FlxG.random.bool(10)){FlxTween.tween(funny, {y:-200}, 2.4, {ease:FlxEase.expoInOut});trace("we do a little trolling");funnyText.visible=true;}else{trace("You were spared... for now...");}});
 
 		var tex = Paths.getSparrowAtlas('FNF_main_menu_assets');
 
@@ -244,6 +246,10 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		#if debug
+		if(FlxG.keys.justPressed.T){trace("Hi Tenta!");_camsave.data.ghostUnlock=true;_camsave.flush();trace(_camsave.data);}
+		#end
+
 		// if(FlxG.keys.justPressed.SIX){FlxG.switchState(new AnimationDebug("camellia"));}
 
 		if (FlxG.sound.music.volume < 0.8)
