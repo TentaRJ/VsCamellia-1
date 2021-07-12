@@ -1949,7 +1949,7 @@ class PlayState extends MusicBeatState
 
 				if(daDeath==false && PlayStateChangeables.damageValue > 0){daDeath = FlxG.random.bool(PlayStateChangeables.damageValue);}
 
-				trace(daDeath);
+				//trace(daDeath);
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, null, null, daDeath);
 
