@@ -121,9 +121,13 @@ class Note extends FlxSprite
 		}
 		else
 		{
+
 			if (PlayState.SONG.noteStyle == null) {
 				switch(PlayState.storyWeek) {case 6: noteTypeCheck = 'pixel';}
 			} else {noteTypeCheck = PlayState.SONG.noteStyle;}
+	
+			if (FlxG.save.data.sm)
+				noteTypeCheck = 'stepmania';
 			
 			switch (noteTypeCheck)
 			{
@@ -191,7 +195,7 @@ class Note extends FlxSprite
 			updateHitbox();
 			antialiasing = true;
 			}
-			
+
 		x += swagWidth * noteData;
 		animation.play(dataColor[noteData] + 'Scroll');
 		originColor = noteData; // The note's origin color will be checked by its sustain notes

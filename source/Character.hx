@@ -46,6 +46,8 @@ class Character extends FlxSprite
 				animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
 				animation.addByPrefix('scared', 'GF FEAR', 24);
 
+				loadOffsetFile(curCharacter);
+
 				playAnim('danceRight');
 			case 'camellia':
 				// DAD ANIMATION LOADING CODE
@@ -86,6 +88,8 @@ class Character extends FlxSprite
 				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
 
 				animation.addByPrefix('scared', 'BF idle shaking', 24);
+
+				loadOffsetFile(curCharacter);
 
 				playAnim('idle');
 
@@ -222,7 +226,7 @@ class Character extends FlxSprite
 
 	public function loadOffsetFile(character:String)
 		{
-			var offset:Array<String> = CoolUtil.coolTextFile(Paths.txt('images/characters/' + character + "Offsets"));
+			var offset:Array<String> = CoolUtil.coolTextFile(Paths.txt('images/characters/' + character + "Offsets", "shared"));
 	
 			for (i in 0...offset.length)
 			{

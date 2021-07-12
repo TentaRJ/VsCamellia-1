@@ -3114,7 +3114,9 @@ class PlayState extends MusicBeatState
 							&& daNote.sustainActive
 							&& daNote.spotInLine != daNote.parent.children.length)
 						{
-							health -= 0.10; // give a health punishment for failing a LN
+							health -= 0.20; // give a health punishment for failing a LN
+							if (daNote.parent.wasGoodHit)
+								misses++;
 							trace("hold fell over at " + daNote.spotInLine);
 							for (i in daNote.parent.children)
 								i.sustainActive = false;
@@ -3377,7 +3379,7 @@ class PlayState extends MusicBeatState
 					totalNotesHit += 0.75;
 			case 'sick':
 				if (health < 2)
-					health += 0.04;
+					health += 0.02;
 				if (FlxG.save.data.accuracyMod == 0)
 					totalNotesHit += 1;
 				sicks++;

@@ -42,6 +42,7 @@ class OptionsMenu extends MusicBeatState
 		new OptionCategory("Appearance", [
 			new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay."),
 			new CamZoomOption("Toggle the camera zoom in-game."),
+			new StepmaniaOption("Toggle the new noteskin"),
 			#if desktop
 			new RainbowFPSOption("Make the FPS Counter Rainbow"),
 			new AccuracyOption("Display accuracy information."),
@@ -91,7 +92,7 @@ class OptionsMenu extends MusicBeatState
 
 		for (i in 0...options.length)
 		{
-			var controlLabel:Alphabet = new Alphabet(0, 30, options[i].getName(), true, false, true);
+			var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false, true);
 			controlLabel.isMenuItem = true;
 			controlLabel.targetY = i;
 			grpControls.add(controlLabel);
@@ -134,7 +135,7 @@ class OptionsMenu extends MusicBeatState
 				grpControls.clear();
 				for (i in 0...options.length)
 				{
-					var controlLabel:Alphabet = new Alphabet(0, 30, options[i].getName(), true, false);
+					var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false);
 					controlLabel.isMenuItem = true;
 					controlLabel.targetY = i;
 					grpControls.add(controlLabel);
@@ -244,7 +245,7 @@ class OptionsMenu extends MusicBeatState
 					grpControls.clear();
 					for (i in 0...currentSelectedCat.getOptions().length)
 						{
-							var controlLabel:Alphabet = new Alphabet(0, 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
+							var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
 							controlLabel.isMenuItem = true;
 							controlLabel.targetY = i;
 							grpControls.add(controlLabel);
