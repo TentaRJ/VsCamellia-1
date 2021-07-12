@@ -3115,8 +3115,6 @@ class PlayState extends MusicBeatState
 							&& daNote.spotInLine != daNote.parent.children.length)
 						{
 							health -= 0.20; // give a health punishment for failing a LN
-							if (daNote.parent.wasGoodHit)
-								misses++;
 							trace("hold fell over at " + daNote.spotInLine);
 							for (i in daNote.parent.children)
 								i.sustainActive = false;
