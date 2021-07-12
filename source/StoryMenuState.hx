@@ -14,6 +14,8 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 
+import TitleState._camsave;
+
 #if windows
 import Discord.DiscordClient;
 #end
@@ -25,40 +27,19 @@ class StoryMenuState extends MusicBeatState
 	var scoreText:FlxText;
 
 	var weekData:Array<Dynamic> = [
-		['Tutorial'],
-		//['Bopeebo', 'Fresh', 'Dad Battle'],
-		//['Spookeez', 'South', "Monster"],
-		//['Pico', 'Philly Nice', "Blammed"],
-		//['Satin Panties', "High", "Milf"],
-		//['Cocoa', 'Eggnog', 'Winter Horrorland'],
-		//['Senpai', 'Roses', 'Thorns'],
 		['First-Town', 'Liquated', 'Why-Do-You-Hate-Me'],
 		['???']	
 	];
 	var curDifficulty:Int = 1;
 
-	public static var weekUnlocked:Array<Bool> = [true, true, false]; //, true, true, true, true, true, true, true];
+	public static var weekUnlocked:Array<Bool> = [true, _camsave.data.ghostUnlock]; //, true, true, true, true, true, true, true];
 
 	var weekCharacters:Array<Dynamic> = [
-		['', 'bf', 'gf'],
-		//['dad', 'bf', 'gf'],
-		//['spooky', 'bf', 'gf'],
-		//['pico', 'bf', 'gf'],
-		//['mom', 'bf', 'gf'],
-		//['parents-christmas', 'bf', 'gf'],
-		//['senpai', 'bf', 'gf'],
 		['camellia', 'bf', 'gf'],
 		['camellia', 'bf', 'gf']
 	];
 
 	var weekNames:Array<String> = [
-		"",
-		//"Daddy Dearest",
-		//"Spooky Month",
-		//"PICO",
-		//"MOMMY MUST MURDER",
-		//"RED SNOW",
-		//"Hating Simulator ft. Moawling",
 		"gamer artist",
 		"???"
 	];
@@ -370,22 +351,28 @@ class StoryMenuState extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
-			curDifficulty = 0;
+		if(!_camsave.data.cmode)
+		{
+		if (curDifficulty < 0){curDifficulty = 2;}
+		if (curDifficulty > 2){curDifficulty = 0;}
+		}
+		else
+		{
+		if (curDifficulty < 3){curDifficulty = 5;}
+		if (curDifficulty > 5){curDifficulty = 3;}
+		}
 
 		sprDifficulty.offset.x = 0;
 
 		switch (curDifficulty)
 		{
-			case 0:
+			case 0|3:
 				sprDifficulty.animation.play('easy');
 				sprDifficulty.offset.x = 20;
-			case 1:
+			case 1|4:
 				sprDifficulty.animation.play('normal');
 				sprDifficulty.offset.x = 70;
-			case 2:
+			case 2|5:
 				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
 		}

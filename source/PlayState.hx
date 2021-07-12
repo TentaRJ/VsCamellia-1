@@ -62,6 +62,9 @@ import lime.utils.Assets;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
+
+import TitleState._camsave;
+
 #if windows
 import Discord.DiscordClient;
 #end
@@ -406,6 +409,20 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('why-do-you-hate-me/dialogue'));
 			case 'ghost':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('ghost/dialogue'));
+		}
+		if(_camsave.data.cmode)
+		{
+			switch(songLowercase)
+			{
+				case 'first-town':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('first-town/dialogue-c'));
+				case 'liquated':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('liquated/dialogue-c'));
+				case 'why-do-you-hate-me':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('why-do-you-hate-me/dialogue-c'));
+				case 'ghost':
+					dialogue = CoolUtil.coolTextFile(Paths.txt('ghost/dialogue-c'));
+			}
 		}
 
 		// defaults if no stage was found in chart
@@ -809,6 +826,8 @@ class PlayState extends MusicBeatState
 					stage.antialiasing = true;
 					stage.active = false;
 					add(stage);
+
+					if(_camsave.data.cmode){bg.flipX=true;wall.flipX=true;stage.flipX=true;}
 				default:
 					{
 						defaultCamZoom = 0.5;
@@ -874,7 +893,10 @@ class PlayState extends MusicBeatState
 		gf = new Character(400, 130, curGf);
 		gf.scrollFactor.set(0.95, 0.95);
 
-		dad = new Character(100, 100, SONG.player2);
+		dad = new Character(100, 100, SONG.player2, false);
+
+		// var dadTrail = new FlxTrail(dad, null, 36, 12, 0.4, 0.069);
+		// add(dadTrail);
 
 		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
 
@@ -921,7 +943,12 @@ class PlayState extends MusicBeatState
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 		}
 
+		if(_camsave.data.cmode){dad.y = 525; dad.x -= 200;}
+		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
+
+		// var bfTrail = new FlxTrail(boyfriend, null, 36, 12, 0.4, 0.069);
+		// add(bfTrail);
 
 		// REPOSITIONING PER STAGE
 		switch (curStage)
@@ -966,6 +993,8 @@ class PlayState extends MusicBeatState
 				gf.y += 300;
 		}
 
+		if(_camsave.data.cmode){boyfriend.y = 91; boyfriend.x -= 200;}
+
 		if (!PlayStateChangeables.Optimize)
 		{
 			add(gf);
@@ -1003,6 +1032,9 @@ class PlayState extends MusicBeatState
 				glow_cam.antialiasing = true;
 				glow_cam.active = false;
 				add(glow_cam);
+
+				if(_camsave.data.cmode){glow_bf.flipX=true;glow_cam.flipX=true;}
+				
 			}
 		}
 
@@ -1056,7 +1088,7 @@ class PlayState extends MusicBeatState
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 
-		camFollow.setPosition(camPos.x, camPos.y);
+		camFollow.setPosition(726, 433);
 
 		if (prevCamFollow != null)
 		{
@@ -1114,14 +1146,9 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 
 		// Add Kade Engine watermark
-		kadeEngineWatermark = new FlxText(4, healthBarBG.y
-			+ 50, 0,
-			SONG.song
-			+ " "
-			+ (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy")
-			+ (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""),
-			16);
-		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
+		if(_camsave.data.cmode){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE";}
+		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
 
@@ -1469,7 +1496,7 @@ class PlayState extends MusicBeatState
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
-			dad.playAnim('idle');
+			dad.playAnim('idle', true);
 			gf.dance();
 			boyfriend.playAnim('idle');
 
@@ -1816,9 +1843,9 @@ class PlayState extends MusicBeatState
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
 
-		FlxG.watch.addQuick("Hi Kade", "-Tenta");
+		// FlxG.watch.addQuick("Hi Kade", "-Tenta");
 
-		FlxG.watch.addQuick("bpm", songData.bpm);
+		// FlxG.watch.addQuick("bpm", songData.bpm);
 
 		curSong = songData.song;
 
@@ -1875,9 +1902,15 @@ class PlayState extends MusicBeatState
 		}
 		#end
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
+
+		trace(_camsave.data.cmode);
+
 		for (section in noteData)
 		{
 			var coolSection:Int = Std.int(section.lengthInSteps / 4);
+
+			PlayStateChangeables.damageValue = _camsave.data.damagemode;
+			trace(PlayStateChangeables.damageValue + "%");
 
 			for (songNotes in section.sectionNotes)
 			{
@@ -1893,7 +1926,9 @@ class PlayState extends MusicBeatState
 					daStrumTime = 0;
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 
-				var gottaHitNote:Bool = section.mustHitSection;
+				var gottaHitNote:Bool;
+				if(_camsave.data.cmode){gottaHitNote = false;}
+				else{gottaHitNote = true;}
 
 				if (songNotes[1] > 3)
 				{
@@ -1911,6 +1946,10 @@ class PlayState extends MusicBeatState
 				{
 					daDeath = false;
 				}
+
+				if(daDeath==false && PlayStateChangeables.damageValue > 0){daDeath = FlxG.random.bool(PlayStateChangeables.damageValue);}
+
+				trace(daDeath);
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, null, null, daDeath);
 
@@ -1934,7 +1973,7 @@ class PlayState extends MusicBeatState
 				{
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
-					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true);
+					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true, null, false);
 					sustainNote.scrollFactor.set();
 					unspawnNotes.push(sustainNote);
 
@@ -2683,6 +2722,9 @@ class PlayState extends MusicBeatState
 				luaModchart.setVar("mustHit", PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
 			#end
 
+			FlxG.watch.addQuick("cam", camFollow.getPosition());
+
+
 			if (camFollow.x != dad.getMidpoint().x + 150 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 			{
 				var offsetX = 0;
@@ -2694,7 +2736,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(dad.getMidpoint().x + 150 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+				camFollow.setPosition(726, 433);
 				#if windows
 				if (luaModchart != null)
 					luaModchart.executeState('playerTwoTurn', []);
@@ -2731,7 +2773,9 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
+
+				// This just makes it so the camera doesnt change lmao
+				camFollow.setPosition(726, 433);
 
 				#if windows
 				if (luaModchart != null)
@@ -3269,6 +3313,8 @@ class PlayState extends MusicBeatState
 		{
 			if (isStoryMode)
 			{
+				if(SONG.song.toLowerCase() == 'why-do-you-hate-me'){_camsave.data.ghostUnlock = true;}
+
 				campaignScore += Math.round(songScore);
 
 				storyPlaylist.remove(storyPlaylist[0]);
@@ -3298,20 +3344,20 @@ class PlayState extends MusicBeatState
 					}
 					#end
 
-					// if ()
-					StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
+					// // if ()
+					// StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-					if (storyWeek == 1)
-						FlxG.save.data.beatWeek1 = true;
+					// if (storyWeek == 1)
+					// 	FlxG.save.data.beatWeek1 = true;
+					
+					// if (SONG.validScore)
+					// {
+					// 	NGio.unlockMedal(60961);
+					// 	Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
+					// }
 
-					if (SONG.validScore)
-					{
-						NGio.unlockMedal(60961);
-						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
-					}
-
-					FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
-					FlxG.save.flush();
+					// _camsave.data.weekUnlocked = StoryMenuState.weekUnlocked;
+					// _camsave.flush();
 				}
 				else
 				{

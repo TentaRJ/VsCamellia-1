@@ -12,6 +12,8 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 
+import TitleState._camsave;
+
 
 #if windows
 import Discord.DiscordClient;
@@ -58,7 +60,7 @@ class FreeplayState extends MusicBeatState
 	{
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
-		if(StoryMenuState.weekUnlocked[2]){initSonglist.push("GHOST:camellia:1");}
+		if(_camsave.data.ghostUnlock){initSonglist.push("GHOST:camellia:1");}
 
 		//var diffList = "";
 
@@ -77,6 +79,9 @@ class FreeplayState extends MusicBeatState
 			FreeplayState.loadDiff(0,format,meta.songName,diffs);
 			FreeplayState.loadDiff(1,format,meta.songName,diffs);
 			FreeplayState.loadDiff(2,format,meta.songName,diffs);
+			FreeplayState.loadDiff(3,format,meta.songName,diffs);
+			FreeplayState.loadDiff(4,format,meta.songName,diffs);
+			FreeplayState.loadDiff(5,format,meta.songName,diffs);
 			FreeplayState.songData.set(meta.songName,diffs);
 			trace('loaded diffs for ' + meta.songName);
 			//diffList += meta.songName + "\nEasy: " + DiffCalc.CalculateDiff(songData.get(meta.songName)[0]) + "\nNormal: " + DiffCalc.CalculateDiff(songData.get(meta.songName)[1]) + "\nHard: " + DiffCalc.CalculateDiff(songData.get(meta.songName)[2]) + "\n\n";
@@ -307,12 +312,13 @@ class FreeplayState extends MusicBeatState
 			var hmm;
 			try
 			{
-				hmm = songData.get(songs[curSelected].songName)[curDifficulty];
-				if (hmm == null)
-					return;
+				if(_camsave.data.cmode){hmm = songData.get(songs[curSelected].songName)[curDifficulty];}
+				else{hmm = songData.get(songs[curSelected].songName)[curDifficulty];}
+				if (hmm == null){trace("no");return;}
 			}
 			catch(ex)
 			{
+				trace("no");
 				return;
 			}
 
@@ -330,10 +336,16 @@ class FreeplayState extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
-			curDifficulty = 0;
+		if(!_camsave.data.cmode)
+		{
+		if (curDifficulty < 0){curDifficulty = 2;}
+		if (curDifficulty > 2){curDifficulty = 0;}
+		}
+		else
+		{
+		if (curDifficulty < 3){curDifficulty = 5;}
+		if (curDifficulty > 5){curDifficulty = 3;}
+		}
 
 		// adjusting the highscore song name to be compatible (changeDiff)
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
@@ -346,7 +358,8 @@ class FreeplayState extends MusicBeatState
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
+		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
+		else{diffCalcText.text = 'RATING: YIKES ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 
@@ -382,8 +395,8 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
-		
+		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
+		else{diffCalcText.text = 'RATING: YIKES';}
 		#if PRELOAD_ALL
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end

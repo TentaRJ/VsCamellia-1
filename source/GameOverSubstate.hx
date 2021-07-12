@@ -6,6 +6,9 @@ import flixel.FlxSubState;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.text.FlxText;
+
+import TitleState._camsave;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -13,6 +16,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	var camFollow:FlxObject;
 
 	var stageSuffix:String = "";
+
+	var chatText:FlxText;
 
 	public function new(x:Float, y:Float)
 	{
@@ -23,6 +28,8 @@ class GameOverSubstate extends MusicBeatSubstate
 			case 'bf-pixel':
 				stageSuffix = '-pixel';
 				daBf = 'bf-pixel-dead';
+			// case 'camellia':
+			// 	daBf = "cam-dead";
 			default:
 				daBf = 'bf';
 		}
@@ -33,6 +40,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		bf = new Boyfriend(x, y, daBf);
 		add(bf);
+
+		chatText=new FlxText(x, y+150, 0, "I'm working on it...", 64);
+		if(_camsave.data.cmode){add(chatText);}
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
 		add(camFollow);

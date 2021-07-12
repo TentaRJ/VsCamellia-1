@@ -58,14 +58,51 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Camellia_Right', 24, false);
 				animation.addByPrefix('singDOWN', 'Camellia_Down', 24, false);
 				animation.addByPrefix('singLEFT', 'Camellia_Left', 24, false);
+				animation.addByPrefix('singUPmiss', 'Camellia_Up', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'Camellia_Right', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'Camellia_Down', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'Camellia_Left', 24, false);
 
 				addOffset('idle');
+
+				if(!isPlayer)
+				{
 				addOffset("singUP", 4, 75);
 				addOffset("singRIGHT", 0, -3);
 				addOffset("singLEFT", 80, 16);
 				addOffset("singDOWN", 0, 78);
+				addOffset("singUPmiss", 4, 75);
+				addOffset("singRIGHTmiss", 0, -3);
+				addOffset("singLEFTmiss", 80, 16);
+				addOffset("singDOWNmiss", 0, 78);
+				}
+				else
+				{
+				addOffset("singUP", 0, 86);
+				addOffset("singRIGHT", -3, -3);
+				addOffset("singLEFT", 0, 18);
+				addOffset("singDOWN", 0, 83);
+				addOffset("singUPmiss", 0, 86);
+				addOffset("singRIGHTmiss", -3, -3);
+				addOffset("singLEFTmiss", 0, 18);
+				addOffset("singDOWNmiss", 0, 93);
+				}
 				
 				playAnim('idle');
+			case 'cam-dead':
+				tex = Paths.getSparrowAtlas('characters/camellia');
+				frames=tex;
+				animation.addByPrefix('firstDeath', "Camellia_Right", 24, false);
+				animation.addByPrefix('deathLoop', "Camellia_Idle", 24, true);
+				animation.addByPrefix('deathConfirm', "Cammellia_Up", 24, false);
+				animation.play('firstDeath');
+
+				addOffset('firstDeath');
+				addOffset('deathLoop', -37);
+				addOffset('deathConfirm', -37);
+
+				playAnim('firstDeath');
+
 			case 'bf':
 				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND','shared');
 				frames = tex;
@@ -125,7 +162,7 @@ class Character extends FlxSprite
 	
 	override function update(elapsed:Float)
 	{
-		if (!curCharacter.startsWith('bf')/*||!curCharacter.startsWith('camellia')*/)
+		if (!isPlayer)
 		{
 			if (animation.curAnim.name.startsWith('sing'))
 			{

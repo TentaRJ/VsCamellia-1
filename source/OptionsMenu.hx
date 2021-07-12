@@ -1,5 +1,6 @@
 package;
 
+import openfl.events.DatagramSocketDataEvent;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -25,6 +26,10 @@ class OptionsMenu extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
+		new OptionCategory("Modifiers", [
+			new CMode("Play the harder charts as Camellia!"),
+			new DamageMode("Adds a chance for damage notes to appear. It's random! CURRENTLY IN TESTING, you have been warned!")
+		]),
 		new OptionCategory("Gameplay", [
 			new DFJKOption(controls),
 			new DownscrollOption("Change the layout of the strumline."),
@@ -92,7 +97,7 @@ class OptionsMenu extends MusicBeatState
 
 		for (i in 0...options.length)
 		{
-			var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false, true);
+			var controlLabel:Alphabet = new Alphabet(0, 30, options[i].getName(), true, false, true);
 			controlLabel.isMenuItem = true;
 			controlLabel.targetY = i;
 			grpControls.add(controlLabel);
@@ -135,7 +140,7 @@ class OptionsMenu extends MusicBeatState
 				grpControls.clear();
 				for (i in 0...options.length)
 				{
-					var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false);
+					var controlLabel:Alphabet = new Alphabet(0, 30, options[i].getName(), true, false);
 					controlLabel.isMenuItem = true;
 					controlLabel.targetY = i;
 					grpControls.add(controlLabel);
@@ -245,7 +250,7 @@ class OptionsMenu extends MusicBeatState
 					grpControls.clear();
 					for (i in 0...currentSelectedCat.getOptions().length)
 						{
-							var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
+							var controlLabel:Alphabet = new Alphabet(0, 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
 							controlLabel.isMenuItem = true;
 							controlLabel.targetY = i;
 							grpControls.add(controlLabel);
