@@ -2210,7 +2210,11 @@ class PlayState extends MusicBeatState
 
 			if (PlayStateChangeables.Optimize)
 				babyArrow.x -= 320;
+<<<<<<< Updated upstream
 
+=======
+			
+>>>>>>> Stashed changes
 			cpuStrums.forEach(function(spr:FlxSprite)
 			{
 				spr.centerOffsets(); // CPU arrows start out slightly off-center
