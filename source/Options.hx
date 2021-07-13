@@ -744,6 +744,26 @@ class CMode extends Option
 	}
 }
 
+class Modcharts extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		_camsave.data.modcharts = !_camsave.data.modcharts;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Modcharts " + (_camsave.data.modcharts ? "on" : "off");
+	}
+}
+
 class DamageMode extends Option
 {
 	public function new(desc:String)

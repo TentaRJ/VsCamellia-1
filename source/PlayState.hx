@@ -242,6 +242,7 @@ class PlayState extends MusicBeatState
 	public static var highestCombo:Int = 0;
 
 	private var executeModchart = false;
+	private var executeModchartC = false;
 
 	// API stuff
 
@@ -297,15 +298,23 @@ class PlayState extends MusicBeatState
 		removedVideo = false;
 
 		#if windows
-		executeModchart = FileSystem.exists(Paths.lua(songLowercase + "/modchart"));
-		if (executeModchart)
+		if (_camsave.data.modcharts)
+			if (!_camsave.data.cmode)
+				executeModchart = FileSystem.exists(Paths.lua(songLowercase + "/modchart"));
+			else 
+				executeModchartC = FileSystem.exists(Paths.lua(songLowercase + "/modchart-c"));
+
+		if (executeModchart && executeModchartC)
 			PlayStateChangeables.Optimize = false;
 		#end
 		#if !cpp
 		executeModchart = false; // FORCE disable for non cpp targets
+		executeModchartC = false;
 		#end
-
-		trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
+		if (executeModchart)
+			trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
+		if (executeModchartC)
+			trace('Mod chart: ' + executeModchartC + " - " + Paths.lua(songLowercase + "/modchart-c"));
 
 		#if windows
 		// Making difficulty text for Discord Rich Presence.
@@ -1147,7 +1156,9 @@ class PlayState extends MusicBeatState
 
 		// Add Kade Engine watermark
 		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
-		if(_camsave.data.cmode){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE";}
+		if (_camsave.data.cmode && _camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE" + " w/ Modcharts";}
+		else if(_camsave.data.cmode && !_camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE";}
+		else if(!_camsave.data.cmode && _camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " w/ Modcharts";}
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
@@ -1480,7 +1491,7 @@ class PlayState extends MusicBeatState
 			case 'philly-nice':
 				songLowercase = 'philly';
 		}
-		if (executeModchart)
+		if (executeModchart && executeModchartC)
 		{
 			luaModchart = ModchartState.createModchartState();
 			luaModchart.executeState('start', [songLowercase]);
@@ -1949,7 +1960,7 @@ class PlayState extends MusicBeatState
 
 				if(daDeath==false && PlayStateChangeables.damageValue > 0){daDeath = FlxG.random.bool(PlayStateChangeables.damageValue);}
 
-				trace(daDeath);
+				//trace(daDeath);
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, null, null, daDeath);
 
@@ -2205,12 +2216,16 @@ class PlayState extends MusicBeatState
 			}
 
 			babyArrow.animation.play('static');
-			babyArrow.x += 50;
+			if (_camsave.data.modcharts)
+				babyArrow.x += 90;
+			else 
+				babyArrow.x += 50;
+			
 			babyArrow.x += ((FlxG.width / 2) * player);
 
 			if (PlayStateChangeables.Optimize)
 				babyArrow.x -= 275;
-
+			
 			cpuStrums.forEach(function(spr:FlxSprite)
 			{
 				spr.centerOffsets(); // CPU arrows start out slightly off-center
@@ -2356,7 +2371,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if (executeModchart && luaModchart != null && songStarted)
+		if (executeModchart && executeModchartC && luaModchart != null && songStarted)
 		{
 			luaModchart.setVar('songPos', Conductor.songPosition);
 			luaModchart.setVar('hudZoom', camHUD.zoom);
@@ -4401,7 +4416,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if (executeModchart && luaModchart != null)
+		if (executeModchart && executeModchartC && luaModchart != null)
 		{
 			luaModchart.setVar('curStep', curStep);
 			luaModchart.executeState('stepHit', [curStep]);
@@ -4447,7 +4462,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if (executeModchart && luaModchart != null)
+		if (executeModchart && executeModchartC && luaModchart != null)
 		{
 			luaModchart.setVar('curBeat', curBeat);
 			luaModchart.executeState('beatHit', [curBeat]);
