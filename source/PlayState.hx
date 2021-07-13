@@ -304,7 +304,7 @@ class PlayState extends MusicBeatState
 			else 
 				executeModchartC = FileSystem.exists(Paths.lua(songLowercase + "/modchart-c"));
 
-		if (executeModchart && executeModchartC)
+		if (executeModchart || executeModchartC)
 			PlayStateChangeables.Optimize = false;
 		#end
 		#if !cpp
@@ -313,6 +313,7 @@ class PlayState extends MusicBeatState
 		#end
 		if (executeModchart)
 			trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
+
 		if (executeModchartC)
 			trace('Mod chart: ' + executeModchartC + " - " + Paths.lua(songLowercase + "/modchart-c"));
 
@@ -1491,7 +1492,7 @@ class PlayState extends MusicBeatState
 			case 'philly-nice':
 				songLowercase = 'philly';
 		}
-		if (executeModchart && executeModchartC)
+		if (executeModchart || executeModchartC)
 		{
 			luaModchart = ModchartState.createModchartState();
 			luaModchart.executeState('start', [songLowercase]);
@@ -2371,7 +2372,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if (executeModchart && executeModchartC && luaModchart != null && songStarted)
+		if ((executeModchart || executeModchartC) && luaModchart != null && songStarted)
 		{
 			luaModchart.setVar('songPos', Conductor.songPosition);
 			luaModchart.setVar('hudZoom', camHUD.zoom);
@@ -4416,7 +4417,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if (executeModchart && executeModchartC && luaModchart != null)
+		if ((executeModchart || executeModchartC) && luaModchart != null)
 		{
 			luaModchart.setVar('curStep', curStep);
 			luaModchart.executeState('stepHit', [curStep]);
@@ -4462,7 +4463,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if (executeModchart && executeModchartC && luaModchart != null)
+		if ((executeModchart || executeModchartC) && luaModchart != null)
 		{
 			luaModchart.setVar('curBeat', curBeat);
 			luaModchart.executeState('beatHit', [curBeat]);
