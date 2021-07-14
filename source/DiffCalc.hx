@@ -2,6 +2,8 @@ import openfl.system.System;
 import flixel.math.FlxMath;
 import Song.SwagSong;
 
+import TitleState._camsave;
+
 class SmallNote // basically Note.hx but small as fuck
 {
     public var strumTime:Float;
@@ -42,6 +44,9 @@ class DiffCalc
 
 				if (ii[1] > 3)
 					gottaHitNote = !i.mustHitSection;
+
+                if(_camsave.data.cmode)
+                    gottaHitNote = !gottaHitNote;
 
                 if (gottaHitNote)
                     cleanedNotes.push(new SmallNote(ii[0],Math.floor(Math.abs(ii[1]))));

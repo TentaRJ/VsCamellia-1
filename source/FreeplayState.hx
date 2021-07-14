@@ -33,6 +33,7 @@ class FreeplayState extends MusicBeatState
 	var comboText:FlxText;
 	var diffText:FlxText;
 	var diffCalcText:FlxText;
+	var charterText:FlxText;
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 	var combo:String = '';
@@ -153,6 +154,11 @@ class FreeplayState extends MusicBeatState
 		diffCalcText = new FlxText(scoreText.x, scoreText.y + 66, 0, "", 24);
 		diffCalcText.font = scoreText.font;
 		add(diffCalcText);
+
+		charterText = new FlxText(scoreText.x, scoreText.y + 96, 0, "", 24);
+		charterText.font = scoreText.font;
+		//add(charterText);
+
 
 		comboText = new FlxText(diffText.x + 100, diffText.y, 0, "", 24);
 		comboText.font = diffText.font;
@@ -358,8 +364,9 @@ class FreeplayState extends MusicBeatState
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
-		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
-		else{diffCalcText.text = 'RATING: YIKES';}
+		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
+		charterText.text = 'CHARTER: ur mom';
+		//else{diffCalcText.text = 'RATING: YIKES';}
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 
@@ -395,8 +402,10 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
-		if(!_camsave.data.cmode){diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';}
-		else{diffCalcText.text = 'RATING: YIKES';}
+		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
+		charterText.text = 'CHARTER: ur mom';
+
+		//else{diffCalcText.text = 'RATING: YIKES';}
 		#if PRELOAD_ALL
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end

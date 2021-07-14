@@ -78,6 +78,7 @@ class ChartingState extends MusicBeatState
 	var _song:SwagSong;
 
 	var typingShit:FlxInputText;
+	var charterShit:FlxInputText;
 	/*
 	 * WILL BE THE CURRENT / LAST PLACED NOTE
 	**/
@@ -126,6 +127,7 @@ class ChartingState extends MusicBeatState
 				speed: 1,
 				validScore: false,
 				warning: false,
+				charter: '',
 			};
 		}
 
@@ -309,18 +311,21 @@ class ChartingState extends MusicBeatState
 
 		var stepperSongVolLabel = new FlxText(74, 110, 'Instrumental Volume');
 
+		var charterLabel = new FlxText(10, 230, 'Charter');
+		var UI_charter = new FlxUIInputText(10, 245, 100, _song.charter, 8);
+		charterShit = UI_charter;
 		
-		var shiftNoteDialLabel = new FlxText(10, 245, 'Shift Note FWD by (Section)');
-		var stepperShiftNoteDial:FlxUINumericStepper = new FlxUINumericStepper(10, 260, 1, 0, -1000, 1000, 0);
+		var shiftNoteDialLabel = new FlxText(10, 265, 'Shift Note FWD by (Section)');
+		var stepperShiftNoteDial:FlxUINumericStepper = new FlxUINumericStepper(10, 280, 1, 0, -1000, 1000, 0);
 		stepperShiftNoteDial.name = 'song_shiftnote';
-		var shiftNoteDialLabel2 = new FlxText(10, 275, 'Shift Note FWD by (Step)');
-		var stepperShiftNoteDialstep:FlxUINumericStepper = new FlxUINumericStepper(10, 290, 1, 0, -1000, 1000, 0);
+		var shiftNoteDialLabel2 = new FlxText(10, 295, 'Shift Note FWD by (Step)');
+		var stepperShiftNoteDialstep:FlxUINumericStepper = new FlxUINumericStepper(10, 310, 1, 0, -1000, 1000, 0);
 		stepperShiftNoteDialstep.name = 'song_shiftnotems';
-		var shiftNoteDialLabel3 = new FlxText(10, 305, 'Shift Note FWD by (ms)');
-		var stepperShiftNoteDialms:FlxUINumericStepper = new FlxUINumericStepper(10, 320, 1, 0, -1000, 1000, 2);
+		var shiftNoteDialLabel3 = new FlxText(10, 325, 'Shift Note FWD by (ms)');
+		var stepperShiftNoteDialms:FlxUINumericStepper = new FlxUINumericStepper(10, 340, 1, 0, -1000, 1000, 2);
 		stepperShiftNoteDialms.name = 'song_shiftnotems';
 
-		var shiftNoteButton:FlxButton = new FlxButton(10, 335, "Shift", function()
+		var shiftNoteButton:FlxButton = new FlxButton(10, 355, "Shift", function()
 		{
 			shiftNotes(Std.int(stepperShiftNoteDial.value),Std.int(stepperShiftNoteDialstep.value),Std.int(stepperShiftNoteDialms.value));
 		});
@@ -373,6 +378,8 @@ class ChartingState extends MusicBeatState
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
+		tab_group_song.add(UI_charter);
+		tab_group_song.add(charterLabel);
 		tab_group_song.add(restart);
 		tab_group_song.add(check_voices);
 		tab_group_song.add(check_warning);
