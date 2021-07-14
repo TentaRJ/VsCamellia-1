@@ -22,11 +22,11 @@ class GameplayCustomizeState extends MusicBeatState
     var defaultX:Float = FlxG.width * 0.55 - 135;
     var defaultY:Float = FlxG.height / 2 - 50;
 
-    var background:FlxSprite;
-    var curt:FlxSprite;
-    var front:FlxSprite;
+    var background:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback','shared'));
+    var curt:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains','shared'));
+    var front:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront','shared'));
 
-    var sick:FlxSprite;
+    var sick:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sick','shared'));
 
     var text:FlxText;
     var blackBorder:FlxSprite;
@@ -45,13 +45,6 @@ class GameplayCustomizeState extends MusicBeatState
 		DiscordClient.changePresence("Customizing Gameplay", null);
 		#end
 
-        sick = new FlxSprite().loadGraphic(Paths.image('sick','shared'));
-        sick.scrollFactor.set();
-        background = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback','shared'));
-        curt = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains','shared'));
-        front = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront','shared'));
-
-		Conductor.changeBPM(102);
 		persistentUpdate = true;
 
         super.create();
@@ -70,7 +63,7 @@ class GameplayCustomizeState extends MusicBeatState
 
 		var camFollow = new FlxObject(0, 0, 1, 1);
 
-		dad = new Character(100, 100, 'dad');
+		dad = new Character(100, 100, 'camellia');
 
         bf = new Boyfriend(770, 450, 'bf');
 
@@ -134,6 +127,7 @@ class GameplayCustomizeState extends MusicBeatState
         sick.x = FlxG.save.data.changedHitX;
         sick.y = FlxG.save.data.changedHitY;
 
+        sick.updateHitbox();
 
         FlxG.mouse.visible = true;
 
@@ -151,7 +145,7 @@ class GameplayCustomizeState extends MusicBeatState
         if (FlxG.mouse.overlaps(sick) && FlxG.mouse.pressed)
         {
             sick.x = FlxG.mouse.x - sick.width / 2;
-            sick.y = FlxG.mouse.y - sick.height;
+            sick.y = FlxG.mouse.y - sick.height / 2;
         }
 
         for (i in playerStrums)
