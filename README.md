@@ -1,4 +1,4 @@
-# The repository for the Vs Cameilla mod
+# The repository for the Vs Camellia mod
 
 <img src="assets/preload/images/KadeEngineLogo.png" alt="CamelliaLogo" width="40%"/>
 
