@@ -1,4 +1,4 @@
-# The repository for the Vs Cameilla mod
+# The repository for the Vs Camellia mod
 
 <img src="assets/preload/images/KadeEngineLogo.png" alt="CamelliaLogo" width="40%"/>
 
@@ -32,7 +32,7 @@ You need to have the tools to compile like any other version of Kade Engine.
 	 - `haxelib git faxe https://github.com/uhrobots/faxe`
 	 - `haxelib git polymod https://github.com/larsiusprime/polymod.git`
 	 - `haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc`
-	 - `lime rebuild extension-webm [windoes/mac/linux]` *dependent on which machine you are compiling on*
+	 - `lime rebuild extension-webm [windows/mac/linux]` *dependent on which machine you are compiling on*
 
 ### Windows-only dependencies (only for building *to* Windows. Building html5 on Windows does not require this)
 If you are planning to build for Windows, you also need to install **Visual Studio 2019**. While installing it, *don't click on any of the options to install workloads*. Instead, go to the **individual components** tab and choose the following:
@@ -81,3 +81,4 @@ Finally, we are ready to build.
 - [Rozebud](https://github.com/ThatRozebudDude) - Ideas (that I stole)
 - [Puyo](https://github.com/daniel11420) - Setting up appveyor and a lot of other help
 - [Smokey](https://twitter.com/Smokey_5_) - telling me that I should do the tricky asset loading
+- [cval](https://twitter.com/cval_brown/status/1411082105379975172) - Inspiration for C-Mode
