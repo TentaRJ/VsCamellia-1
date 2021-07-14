@@ -241,8 +241,8 @@ class PlayState extends MusicBeatState
 
 	public static var highestCombo:Int = 0;
 
-	public var executeModchart = false;
-	public var executeModchartC = false;
+	private var executeModchart = false;
+	private var executeModchartC = false;
 
 	// API stuff
 
