@@ -241,8 +241,8 @@ class PlayState extends MusicBeatState
 
 	public static var highestCombo:Int = 0;
 
-	private var executeModchart = false;
-	private var executeModchartC = false;
+	public var executeModchart = false;
+	public var executeModchartC = false;
 
 	// API stuff
 
@@ -1157,9 +1157,10 @@ class PlayState extends MusicBeatState
 
 		// Add Kade Engine watermark
 		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
-		if (_camsave.data.cmode && _camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE" + " w/ Modcharts";}
-		else if(_camsave.data.cmode && !_camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE";}
-		else if(!_camsave.data.cmode && _camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " w/ Modcharts";}
+		if (_camsave.data.cmode && _camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE" + " w/ Modcharts" + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : "");}
+		else if(_camsave.data.cmode && !_camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 5 ? "Hard" : storyDifficulty == 4 ? "Normal" : "Easy") + " C-MODE" + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : "");}
+		else if(!_camsave.data.cmode && _camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " w/ Modcharts" + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : "");}
+		else if(!_camsave.data.cmode && _camsave.data.modcharts){kadeEngineWatermark.text = SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy");}
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
