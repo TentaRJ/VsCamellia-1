@@ -122,7 +122,7 @@ function stepHit (step)
     end
 -- this moving arrow shit 
     if step == 640 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -315,7 +315,7 @@ function stepHit (step)
     end
 -- moving arrow shit part 2
     if step == 704 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -521,7 +521,7 @@ function stepHit (step)
     end
 -- moving arrow shit part 3, there's a lot going on is there? 
     if step == 768 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         for i = 4, 7 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] - 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] + 80, getActorAngle(i), 1.3, i)
@@ -700,7 +700,7 @@ function stepHit (step)
         end
     end
     if step == 832 or step == 896 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
     end
 --end 
     if step == 894 then 
@@ -758,10 +758,10 @@ function stepHit (step)
     end
 -- diagonal arrows in chorus 
     if step == 1024 or step == 1056 or step == 1088 or step == 1120 or step == 1152 or step == 1184 or step == 1224 or step == 1248 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
     end
     if step == 1280 or step == 1312 or step == 1344 or step == 1376 then 
-        setCamZoom(2.5)
+        setCamZoom(2)
     end
     if step == 1052 then 
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 50,getActorAngle(0), 0.42, i)
@@ -1075,7 +1075,7 @@ function stepHit (step)
 -- end
 -- beginning part again 
     if step == 1408 or step == 1440 or step == 1472 or step == 1504 or step == 1536 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
     end
     if step == 1404 then 
         for i = 0, 3 do 
@@ -1143,7 +1143,7 @@ function stepHit (step)
     end
 -- after the beginning part again askjda
     if step == 1664 then  
-        setCamZoom(2)
+        setCamZoom(1.5)
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -1336,7 +1336,7 @@ function stepHit (step)
     end
 -- moving arrows again part 5 i think 
     if step == 1728 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -1542,7 +1542,7 @@ function stepHit (step)
     end
 -- ANOTHER ARROW MOVING SHIT! part 6
     if step == 1792 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         for i = 4, 7 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] - 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] + 80, getActorAngle(i), 1.3, i)
@@ -1721,7 +1721,7 @@ function stepHit (step)
         end
     end
     if step == 1856 or step == 1920 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
     end
     if step == 1918 then 
         for i = 4, 7 do 
@@ -1776,12 +1776,12 @@ function stepHit (step)
         end
     end
     if step == 2048 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         swayScreenP1 = true 
     end
 -- LAST CHORUS FINALLY
     if step == 2080 or step == 2112 or step == 2144 or step == 2192 or step == 2248 or step == 2272 or step == 2304 or step == 2336 or step == 2368 or step == 2400 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
     end
     if step == 2176 then 
         setCamZoom(1)
@@ -1879,7 +1879,7 @@ function stepHit (step)
     end
 -- ALMOST THERE
     if step == 2432 or step == 2464 or step == 2496 or step == 2528 or step == 2560 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
     end
     if step == 2416 then 
         swayScreenP1 = false 

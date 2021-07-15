@@ -233,7 +233,6 @@ function stepHit (step)
     if step == 703 then 
         tweenFadeIn(5, 0, 0.001)
         tweenFadeOut(4, 1, 0.001)
-        setCamZoom(1)
     end
     if step == 704 then 
         tweenFadeOut(5, 1, 0.001)
@@ -268,11 +267,11 @@ function stepHit (step)
     if step == 1024 then 
         swayIntense2 = false
         for i = 4, 7 do 
-            tweenPosXAngle(i, _G['defaultStrum'..i..'X'] - 320,getActorAngle(i) + 360, 0.35, 'setDefault')
+            tweenPosXAngle(i, _G['defaultStrum'..i..'X'] - 320,getActorAngle(i), 0.35, 'setDefault')
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], 0, 0.35, 'setDefault')
         end
         for i = 0, 3 do 
-            tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 320,getActorAngle(i) + 360, 0.35, 'setDefault')
+            tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 320,getActorAngle(i), 0.35, 'setDefault')
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], 0, 0.35, 'setDefault')
             tweenFadeIn(i, 0, 0.35)
         end
@@ -386,7 +385,7 @@ function stepHit (step)
     end
     if step == 1665 or step == 1668 or step == 1677 or step == 1680 then 
         for i = 4, 7 do 
-            tweenFadeIn(i, 0.3, 0.16)
+            tweenFadeIn(i, 0.3, 0.10)
         end
     end
     if step == 1671 then 
@@ -396,7 +395,7 @@ function stepHit (step)
     end
 -- blinking arrows end
     if step == 1700 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         swayIntense3 = true 
     end
     if step == 1788 then 
@@ -413,11 +412,11 @@ function stepHit (step)
     end
     if step == 1792 or step == 1796 or step == 1799 or step == 1802 or step == 1805 or step == 1808 then 
         for i = 4, 7 do 
-            tweenFadeIn(i, 0.3, 0.16)
+            tweenFadeIn(i, 0.3, 0.10)
         end
     end
     if step == 1824 then 
-        setCamZoom(2)
+        setCamZoom(1.5)
         swayIntense3 = true 
     end
     if step == 1912 then 
@@ -427,8 +426,17 @@ function stepHit (step)
         end
         swayIntense3 = false
     end
-    if step == 1920 then 
+    if step == 1920 or step == 2056 then 
         swayIntense4 = true 
+        for i = 0, 3 do 
+            tweenFadeOut(i, 1, 0.001)
+        end
+    end
+    if step == 2050 then 
+        swayIntense4 = false 
+        for i = 0, 3 do 
+            tweenFadeIn(i, 0, 0.001)
+        end
     end
     if step == 2176 then 
         swayIntense4 = false 
@@ -440,6 +448,7 @@ function stepHit (step)
     if step == 2192 then 
         swayIntense2 = true 
     end
+
     if step == 2304 then 
         swayIntense2 = false 
         for i = 0, 7 do 
