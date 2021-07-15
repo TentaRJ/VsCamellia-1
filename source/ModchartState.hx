@@ -368,8 +368,9 @@ class ModchartState
 				}
 
 				var result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart")); // execute le file
+				var resultC = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart-c")); // execute le c-file
 	
-				if (result != 0)
+				if (result != 0 || resultC != 0)
 				{
 					Application.current.window.alert("LUA COMPILE ERROR:\n" + Lua.tostring(lua,result),"Kade Engine Modcharts");
 					lua = null;
