@@ -47,6 +47,7 @@ class StoryMenuState extends MusicBeatState
 	];
 
 	var txtWeekTitle:FlxText;
+	var yellowBG:FlxSprite;
 
 	var curWeek:Int = 0;
 
@@ -101,7 +102,8 @@ class StoryMenuState extends MusicBeatState
 		rankText.screenCenter(X);
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
-		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFFF2F00);
+		if(!_camsave.data.cmode){yellowBG = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFDA6910);}
+		else{yellowBG = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFFF2F00);}
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
@@ -330,8 +332,8 @@ class StoryMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
 				grpWeekText.members[curWeek].startFlashing();
-				if(_camsave.data.cmode){grpWeekCharacters.members[1].animation.play('bfConfirm');}
-				else{grpWeekCharacters.members[0].animation.play('bfConfirm');}
+				if(_camsave.data.cmode){grpWeekCharacters.members[0].animation.play('bfConfirm');}
+				else{grpWeekCharacters.members[1].animation.play('bfConfirm');}
 				stopspamming = true;
 			}
 
