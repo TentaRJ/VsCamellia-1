@@ -1,5 +1,6 @@
 package;
 
+import haxe.display.Protocol.HaxeNotificationMethod;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -25,6 +26,9 @@ class OptionsMenu extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
+		new OptionCategory("Cool things",[
+			new Hitnoise("Plays the hit noise from other 4 key games")
+		]),
 		new OptionCategory("Modifiers", [
 			new CMode("Play the harder charts as Camellia!"),
 			#if windows

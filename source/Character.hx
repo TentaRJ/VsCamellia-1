@@ -54,14 +54,24 @@ class Character extends FlxSprite
 				tex = Paths.getSparrowAtlas('characters/camellia');
 				frames = tex;
 				animation.addByPrefix('idle', 'Camellia_Idle', 24);
+				if(!isPlayer)
+				{
 				animation.addByPrefix('singUP', 'Camellia_Up', 24, false);
 				animation.addByPrefix('singRIGHT', 'Camellia_Right', 24, false);
 				animation.addByPrefix('singDOWN', 'Camellia_Down', 24, false);
 				animation.addByPrefix('singLEFT', 'Camellia_Left', 24, false);
+				}
+				else
+				{
+				animation.addByPrefix('singUP', 'Camellia_Up', 24, false);
+				animation.addByPrefix('singLEFT', 'Camellia_Right', 24, false);
+				animation.addByPrefix('singDOWN', 'Camellia_Down', 24, false);
+				animation.addByPrefix('singRIGHT', 'Camellia_Left', 24, false);
 				animation.addByPrefix('singUPmiss', 'Camellia_Up', 24, false);
-				animation.addByPrefix('singRIGHTmiss', 'Camellia_Right', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'Camellia_Right', 24, false);
 				animation.addByPrefix('singDOWNmiss', 'Camellia_Down', 24, false);
-				animation.addByPrefix('singLEFTmiss', 'Camellia_Left', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'Camellia_Left', 24, false);
+				}
 
 				addOffset('idle');
 
@@ -109,7 +119,7 @@ class Character extends FlxSprite
 
 				trace(tex.frames.length);
 
-				animation.addByPrefix('idle', 'BF idle dance', 24, false);
+				animation.addByPrefix('idle', 'BF idle dance', 24, true);
 				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
 				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
 				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);

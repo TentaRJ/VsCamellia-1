@@ -3069,6 +3069,13 @@ class PlayState extends MusicBeatState
 							dad.playAnim('singLEFT' + altAnim, true);
 					}
 
+					if(_camsave.data.cmode)
+					{
+						// BF is rapping against you so it make sense :P
+						var damage:Float = 0.035;
+						if(health > damage && health != damage){health -= damage;}
+					}
+
 					dad.holdTimer = 0;
 
 					if (FlxG.save.data.cpuStrums)
@@ -3153,7 +3160,8 @@ class PlayState extends MusicBeatState
 									totalNotesHit += 1;
 								else
 								{
-									vocals.volume = 0;
+									if(!_camsave.data.cmode){vocals.volume = 0;}
+									else{FlxG.sound.music.volume = 0;}
 									if (theFunne && !daNote.isSustainNote)
 										noteMiss(daNote.noteData, daNote);
 
@@ -3192,7 +3200,8 @@ class PlayState extends MusicBeatState
 							}
 							else
 							{
-								vocals.volume = 0;
+								if(!_camsave.data.cmode){vocals.volume = 0;}
+								else{FlxG.sound.music.volume = 0;}
 								if (theFunne && !daNote.isSustainNote)
 									noteMiss(daNote.noteData, daNote);
 
@@ -3444,7 +3453,8 @@ class PlayState extends MusicBeatState
 		var noteDiff:Float = -(daNote.strumTime - Conductor.songPosition);
 		var wife:Float = EtternaFunctions.wife3(-noteDiff, Conductor.timeScale);
 		// boyfriend.playAnim('hey');
-		vocals.volume = 1;
+		if(!_camsave.data.cmode){vocals.volume = 1;}
+		else{FlxG.sound.music.volume = 1;}
 		var placement:String = Std.string(combo);
 
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
@@ -4270,6 +4280,8 @@ class PlayState extends MusicBeatState
 						boyfriend.playAnim('singLEFT', true);
 				}
 
+				if(_camsave.data.hitnoise!=0){FlxG.sound.play(Paths.sound("normal-hitnormal", "preload"), _camsave.data.hitnoise, false);}
+
 				#if windows
 				if (luaModchart != null)
 					luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
@@ -4293,7 +4305,8 @@ class PlayState extends MusicBeatState
 				});
 
 				note.wasGoodHit = true;
-				vocals.volume = 1;
+				if(!_camsave.data.cmode){vocals.volume = 1;}
+				else{FlxG.sound.music.volume = 1;}
 
 				note.kill();
 				notes.remove(note, true);

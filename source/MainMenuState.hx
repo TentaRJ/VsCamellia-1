@@ -247,7 +247,7 @@ class MainMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		#if debug
-		if(FlxG.keys.justPressed.T){trace("Hi Tenta!");_camsave.data.ghostUnlock=true;_camsave.flush();trace(_camsave.data);}
+		if(FlxG.keys.justPressed.T){trace("Hi Tenta!");trace(_camsave.data);}
 		#end
 
 		// if(FlxG.keys.justPressed.SIX){FlxG.switchState(new AnimationDebug("camellia"));}
