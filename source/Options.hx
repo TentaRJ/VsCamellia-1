@@ -9,6 +9,7 @@ import openfl.display.FPS;
 import openfl.Lib;
 
 import TitleState._camsave as _camsave;
+import PlayState;
 
 class OptionCategory
 {
@@ -724,27 +725,6 @@ class CamZoomOption extends Option
 	}
 }
 
-class CMode extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-	}
-	public override function press():Bool
-	{
-		_camsave.data.cmode = !_camsave.data.cmode;
-		_camsave.flush();
-		display = updateDisplay();
-		return true;
-	}
-
-	private override function updateDisplay():String
-	{
-		return "C-Mode " + (_camsave.data.cmode ? "on" : "off");
-	}
-}
-
 class Modcharts extends Option
 {
 	public function new(desc:String)
@@ -889,22 +869,26 @@ class HealthDrain extends Option
 	
 	public override function press():Bool
 		{
-			return false;
+			_camsave.data.draintoggle = !_camsave.data.draintoggle;
+			_camsave.flush();
+			display = updateDisplay();
+			return true;
 		}
 
 	private override function updateDisplay():String
 		{
-			return "C-Mode Drain Multiplier";
+			return "Health Drain " + (_camsave.data.draintoggle ? "On" : "Off");
 		}
 	
-	override function right():Bool {
-		_camsave.data.healthdrain += 0.1;
+	override function right():Bool
+	{
+		_camsave.data.healthdrain += 0.2;
 
 		if (_camsave.data.healthdrain < 1)
 			_camsave.data.healthdrain = 1;
 
-		if (_camsave.data.healthdrain > 5)
-			_camsave.data.healthdrain = 5;
+		if (_camsave.data.healthdrain > 100)
+			_camsave.data.healthdrain = 100;
 
 		trace(_camsave.data.healthdrain);
 
@@ -912,14 +896,15 @@ class HealthDrain extends Option
 
 		return true;
 	}
-	override function left():Bool {
-		_camsave.data.healthdrain -= 0.1;
+	override function left():Bool
+	{
+		_camsave.data.healthdrain -= 0.2;
 
 		if (_camsave.data.healthdrain < 1)
 			_camsave.data.healthdrain = 1;
 
-		if (_camsave.data.healthdrain > 5)
-			_camsave.data.healthdrain = 5;
+		if (_camsave.data.healthdrain > 100)
+			_camsave.data.healthdrain = 100;
 
 		trace(_camsave.data.healthdrain);
 
@@ -929,7 +914,28 @@ class HealthDrain extends Option
 	}
 
 	override function getValue():String {
-		return "Adds a damage multiplier: " + _camsave.data.healthdrain + "x";
+		return "IN TESTING!! Boyfriend fights back! "+_camsave.data.healthdrain+" times the damage, deals "+(0.005 * _camsave.data.healthdrain)*100+"% per hit";
 	}
 
+}
+
+class CMode extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		_camsave.data.cmode = !_camsave.data.cmode;
+		_camsave.flush();
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "C-Mode " + (_camsave.data.cmode ? "on" : "off");
+	}
 }

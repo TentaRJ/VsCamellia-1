@@ -3060,10 +3060,10 @@ class PlayState extends MusicBeatState
 							dad.playAnim('singLEFT' + altAnim, true);
 					}
 
-					if(_camsave.data.cmode)
+					if(_camsave.data.cmode && _camsave.data.draintoggle)
 					{
 						// BF is rapping against you so it make sense :P
-						var damage:Float = 0.035 * _camsave.data.healthdrain;
+						var damage:Float = 0.005 * _camsave.data.healthdrain;
 						if(health > damage && health != damage){health -= damage;}
 					}
 
