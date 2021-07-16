@@ -169,12 +169,20 @@ class Note extends FlxSprite
 				default:
 					frames = Paths.getSparrowAtlas('NOTE_assets');
 
-					for (i in 0...4)
-					{
-						animation.addByPrefix(dataColor[i] + 'Scroll', dataColor[i] + ' alone'); // Normal notes
-						animation.addByPrefix(dataColor[i] + 'hold', dataColor[i] + ' hold'); // Hold
-						animation.addByPrefix(dataColor[i] + 'holdend', dataColor[i] + ' tail'); // Tails
-					}
+					animation.addByPrefix('greenScroll', 'green instance 1');
+					animation.addByPrefix('redScroll', 'red instance 1');
+					animation.addByPrefix('blueScroll', 'blue instance 1');
+					animation.addByPrefix('purpleScroll', 'purple instance 1');
+
+					animation.addByPrefix('purpleholdend', 'pruple end hold instance 1');
+					animation.addByPrefix('greenholdend', 'green hold end instance 1');
+					animation.addByPrefix('redholdend', 'red hold end instance 1');
+					animation.addByPrefix('blueholdend', 'blue hold end instance 1');
+
+					animation.addByPrefix('purplehold', 'purple hold piece instance 1');
+					animation.addByPrefix('greenhold', 'green hold piece instance 1');
+					animation.addByPrefix('redhold', 'red hold piece instance 1');
+					animation.addByPrefix('bluehold', 'blue hold piece instance 1');
 
 					setGraphicSize(Std.int(width * 0.7));
 					updateHitbox();
