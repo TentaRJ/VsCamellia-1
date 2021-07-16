@@ -3064,7 +3064,7 @@ class PlayState extends MusicBeatState
 					if(_camsave.data.cmode)
 					{
 						// BF is rapping against you so it make sense :P
-						var damage:Float = 0.035;
+						var damage:Float = 0.0175;
 						if(health > damage && health != damage){health -= damage;}
 					}
 
@@ -3498,6 +3498,8 @@ class PlayState extends MusicBeatState
 					totalNotesHit += 1;
 				sicks++;
 		}
+
+		if(_camsave.data.hitnoise!=0){FlxG.sound.play(Paths.sound("normal-hitnormal", "preload"), _camsave.data.hitnoise, false);}
 
 		// trace('Wife accuracy loss: ' + wife + ' | Rating: ' + daRating + ' | Score: ' + score + ' | Weight: ' + (1 - wife));
 
@@ -4271,8 +4273,6 @@ class PlayState extends MusicBeatState
 					case 0:
 						boyfriend.playAnim('singLEFT', true);
 				}
-
-				if(_camsave.data.hitnoise!=0){FlxG.sound.play(Paths.sound("normal-hitnormal", "preload"), _camsave.data.hitnoise, false);}
 
 				#if windows
 				if (luaModchart != null)
