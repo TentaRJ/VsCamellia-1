@@ -81,3 +81,4 @@ Finally, we are ready to build.
 - [Rozebud](https://github.com/ThatRozebudDude) - Ideas (that I stole)
 - [Puyo](https://github.com/daniel11420) - Setting up appveyor and a lot of other help
 - [Smokey](https://twitter.com/Smokey_5_) - telling me that I should do the tricky asset loading
+- [cval](https://twitter.com/cval_brown/status/1411082105379975172) - Inspiration for C-Mode

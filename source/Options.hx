@@ -734,6 +734,7 @@ class CMode extends Option
 	public override function press():Bool
 	{
 		_camsave.data.cmode = !_camsave.data.cmode;
+		_camsave.flush();
 		display = updateDisplay();
 		return true;
 	}
@@ -754,6 +755,7 @@ class Modcharts extends Option
 	public override function press():Bool
 	{
 		_camsave.data.modcharts = !_camsave.data.modcharts;
+		_camsave.flush();
 		display = updateDisplay();
 		return true;
 	}
@@ -794,6 +796,8 @@ class DamageMode extends Option
 
 		trace(_camsave.data.damagemode);
 
+		_camsave.flush();
+
 		return true;
 	}
 
@@ -811,6 +815,64 @@ class DamageMode extends Option
 			_camsave.data.damagemode = 95;
 		
 		trace(_camsave.data.damagemode);
+
+		_camsave.flush();
+
+		return true;
+	}
+}
+
+class Hitnoise extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	public override function press():Bool
+	{
+		return false;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Hit Sounds";
+	}
+
+	override function right():Bool {
+		_camsave.data.hitnoise += 0.1;
+
+		if (_camsave.data.hitnoise < 0)
+			_camsave.data.hitnoise = 0;
+
+		if (_camsave.data.hitnoise > 1)
+			_camsave.data.hitnoise = 1;
+
+		trace(_camsave.data.hitnoise);
+
+		_camsave.flush();
+
+		return true;
+	}
+
+	override function getValue():String {
+		return "Changes the volume of hit sounds! Volume = "+ _camsave.data.hitnoise * 100 + "%";
+	}
+
+	override function left():Bool {
+		_camsave.data.hitnoise -= 0.1;
+
+		if (_camsave.data.hitnoise < 0)
+			_camsave.data.hitnoise = 0;
+
+		if (_camsave.data.hitnoise > 1)
+			_camsave.data.hitnoise = 1;
+		
+		trace(_camsave.data.hitnoise);
+
+		_camsave.flush();
 
 		return true;
 	}

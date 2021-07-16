@@ -26,6 +26,8 @@ class StoryMenuState extends MusicBeatState
 {
 	var scoreText:FlxText;
 
+	var cModeText:FlxText;
+
 	var weekData:Array<Dynamic> = [
 		['First-Town', 'Liquated', 'Why-Do-You-Hate-Me'],
 		['???']	
@@ -45,6 +47,7 @@ class StoryMenuState extends MusicBeatState
 	];
 
 	var txtWeekTitle:FlxText;
+	var yellowBG:FlxSprite;
 
 	var curWeek:Int = 0;
 
@@ -63,6 +66,11 @@ class StoryMenuState extends MusicBeatState
 	override function create()
 	{
 		weekUnlocked[1] = _camsave.data.ghostUnlock;
+
+		if(_camsave.data.cmode)
+		{
+			weekCharacters = [['bf', 'camellia', 'gf'],['bf', 'camellia', 'gf']];
+		}
 		
 		#if windows
 		// Updating Discord Rich Presence
@@ -94,7 +102,8 @@ class StoryMenuState extends MusicBeatState
 		rankText.screenCenter(X);
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
-		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFFF2F00);
+		if(!_camsave.data.cmode){yellowBG = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFDA6910);}
+		else{yellowBG = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFFF2F00);}
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
@@ -134,10 +143,19 @@ class StoryMenuState extends MusicBeatState
 		}
 
 		trace("Line 96");
-
-		grpWeekCharacters.add(new MenuCharacter(0, 100, 0.5, false));
-		grpWeekCharacters.add(new MenuCharacter(450, 25, 0.9, true));
-		grpWeekCharacters.add(new MenuCharacter(850, 100, 0.5, true));
+		
+		if(!_camsave.data.cmode)
+			{
+				grpWeekCharacters.add(new MenuCharacter(0, 100, 0.5, false));
+				grpWeekCharacters.add(new MenuCharacter(450, 25, 0.9, true));
+				grpWeekCharacters.add(new MenuCharacter(850, 100, 0.5, true));
+			}
+		else
+			{
+				grpWeekCharacters.add(new MenuCharacter(0, 100, 0.5, false));
+				grpWeekCharacters.add(new MenuCharacter(450, 75, 0.8, false));
+				grpWeekCharacters.add(new MenuCharacter(850, 100, 0.5, true));
+			}
 
 		difficultySelectors = new FlxGroup();
 		add(difficultySelectors);
@@ -167,6 +185,10 @@ class StoryMenuState extends MusicBeatState
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
 		rightArrow.animation.play('idle');
 		difficultySelectors.add(rightArrow);
+
+		cModeText = new FlxText(sprDifficulty.x - 45, sprDifficulty.y + 170, 0, "C-MODE", 64);
+		cModeText.color = 0xFFFF2F00;
+		if(_camsave.data.cmode){add(cModeText);}
 
 		trace("Line 150");
 
@@ -310,7 +332,8 @@ class StoryMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
 				grpWeekText.members[curWeek].startFlashing();
-				grpWeekCharacters.members[1].animation.play('bfConfirm');
+				if(_camsave.data.cmode){grpWeekCharacters.members[0].animation.play('bfConfirm');}
+				else{grpWeekCharacters.members[1].animation.play('bfConfirm');}
 				stopspamming = true;
 			}
 

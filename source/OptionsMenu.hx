@@ -1,5 +1,6 @@
 package;
 
+import haxe.display.Protocol.HaxeNotificationMethod;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -25,9 +26,14 @@ class OptionsMenu extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
+		new OptionCategory("Cool things",[
+			new Hitnoise("Plays the hit noise from other 4 key games")
+		]),
 		new OptionCategory("Modifiers", [
 			new CMode("Play the harder charts as Camellia!"),
+			#if windows
 			new Modcharts("Throw special effects in the mix!")
+			#end
 			// new DamageMode("Adds a chance for damage notes to appear. It's random! CURRENTLY IN TESTING, you have been warned!")
 		]),
 		new OptionCategory("Gameplay", [
