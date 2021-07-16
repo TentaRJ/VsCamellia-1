@@ -1923,7 +1923,6 @@ class PlayState extends MusicBeatState
 			var coolSection:Int = Std.int(section.lengthInSteps / 4);
 
 			PlayStateChangeables.damageValue = _camsave.data.damagemode;
-			trace(PlayStateChangeables.damageValue + "%");
 
 			for (songNotes in section.sectionNotes)
 			{
@@ -3064,7 +3063,7 @@ class PlayState extends MusicBeatState
 					if(_camsave.data.cmode)
 					{
 						// BF is rapping against you so it make sense :P
-						var damage:Float = 0.0175;
+						var damage:Float = 0.035 * _camsave.data.healthdrain;
 						if(health > damage && health != damage){health -= damage;}
 					}
 

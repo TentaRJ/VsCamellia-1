@@ -822,7 +822,7 @@ class DamageMode extends Option
 	}
 }
 
-class Hitnoise extends Option
+class HitNoise extends Option
 {
 	public function new(desc:String)
 	{
@@ -876,4 +876,60 @@ class Hitnoise extends Option
 
 		return true;
 	}
+}
+
+class HealthDrain extends Option
+{
+	public function new(desc:String)
+		{
+			super();
+			description = desc;
+			acceptValues = true;
+		}
+	
+	public override function press():Bool
+		{
+			return false;
+		}
+
+	private override function updateDisplay():String
+		{
+			return "C-Mode Drain Multiplier";
+		}
+	
+	override function right():Bool {
+		_camsave.data.healthdrain += 0.1;
+
+		if (_camsave.data.healthdrain < 1)
+			_camsave.data.healthdrain = 1;
+
+		if (_camsave.data.healthdrain > 5)
+			_camsave.data.healthdrain = 5;
+
+		trace(_camsave.data.healthdrain);
+
+		_camsave.flush();
+
+		return true;
+	}
+	override function left():Bool {
+		_camsave.data.healthdrain -= 0.1;
+
+		if (_camsave.data.healthdrain < 1)
+			_camsave.data.healthdrain = 1;
+
+		if (_camsave.data.healthdrain > 5)
+			_camsave.data.healthdrain = 5;
+
+		trace(_camsave.data.healthdrain);
+
+		_camsave.flush();
+
+		return true;
+	}
+
+	override function getValue():String {
+		return "Adds a damage multiplier: " + _camsave.data.healthdrain + "x";
+	}
+
 }
