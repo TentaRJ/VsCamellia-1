@@ -3498,8 +3498,6 @@ class PlayState extends MusicBeatState
 				sicks++;
 		}
 
-		if(_camsave.data.hitnoise!=0){FlxG.sound.play(Paths.sound("normal-hitnormal", "preload"), _camsave.data.hitnoise, false);}
-
 		// trace('Wife accuracy loss: ' + wife + ' | Rating: ' + daRating + ' | Score: ' + score + ' | Weight: ' + (1 - wife));
 
 		if (daRating != 'shit' || daRating != 'bad')
@@ -3738,6 +3736,7 @@ class PlayState extends MusicBeatState
 
 	private function keyShit():Void // I've invested in emma stocks
 	{
+
 		// control arrays, order L D R U
 		var holdArray:Array<Bool> = [controls.LEFT, controls.DOWN, controls.UP, controls.RIGHT];
 		var pressArray:Array<Bool> = [controls.LEFT_P, controls.DOWN_P, controls.UP_P, controls.RIGHT_P];
@@ -3793,6 +3792,9 @@ class PlayState extends MusicBeatState
 					goodNoteHit(daNote);
 			});
 		}
+
+		if (FlxG.keys.justPressed.ANY)
+			if(_camsave.data.hitnoise!=0){FlxG.sound.play(Paths.sound("normal-hitnormal", "preload"), _camsave.data.hitnoise, false);}
 
 		if ((KeyBinds.gamepad && !FlxG.keys.justPressed.ANY) || nonCpp)
 		{

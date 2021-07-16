@@ -31,7 +31,7 @@ class OptionsMenu extends MusicBeatState
 			new HealthDrain("Drains health in C-Mode")
 			// new DamageMode("Adds a chance for damage notes to appear. It's random! CURRENTLY IN TESTING, you have been warned!")
 		]),
-		new OptionCategory("Cool things",[
+		new OptionCategory("Custom Features",[
 			new HitNoise("Plays the hit noise from other 4 key games")
 			#if windows
 			new Modcharts("Throw special effects in the mix!")
