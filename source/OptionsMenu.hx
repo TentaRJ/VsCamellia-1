@@ -26,7 +26,7 @@ class OptionsMenu extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
-		new OptionCategory("Cool things",[
+		new OptionCategory("Custom Features",[
 			new Hitnoise("Plays the hit noise from other 4 key games")
 		]),
 		new OptionCategory("Modifiers", [
