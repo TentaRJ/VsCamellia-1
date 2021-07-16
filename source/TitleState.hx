@@ -103,6 +103,7 @@ class TitleState extends MusicBeatState
 		if(_camsave.data.hitnoise == null){_camsave.data.hitnoise=0;}
 		if(_camsave.data.healthdrain == null){_camsave.data.healthdrain=1;}
 		if(_camsave.data.draintoggle == null){_camsave.data.draintoggle=false;}
+		if(_camsave.data.vocals == null){_camsave.data.vocals=true;}
 		trace(_camsave.data);
 
 		_camsave.flush();

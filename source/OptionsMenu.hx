@@ -36,7 +36,8 @@ class OptionsMenu extends MusicBeatState
 		new OptionCategory("Custom Features",[
 			new HitNoise("Plays the hit noise from other 4 key games"),
 			#if windows
-			new Modcharts("Throw special effects in the mix!")
+			new Modcharts("Throw special effects in the mix!"),
+			new Vocals("Toggle the vocals playing on songs.")
 			#end
 		]),
 		new OptionCategory("Gameplay", [
