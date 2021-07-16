@@ -939,3 +939,24 @@ class CMode extends Option
 		return "C-Mode " + (_camsave.data.cmode ? "on" : "off");
 	}
 }
+
+class Vocals extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		_camsave.data.vocals = !_camsave.data.vocals;
+		_camsave.flush();
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Vocals " + (_camsave.data.vocals ? "on" : "off");
+	}
+}
