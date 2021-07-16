@@ -18,6 +18,8 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 
+import TitleState._camsave;
+
 class OptionsMenu extends MusicBeatState
 {
 	public static var instance:OptionsMenu;

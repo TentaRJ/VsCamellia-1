@@ -127,6 +127,7 @@ class MainMenuState extends MusicBeatState
 		// wall.scale.set(1.55, 1.55);
 		wall.antialiasing = true;
 		wall.active = false;
+		wall.screenCenter(X);
 		wall.setGraphicSize(Std.int(wall.width * 0.9));
 		add(wall);
 
