@@ -299,13 +299,10 @@ class PlayState extends MusicBeatState
 
 		#if windows
 		if (_camsave.data.modcharts)
-			if (!_camsave.data.cmode)
-				executeModchart = FileSystem.exists(Paths.lua(songLowercase + "/modchart"));
-			else 
+			if (_camsave.data.cmode)
 				executeModchartC = FileSystem.exists(Paths.lua(songLowercase + "/modchart-c"));
-
-		if (executeModchart || executeModchartC)
-			PlayStateChangeables.Optimize = false;
+			else
+				executeModchart = FileSystem.exists(Paths.lua(songLowercase + "/modchart"));
 		#end
 		#if !cpp
 		executeModchart = false; // FORCE disable for non cpp targets
@@ -1965,7 +1962,7 @@ class PlayState extends MusicBeatState
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, null, null, daDeath);
 
-				if (!gottaHitNote && PlayStateChangeables.Optimize)
+				if (!gottaHitNote && PlayStateChangeables.Optimize && !_camsave.data.modcharts)
 					continue;
 
 				swagNote.sustainLength = songNotes[2];
@@ -2037,7 +2034,7 @@ class PlayState extends MusicBeatState
 			// defaults if no noteStyle was found in chart
 			var noteTypeCheck:String = 'normal';
 
-			if (PlayStateChangeables.Optimize && player == 0)
+			if (PlayStateChangeables.Optimize && !_camsave.data.modcharts && player == 0)
 				continue;
 
 			if (FlxG.save.data.sm)
@@ -2218,13 +2215,15 @@ class PlayState extends MusicBeatState
 
 			babyArrow.animation.play('static');
 			if (_camsave.data.modcharts)
-				babyArrow.x += 90;
+				babyArrow.x += 110;
 			else 
 				babyArrow.x += 50;
 			
 			babyArrow.x += ((FlxG.width / 2) * player);
 
-			if (PlayStateChangeables.Optimize)
+			if (PlayStateChangeables.Optimize && _camsave.data.modcharts)
+				babyArrow.x += 0;
+			else if (PlayStateChangeables.Optimize && !_camsave.data.modcharts)
 				babyArrow.x -= 275;
 			
 			cpuStrums.forEach(function(spr:FlxSprite)
@@ -2950,9 +2949,7 @@ class PlayState extends MusicBeatState
 					daNote.visible = true;
 					daNote.active = true;
 				}
-
-				var brr = strumLine.y + Note.swagWidth/2;
-
+				
 				if (!daNote.modifiedByLua)
 				{
 					if (PlayStateChangeables.useDownscroll)
@@ -2978,11 +2975,14 @@ class PlayState extends MusicBeatState
 							// If not in botplay, only clip sustain notes when properly hit, botplay gets to clip it everytime
 							if (!PlayStateChangeables.botPlay)
 							{
-								if ((daNote.wasGoodHit || daNote.prevNote.wasGoodHit && !daNote.canBeHit))
+								if ((!daNote.mustPress || daNote.wasGoodHit || daNote.prevNote.wasGoodHit && !daNote.canBeHit)
+									&& daNote.y - daNote.offset.y * daNote.scale.y + daNote.height >= (strumLine.y + Note.swagWidth / 2))
 								{
 									// Clip to strumline
 									var swagRect = new FlxRect(0, 0, daNote.frameWidth * 2, daNote.frameHeight * 2);
-									swagRect.height = (brr-daNote.y)/daNote.scale.y;
+									swagRect.height = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
+										+ Note.swagWidth / 2
+										- daNote.y) / daNote.scale.y;
 									swagRect.y = daNote.frameHeight - swagRect.height;
 
 									daNote.clipRect = swagRect;
@@ -2991,7 +2991,9 @@ class PlayState extends MusicBeatState
 							else
 							{
 								var swagRect = new FlxRect(0, 0, daNote.frameWidth * 2, daNote.frameHeight * 2);
-								swagRect.height = (brr-daNote.y)/daNote.scale.y;
+								swagRect.height = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
+									+ Note.swagWidth / 2
+									- daNote.y) / daNote.scale.y;
 								swagRect.y = daNote.frameHeight - swagRect.height;
 
 								daNote.clipRect = swagRect;
@@ -3014,11 +3016,14 @@ class PlayState extends MusicBeatState
 
 							if (!PlayStateChangeables.botPlay)
 							{
-								if ((daNote.wasGoodHit || daNote.prevNote.wasGoodHit && !daNote.canBeHit))
+								if ((!daNote.mustPress || daNote.wasGoodHit || daNote.prevNote.wasGoodHit && !daNote.canBeHit)
+									&& daNote.y + daNote.offset.y * daNote.scale.y <= (strumLine.y + Note.swagWidth / 2))
 								{
 									// Clip to strumline
 									var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
-									swagRect.height = (brr-daNote.y)/daNote.scale.y;
+									swagRect.y = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
+										+ Note.swagWidth / 2
+										- daNote.y) / daNote.scale.y;
 									swagRect.height -= swagRect.y;
 
 									daNote.clipRect = swagRect;
@@ -3027,7 +3032,9 @@ class PlayState extends MusicBeatState
 							else
 							{
 								var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
-								swagRect.height = (brr-daNote.y)/daNote.scale.y;
+								swagRect.y = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
+									+ Note.swagWidth / 2
+									- daNote.y) / daNote.scale.y;
 								swagRect.height -= swagRect.y;
 
 								daNote.clipRect = swagRect;
@@ -3064,7 +3071,11 @@ class PlayState extends MusicBeatState
 					{
 						// BF is rapping against you so it make sense :P
 						var damage:Float = 0.005 * _camsave.data.healthdrain;
-						if(health > damage && health != damage){health -= damage;}
+						if(health > damage && health != damage)
+						{
+							if (!daNote.isSustainNote)
+								health -= damage;
+						}
 					}
 
 					dad.holdTimer = 0;

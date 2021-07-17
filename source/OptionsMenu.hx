@@ -36,9 +36,9 @@ class OptionsMenu extends MusicBeatState
 		new OptionCategory("Custom Features",[
 			new HitNoise("Plays the hit noise from other 4 key games"),
 			#if windows
-			new Modcharts("Throw special effects in the mix!"),
-			new Vocals("Toggle the vocals playing on songs.")
+			new Modcharts("Throw special effects in the mix! !!SEIZURE WARNING!!"),
 			#end
+			new Vocals("Toggle the vocals playing on songs.")
 		]),
 		new OptionCategory("Gameplay", [
 			new DFJKOption(controls),
@@ -69,8 +69,8 @@ class OptionsMenu extends MusicBeatState
 		
 		new OptionCategory("Misc", [
 			#if desktop
-			new FPSOption("Toggle the FPS Counter"),
 			new ReplayOption("View replays"),
+			new FPSOption("Toggle the FPS Counter"),
 			#end
 			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
 			new WatermarkOption("Enable and disable all watermarks from the engine."),
