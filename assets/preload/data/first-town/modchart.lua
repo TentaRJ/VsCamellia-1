@@ -13,11 +13,11 @@ local swayIntense = false
 local swayIntense2 = false 
 local swayIntense3 = false 
 local swayIntense4 = false 
-local cameraBeat = false 
 
 
 function setDefault(id)
 	_G['defaultStrum'..id..'X'] = getActorX(id)
+    setActorAngle(0,id)
 end
 
 function update (elapsed)
@@ -107,9 +107,7 @@ local currentBeat = (songPos / 1000)*(bpm/60)
 end
 
 function beatHit (beat)
-    if cameraBeat then 
-        setCamZoom(1)
-    end
+
 end
 
 function stepHit (step)
@@ -170,9 +168,6 @@ function stepHit (step)
             tweenFadeOut(i, 1, 5.64)
         end
     end
-    if step == 444 then 
-        cameraBeat = true 
-    end
     if step == 496 then 
         swayFastP1 = false  
         swayScreenLargerP2 = false 
@@ -183,9 +178,6 @@ function stepHit (step)
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], 0, 0.35, 'setDefault')
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], 0, 0.35, 'setDefault')
         end
-    end
-    if step == 504 then 
-        cameraBeat = false 
     end
     if step == 512 then 
         swayFast = true 
@@ -352,9 +344,6 @@ function stepHit (step)
         swaySlowP1 = true 
         swayScreenP2 = true 
     end
-    if step == 1596 then 
-        cameraBeat = true  
-    end
     if step == 1600 then 
         swaySlowP1 = false 
         swayScreenP2 = false 
@@ -365,7 +354,6 @@ function stepHit (step)
         end
     end
     if step == 1656 then 
-        cameraBeat = false 
         swayFastP1 = false 
         swayScreenLargerP2 = false
         for i = 0, 3 do 
@@ -395,7 +383,6 @@ function stepHit (step)
     end
 -- blinking arrows end
     if step == 1700 then 
-        setCamZoom(1.5)
         swayIntense3 = true 
     end
     if step == 1788 then 
@@ -416,7 +403,6 @@ function stepHit (step)
         end
     end
     if step == 1824 then 
-        setCamZoom(1.5)
         swayIntense3 = true 
     end
     if step == 1912 then 

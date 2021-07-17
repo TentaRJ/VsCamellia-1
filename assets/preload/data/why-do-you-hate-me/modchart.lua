@@ -4,10 +4,12 @@ local swayScreenP1 = false
 
 function setDefaultX(id)
 	_G['defaultStrum'..id..'X'] = getActorX(id)
+    setActorAngle(0,id)
 end
 
 function setDefaultY(id)
 	_G['defaultStrum'..id..'Y'] = getActorY(id)
+    setActorAngle(0,id)
 end
 
 function update (elapsed)
@@ -60,7 +62,7 @@ function stepHit (step)
         tweenPosXAngle(7, _G['defaultStrum7X'] - 320,getActorAngle(7) + 360, 0.42, 'setDefaultX')
     end
     if step == 256 or step == 288 or step == 320 or step == 352 or step == 384 or step == 416 or step == 448 or step == 480 or step == 512 then 
-        setCamZoom(1)
+        
     end
     if step == 284 or step == 412 then 
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 50,getActorAngle(4), 0.42, i)
@@ -122,7 +124,7 @@ function stepHit (step)
     end
 -- this moving arrow shit 
     if step == 640 then 
-        setCamZoom(1.5)
+        
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -173,70 +175,70 @@ function stepHit (step)
     end
 -- on beat moving things
     if step == 672 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 673 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 674 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 675 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 677 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 678 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 679 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 680 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 682 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 683 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 684 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 685 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 687 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -244,70 +246,70 @@ function stepHit (step)
     end
 
     if step == 688 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 689 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 690 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 691 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 693 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 694 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 695 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 696 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 698 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 699 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 700 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 701 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 703 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -315,7 +317,7 @@ function stepHit (step)
     end
 -- moving arrow shit part 2
     if step == 704 then 
-        setCamZoom(1.5)
+        
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -379,70 +381,70 @@ function stepHit (step)
     end
 -- on beat moving things PART 2
     if step == 736 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 737 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 738 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 739 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 741 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 742 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 743 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 744 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 746 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 747 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 748 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 749 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 751 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -450,70 +452,70 @@ function stepHit (step)
     end
 
     if step == 752 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 753 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 754 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 755 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 757 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 758 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 759 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 760 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 762 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 763 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 764 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 765 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 767 then
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -521,7 +523,7 @@ function stepHit (step)
     end
 -- moving arrow shit part 3, there's a lot going on is there? 
     if step == 768 then 
-        setCamZoom(1.5)
+        
         for i = 4, 7 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] - 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] + 80, getActorAngle(i), 1.3, i)
@@ -559,70 +561,70 @@ function stepHit (step)
     end
 -- on beat moving things PART 3
     if step == 800 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 801 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 802 then
-        setCamZoom(1) 
+         
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 803 then
-        setCamZoom(1) 
+         
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 805 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 806 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 807 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 808 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 810 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 811 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 812 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 813 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 815 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -630,77 +632,77 @@ function stepHit (step)
     end
 
     if step == 816 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 817 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 818 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 819 then
-        setCamZoom(1.5)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 821 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 822 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 823 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 824 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 826 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 827 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 828 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 829 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 831 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
         end
     end
     if step == 832 or step == 896 then 
-        setCamZoom(1.5)
+        
     end
 --end 
     if step == 894 then 
@@ -758,10 +760,10 @@ function stepHit (step)
     end
 -- diagonal arrows in chorus 
     if step == 1024 or step == 1056 or step == 1088 or step == 1120 or step == 1152 or step == 1184 or step == 1224 or step == 1248 then 
-        setCamZoom(1.5)
+        
     end
     if step == 1280 or step == 1312 or step == 1344 or step == 1376 then 
-        setCamZoom(2)
+        
     end
     if step == 1052 then 
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 50,getActorAngle(0), 0.42, i)
@@ -1075,7 +1077,7 @@ function stepHit (step)
 -- end
 -- beginning part again 
     if step == 1408 or step == 1440 or step == 1472 or step == 1504 or step == 1536 then 
-        setCamZoom(1.5)
+        
     end
     if step == 1404 then 
         for i = 0, 3 do 
@@ -1143,7 +1145,7 @@ function stepHit (step)
     end
 -- after the beginning part again askjda
     if step == 1664 then  
-        setCamZoom(1.5)
+        
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -1194,70 +1196,70 @@ function stepHit (step)
     end
 -- part 4 of moving beat things arrow 
     if step == 1696 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1697 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1698 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 1699 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1701 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1702 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1703 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1704 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1706 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 1707 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 1708 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1709 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1711 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -1265,70 +1267,70 @@ function stepHit (step)
     end
 
     if step == 1712 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 1713 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 1714 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1715 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1717 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1718 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1719 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1720 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1722 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1723 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1724 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 1725 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1727 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -1336,7 +1338,7 @@ function stepHit (step)
     end
 -- moving arrows again part 5 i think 
     if step == 1728 then 
-        setCamZoom(1.5)
+        
         for i = 0, 3 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] + 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] - 80, getActorAngle(i), 1.3, i)
@@ -1400,70 +1402,70 @@ function stepHit (step)
     end
 -- moving arrows on beat uh.. part 6? no part 5
     if step == 1760 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 1761 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 1762 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 1763 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1765 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1766 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1767 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1768 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1770 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1771 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1772 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1773 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1775 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -1471,70 +1473,70 @@ function stepHit (step)
     end
 
     if step == 1776 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1777 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1778 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1779 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1781 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1782 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1783 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1784 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1786 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 1787 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 1788 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 1789 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1791 then
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -1542,7 +1544,7 @@ function stepHit (step)
     end
 -- ANOTHER ARROW MOVING SHIT! part 6
     if step == 1792 then 
-        setCamZoom(1.5)
+        
         for i = 4, 7 do 
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'] - 80, getActorAngle(i), 1.3, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'] + 80, getActorAngle(i), 1.3, i)
@@ -1580,70 +1582,70 @@ function stepHit (step)
     end
 -- on beat arrows.. again... part 6
     if step == 1824 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 1825 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1826 then
-        setCamZoom(1) 
+         
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 1827 then
-        setCamZoom(1) 
+         
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1829 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1830 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1831 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1832 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1834 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1835 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 1836 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 1837 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1839 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
@@ -1651,77 +1653,77 @@ function stepHit (step)
     end
 
     if step == 1840 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] + 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1841 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] - 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] + 40, getActorAngle(5), 0.10, i)
     end
     if step == 1842 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] + 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] - 40, getActorAngle(6), 0.10, i)
     end
     if step == 1843 then
-        setCamZoom(1.5)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] - 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1845 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(3, _G['defaultStrum3X'] + 40, getActorAngle(3), 0.10, i)
         tweenPosXAngle(4, _G['defaultStrum4X'] - 40, getActorAngle(4), 0.10, i)
     end
     if step == 1846 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(2, _G['defaultStrum2X'] + 40, getActorAngle(2), 0.10, i)
         tweenPosXAngle(5, _G['defaultStrum5X'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1847 then 
-        setCamZoom(1)
+        
         tweenPosXAngle(1, _G['defaultStrum1X'] - 40, getActorAngle(1), 0.10, i)
         tweenPosXAngle(6, _G['defaultStrum6X'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1848 then 
-        setCamZoom(1.5)
+        
         tweenPosXAngle(0, _G['defaultStrum0X'] - 40, getActorAngle(0), 0.10, i)
         tweenPosXAngle(7, _G['defaultStrum7X'] + 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1850 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(3, _G['defaultStrum3Y'] - 40, getActorAngle(3), 0.10, i)
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 40, getActorAngle(4), 0.10, i)
     end
     if step == 1851 then 
-        setCamZoom(1.5)
+        
         tweenPosYAngle(2, _G['defaultStrum2Y'] + 40, getActorAngle(2), 0.10, i)
         tweenPosYAngle(5, _G['defaultStrum5Y'] - 40, getActorAngle(5), 0.10, i)
     end
     if step == 1852 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(1, _G['defaultStrum1Y'] - 40, getActorAngle(1), 0.10, i)
         tweenPosYAngle(6, _G['defaultStrum6Y'] + 40, getActorAngle(6), 0.10, i)
     end
     if step == 1853 then 
-        setCamZoom(1)
+        
         tweenPosYAngle(0, _G['defaultStrum0Y'] + 40, getActorAngle(0), 0.10, i)
         tweenPosYAngle(7, _G['defaultStrum7Y'] - 40, getActorAngle(7), 0.10, i)
     end
 
     if step == 1855 then 
-        setCamZoom(1)
+        
         for i = 0, 7 do
             tweenPosXAngle(i, _G['defaultStrum'..i..'X'], getActorAngle(i), 0.10, i)
             tweenPosYAngle(i, _G['defaultStrum'..i..'Y'], getActorAngle(i), 0.10, i)
         end
     end
     if step == 1856 or step == 1920 then 
-        setCamZoom(1.5)
+        
     end
     if step == 1918 then 
         for i = 4, 7 do 
@@ -1776,15 +1778,15 @@ function stepHit (step)
         end
     end
     if step == 2048 then 
-        setCamZoom(1.5)
+        
         swayScreenP1 = true 
     end
 -- LAST CHORUS FINALLY
     if step == 2080 or step == 2112 or step == 2144 or step == 2192 or step == 2248 or step == 2272 or step == 2304 or step == 2336 or step == 2368 or step == 2400 then 
-        setCamZoom(1.5)
+        
     end
     if step == 2176 then 
-        setCamZoom(1)
+        
     end
     if step == 2076 then 
         tweenPosYAngle(4, _G['defaultStrum4Y'] + 50,getActorAngle(4), 0.42, i)
@@ -1879,7 +1881,7 @@ function stepHit (step)
     end
 -- ALMOST THERE
     if step == 2432 or step == 2464 or step == 2496 or step == 2528 or step == 2560 then 
-        setCamZoom(1.5)
+        
     end
     if step == 2416 then 
         swayScreenP1 = false 

@@ -30,15 +30,18 @@ class OptionsMenu extends MusicBeatState
 	var options:Array<OptionCategory> = [
 		new OptionCategory("C-Mode", [
 			new CMode("Play the harder charts as Camellia!"),
+			#if windows
+			new Modcharts("Throw special effects in the mix! !!SEIZURE WARNING!!"),
+			#end
 			new HealthDrain("Drains health in C-Mode")
 			// new DamageMode("Adds a chance for damage notes to appear. It's random! CURRENTLY IN TESTING, you have been warned!")
 		]),
 		new OptionCategory("Custom Features",[
 			new HitNoise("Plays the hit noise from other 4 key games"),
 			#if windows
-			new Modcharts("Throw special effects in the mix!"),
-			new Vocals("Toggle the vocals playing on songs.")
+			new Modcharts("Throw special effects in the mix! !!SEIZURE WARNING!!"),
 			#end
+			new Vocals("Toggle the vocals playing on songs.")
 		]),
 		new OptionCategory("Gameplay", [
 			new DFJKOption(controls),
@@ -69,8 +72,8 @@ class OptionsMenu extends MusicBeatState
 		
 		new OptionCategory("Misc", [
 			#if desktop
-			new FPSOption("Toggle the FPS Counter"),
 			new ReplayOption("View replays"),
+			new FPSOption("Toggle the FPS Counter"),
 			#end
 			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
 			new WatermarkOption("Enable and disable all watermarks from the engine."),
