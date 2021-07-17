@@ -30,9 +30,6 @@ class OptionsMenu extends MusicBeatState
 	var options:Array<OptionCategory> = [
 		new OptionCategory("C-Mode", [
 			new CMode("Play the harder charts as Camellia!"),
-			#if windows
-			new Modcharts("Throw special effects in the mix! !!SEIZURE WARNING!!"),
-			#end
 			new HealthDrain("Drains health in C-Mode")
 			// new DamageMode("Adds a chance for damage notes to appear. It's random! CURRENTLY IN TESTING, you have been warned!")
 		]),
