@@ -369,9 +369,20 @@ class ModchartState
 					case 'philly-nice': songLowercase = 'philly';
 				}
 
-				var result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart"));
-				if (result != 0)
-					result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart-c")); // execute le files
+				var result = 1;
+
+				if (!_camsave.data.cmode)
+				{
+					result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart"));
+				}
+				else if (_camsave.data.cmode)
+				{
+					result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart-c"));
+				}
+				else
+				{
+					result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart"));
+				}
 	
 				if (result != 0)
 				{
