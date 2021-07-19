@@ -242,7 +242,6 @@ class PlayState extends MusicBeatState
 	public static var highestCombo:Int = 0;
 
 	private var executeModchart = false;
-	private var executeModchartC = false;
 
 	// API stuff
 
@@ -300,20 +299,26 @@ class PlayState extends MusicBeatState
 		#if windows
 		if (_camsave.data.modcharts)
 			if (_camsave.data.cmode)
-				executeModchartC = FileSystem.exists(Paths.lua(songLowercase + "/modchart-c"));
+				executeModchart = FileSystem.exists(Paths.lua(songLowercase + "/modchart-c"));
 			else
 				executeModchart = FileSystem.exists(Paths.lua(songLowercase + "/modchart"));
 		#end
+
 		#if !cpp
 		executeModchart = false; // FORCE disable for non cpp targets
-		executeModchartC = false;
 		#end
+		
 		if (executeModchart)
-			trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
-
-		if (executeModchartC)
-			trace('Mod chart: ' + executeModchartC + " - " + Paths.lua(songLowercase + "/modchart-c"));
-
+		{
+			if (_camsave.data.cmode)
+			{
+				trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
+			}
+			else
+			{
+				trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart-c"));
+			}
+		}
 		#if windows
 		// Making difficulty text for Discord Rich Presence.
 		storyDifficultyText = CoolUtil.difficultyFromInt(storyDifficulty);
@@ -1490,7 +1495,7 @@ class PlayState extends MusicBeatState
 			case 'philly-nice':
 				songLowercase = 'philly';
 		}
-		if (executeModchart || executeModchartC)
+		if (executeModchart)
 		{
 			luaModchart = ModchartState.createModchartState();
 			luaModchart.executeState('start', [songLowercase]);
@@ -2371,7 +2376,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if ((executeModchart || executeModchartC) && luaModchart != null && songStarted)
+		if ((executeModchart) && luaModchart != null && songStarted)
 		{
 			luaModchart.setVar('songPos', Conductor.songPosition);
 			luaModchart.setVar('hudZoom', camHUD.zoom);
@@ -4435,7 +4440,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if ((executeModchart || executeModchartC) && luaModchart != null)
+		if ((executeModchart) && luaModchart != null)
 		{
 			luaModchart.setVar('curStep', curStep);
 			luaModchart.executeState('stepHit', [curStep]);
@@ -4481,7 +4486,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if windows
-		if ((executeModchart || executeModchartC) && luaModchart != null)
+		if ((executeModchart) && luaModchart != null)
 		{
 			luaModchart.setVar('curBeat', curBeat);
 			luaModchart.executeState('beatHit', [curBeat]);

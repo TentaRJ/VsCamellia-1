@@ -21,6 +21,8 @@ import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
 
+import TitleState._camsave;
+
 class ModchartState 
 {
 	//public static var shaders:Array<LuaShader> = null;
@@ -367,10 +369,11 @@ class ModchartState
 					case 'philly-nice': songLowercase = 'philly';
 				}
 
-				var result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart")); // execute le file
-				var resultC = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart-c")); // execute le c-file
+				var result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart"));
+				if (result == 0)
+					result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart-c")); // execute le files
 	
-				if (result != 0 || resultC != 0)
+				if (result != 0)
 				{
 					Application.current.window.alert("LUA COMPILE ERROR:\n" + Lua.tostring(lua,result),"Kade Engine Modcharts");
 					lua = null;
