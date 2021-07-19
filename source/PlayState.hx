@@ -310,7 +310,7 @@ class PlayState extends MusicBeatState
 		
 		if (executeModchart)
 		{
-			if (_camsave.data.cmode)
+			if (!_camsave.data.cmode)
 			{
 				trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
 			}
