@@ -370,7 +370,7 @@ class ModchartState
 				}
 
 				var result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart"));
-				if (result == 0)
+				if (result != 0)
 					result = LuaL.dofile(lua, Paths.lua(songLowercase + "/modchart-c")); // execute le files
 	
 				if (result != 0)
