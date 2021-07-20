@@ -56,21 +56,25 @@ class Character extends FlxSprite
 				animation.addByPrefix('idle', 'Camellia_Idle', 24);
 				if(!isPlayer)
 				{
-				animation.addByPrefix('singUP', 'Camellia_Up', 24, false);
-				animation.addByPrefix('singRIGHT', 'Camellia_Right', 24, false);
-				animation.addByPrefix('singDOWN', 'Camellia_Down', 24, false);
-				animation.addByPrefix('singLEFT', 'Camellia_Left', 24, false);
+				animation.addByPrefix('singUP', 'Camellia_Up0', 24, false);
+				animation.addByPrefix('singRIGHT', 'Camellia_Right0', 24, false);
+				animation.addByPrefix('singDOWN', 'Camellia_Down0', 24, false);
+				animation.addByPrefix('singLEFT', 'Camellia_Left0', 24, false);
+				animation.addByPrefix('singUPmiss', 'Camellia_Up_MISS', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'Camellia_Right_MISS', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'Camellia_Down_MISS', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'Camellia_Left_MISS', 24, false);
 				}
 				else
 				{
-				animation.addByPrefix('singUP', 'Camellia_Up', 24, false);
-				animation.addByPrefix('singLEFT', 'Camellia_Right', 24, false);
-				animation.addByPrefix('singDOWN', 'Camellia_Down', 24, false);
-				animation.addByPrefix('singRIGHT', 'Camellia_Left', 24, false);
-				animation.addByPrefix('singUPmiss', 'Camellia_Up', 24, false);
-				animation.addByPrefix('singLEFTmiss', 'Camellia_Right', 24, false);
-				animation.addByPrefix('singDOWNmiss', 'Camellia_Down', 24, false);
-				animation.addByPrefix('singRIGHTmiss', 'Camellia_Left', 24, false);
+				animation.addByPrefix('singUP', 'Camellia_Up0', 24, false);
+				animation.addByPrefix('singLEFT', 'Camellia_Right0', 24, false);
+				animation.addByPrefix('singDOWN', 'Camellia_Down0', 24, false);
+				animation.addByPrefix('singRIGHT', 'Camellia_Left0', 24, false);
+				animation.addByPrefix('singUPmiss', 'Camellia_Up_MISS', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'Camellia_Right_MISS', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'Camellia_Down_MISS', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'Camellia_Left_MISS', 24, false);
 				}
 
 				addOffset('idle');
